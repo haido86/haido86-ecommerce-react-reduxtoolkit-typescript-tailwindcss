@@ -1,22 +1,17 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 import './App.css'
-import { decrement, increment } from './features/counter/counterSlice'
-import { RootState } from './store'
+import Home from './pages/Home'
+import ProductDetail from './pages/ProductDetail'
 
 function App() {
-  const count = useSelector((state: RootState) => state.counter.value)
-  const dispatch = useDispatch()
-
   return (
-    <div className="App">
-      <h1>Vite + React + Toolkit + Tailwind</h1>
-      <div className="card">
-        <button onClick={() => dispatch(increment())}>Increment</button>
-        <span className="px-10">{count}</span>
-        <button onClick={() => dispatch(decrement())}>Decrement</button>
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/productDetail" element={<ProductDetail />} />
+      </Routes>
+    </Router>
   )
 }
 
