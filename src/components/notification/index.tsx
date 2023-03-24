@@ -1,11 +1,13 @@
-import React from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../store'
 
 function Notification() {
-  const notification = useSelector((state: RootState) => state.notification)
+  const { notification, auth } = useSelector((state: RootState) => state)
+
   console.log('notification', notification)
-  return <div>Notification</div>
+  console.log('authhree', auth)
+
+  return <div>{notification && <div>{notification.content}</div>}</div>
 }
 
 export default Notification

@@ -32,21 +32,6 @@ export const fetchUsers = createAsyncThunk('users/fetch', async (keyword: string
   return users
 })
 
-export const findUser = createAsyncThunk(
-  'users/signin',
-  async ({ email, password }: { email: string; password: string }) => {
-    const res = await fetch('http://localhost:5173/data/users.json')
-    const users = await res.json()
-    const findUserByEmail = users.find(
-      (user: { email: string; password: string }) =>
-        user.email === email && user.password === password
-    )
-
-    if (findUserByEmail) return 'Succeed login'
-    else return 'Wrong email or password, please try again.'
-  }
-)
-
 // export const addUser = createAsyncThunk(
 //   'users/signin',
 //   async ({

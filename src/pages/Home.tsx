@@ -1,5 +1,3 @@
-//display products
-
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProductsThunk } from '../features/products/productsSlice'
@@ -9,10 +7,9 @@ function Home() {
   const dispatch = useDispatch<AppDispatch>()
   const { products } = useSelector((state: RootState) => state)
 
-  const keyword = 'women'
   useEffect(() => {
-    dispatch(fetchProductsThunk(keyword))
-  }, [keyword])
+    dispatch(fetchProductsThunk(''))
+  }, [])
 
   return (
     <div>

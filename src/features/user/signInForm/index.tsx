@@ -1,10 +1,15 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from '../../../store'
-import { findUser } from '../userSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import Notification from '../../../components/notification'
+import { setNotification } from '../../../components/notification/notificationSlice'
+import { AppDispatch, RootState } from '../../../store'
+import { login } from '../../auth/authSlice'
 
 function SignInForm() {
   const dispatch = useDispatch<AppDispatch>()
+  const { auth } = useSelector((state: RootState) => state)
+  // console.log('notification', notification)
+  // console.log('authhree', auth)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -17,43 +22,45 @@ function SignInForm() {
     setPassword(event.target.value)
   }
 
-  const signIn = (event: FormEvent) => {
+  const signIn = async (event: FormEvent) => {
     event.preventDefault()
-    dispatch(findUser({ email, password }))
+    await dispatch(login({ email, password }))
+    if (auth && auth.error.length > 0) {
+      dispatch(setNotification({ content: 'fail', duration: 1000, type: 'error' }))
+    } else {
+      dispatch(setNotification({ content: 'success', duration: 1000, type: 'success' }))
+    }
   }
 
   return (
     <div className="">
+      <Notification />
       <h2 className="text-xl font-bold mb-2">Sign In</h2>
       <p className="pb-6 text-sm flex">
         Become a Member - You will enjoy exclusive deals, offers, invites and rewards.
       </p>
       <form onSubmit={signIn}>
         <div className="mb-6">
-          <label
-            htmlFor="email"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+          <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">
             Your email <span className="text-red-500">*</span>
           </label>
           <input
             type="email"
             id="email"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5"
             placeholder="firstName.lastName@gmail.com"
             onChange={handleEmailChange}
             required
           />
         </div>
         <div>
-          <label
-            htmlFor="password"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+          <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">
             Your password <span className="text-red-500">*</span>
           </label>
           <input
             type="password"
             id="password"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm  block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm  block w-full p-2.5"
             onChange={handlePasswordChange}
             required
           />
@@ -64,13 +71,11 @@ function SignInForm() {
               id="remember"
               type="checkbox"
               value=""
-              className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3  dark:bg-gray-700 dark:border-gray-600  dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+              className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3"
               required
             />
           </div>
-          <label
-            htmlFor="remember"
-            className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <label htmlFor="remember" className="ml-2 text-sm font-medium text-gray-900 ">
             Remember me
           </label>
         </div>
