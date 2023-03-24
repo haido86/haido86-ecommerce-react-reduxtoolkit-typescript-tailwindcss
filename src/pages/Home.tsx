@@ -8,10 +8,11 @@ import { AppDispatch, RootState } from '../store'
 function Home() {
   const dispatch = useDispatch<AppDispatch>()
   const { products } = useSelector((state: RootState) => state)
-  console.log('products', products)
+
+  const keyword = 'women'
   useEffect(() => {
-    dispatch(fetchProductsThunk())
-  }, [])
+    dispatch(fetchProductsThunk(keyword))
+  }, [keyword])
 
   return (
     <div>

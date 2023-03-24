@@ -22,15 +22,17 @@ const initialState: ProductState = {
   items: []
 }
 
-export const fetchProductsThunk = createAsyncThunk('products/fetch', async () => {
+export const fetchProductsThunk = createAsyncThunk('products/fetch', async (keyword: string) => {
   const res = await fetch('http://localhost:5173/data/products.json')
-  const products = await res.json()
-  console.log('products res', products)
+  let products = await res.json()
 
-  return {
-    products,
-    error: null
+  if (keyword.length > 0) {
+    products = products.filter((product: { title: string }) =>
+      product.title.toLowerCase().includes(keyword.toLowerCase())
+    )
   }
+
+  return products
 })
 
 export const productsSlice = createSlice({
@@ -47,7 +49,7 @@ export const productsSlice = createSlice({
     })
     builder.addCase(fetchProductsThunk.fulfilled, (state, action) => {
       state.isLoading = false
-      state.items = action.payload.products
+      state.items = action.payload
     })
   }
 })
