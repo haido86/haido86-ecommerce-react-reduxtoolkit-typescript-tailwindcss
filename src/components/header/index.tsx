@@ -1,14 +1,16 @@
-import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai'
+import { AiOutlineClose } from 'react-icons/ai'
 import { RiUserFill, RiMenuFill } from 'react-icons/ri'
 import { FaShoppingCart } from 'react-icons/fa'
 import { IoShirtSharp, IoHelpCircle, IoTicket } from 'react-icons/io5'
-import { MdMonitor } from 'react-icons/md'
 import { useState } from 'react'
+import SearchBar from './SearchBar'
+import SignInForm from '../../features/user/signInForm'
 
 function Header() {
   const [nav, setNav] = useState(false)
   const [isLoginDropDown, setIsLoginDropDown] = useState(false)
   const [isCartDropDown, setIsCartDropDown] = useState(false)
+
   return (
     <div className="flex justify-between max-w-full mx-auto items-center p-4 flex-wrap">
       <div className="flex items-center">
@@ -22,14 +24,7 @@ function Header() {
           <span className="font-bold ">Hai</span>Do
         </div>
       </div>
-      <div className="bg-gray-200 rounded-full flex items-center px-2 w-full order-1 lg:order-none lg:w-[500px] ">
-        <AiOutlineSearch size={20} />
-        <input
-          className="bg-transparent p-2 focus:outline-none w-full"
-          type="text"
-          placeholder="Search Products"
-        />
-      </div>
+      <SearchBar />
       <div className="flex">
         <button
           onClick={() => setIsLoginDropDown(!isLoginDropDown)}
@@ -71,11 +66,7 @@ function Header() {
           <ul className="flex flex-col p-4 text-gray-800">
             <li className="text-xl py-4 flex">
               <IoShirtSharp size={25} className="mr-4" />
-              Clothes
-            </li>
-            <li className="text-xl py-4 flex">
-              <MdMonitor size={25} className="mr-4" />
-              Screens
+              Products
             </li>
             <li className="text-xl py-4 flex">
               <IoHelpCircle size={25} className="mr-4" />
@@ -89,14 +80,14 @@ function Header() {
         </nav>
       </div>
       {isLoginDropDown ? (
-        <div className="z-10 right-0 top-32 absolute bg-white shadow w-full p-20 lg:top-20 sm:max-w-[600px]">
-          <div>This place is for login form</div>
+        <div className="z-10 right-0 top-32 absolute duration-300 bg-white shadow w-full p-20 lg:top-20 sm:max-w-[500px]">
+          <SignInForm />
         </div>
       ) : (
         ''
       )}
       {isCartDropDown ? (
-        <div className="z-10 right-0 top-32 absolute bg-white shadow w-full p-20 lg:top-20 sm:max-w-[600px]">
+        <div className="z-10 right-0 top-32 absolute duration-300 bg-white shadow w-full p-20 lg:top-20 sm:max-w-[300px]">
           <div>This place is for Cart</div>
         </div>
       ) : (
