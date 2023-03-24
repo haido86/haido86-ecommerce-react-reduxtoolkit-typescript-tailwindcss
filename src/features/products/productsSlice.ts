@@ -46,8 +46,6 @@ export const productsSlice = createSlice({
       state.isLoading = false
     })
     builder.addCase(fetchProductsThunk.fulfilled, (state, action) => {
-      console.log('REQ....')
-      console.log(action)
       state.isLoading = false
       state.items = action.payload.products
     })

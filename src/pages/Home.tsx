@@ -15,9 +15,16 @@ function Home() {
 
   return (
     <div>
-      <div>Home</div>
-      <div>List of Products</div>
-      {products && products.items.map((product) => <div key={product.id}>{product.title}</div>)}
+      <div className="mt-20">List of Products</div>
+      <ul className="p-0.5 grid grid-cols-3 transition duration-150 sm:grid-cols-5">
+        {products &&
+          products.items.map((product) => (
+            <div className="bg-green-100 m-1" key={product.id}>
+              <img className="h-40 w-auto" src={product.image} alt={product.title} />
+              {product.title}
+            </div>
+          ))}
+      </ul>
     </div>
   )
 }
