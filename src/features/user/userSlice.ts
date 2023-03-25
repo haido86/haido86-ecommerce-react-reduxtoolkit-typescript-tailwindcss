@@ -1,11 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-
-type User = {
-  id: number
-  role: string
-  email: string
-  password: string
-}
+import { User } from '../../type'
 
 type UserState = {
   isLoading: boolean

@@ -1,16 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Notification from '../../../components/notification'
-import { setNotification } from '../../../components/notification/notificationSlice'
-import { AppDispatch, RootState } from '../../../store'
+import { AppDispatch } from '../../../store'
 import { login } from '../../auth/authSlice'
 
 function SignInForm() {
   const dispatch = useDispatch<AppDispatch>()
-  const { auth } = useSelector((state: RootState) => state)
-  // console.log('notification', notification)
-  // console.log('authhree', auth)
-
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -24,12 +19,7 @@ function SignInForm() {
 
   const signIn = async (event: FormEvent) => {
     event.preventDefault()
-    await dispatch(login({ email, password }))
-    if (auth && auth.error.length > 0) {
-      dispatch(setNotification({ content: 'fail', duration: 1000, type: 'error' }))
-    } else {
-      dispatch(setNotification({ content: 'success', duration: 1000, type: 'success' }))
-    }
+    dispatch(login({ email, password }))
   }
 
   return (
@@ -72,7 +62,6 @@ function SignInForm() {
               type="checkbox"
               value=""
               className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3"
-              required
             />
           </div>
           <label htmlFor="remember" className="ml-2 text-sm font-medium text-gray-900 ">

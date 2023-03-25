@@ -1,4 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { setNotification } from '../../components/notification/notificationSlice'
+import { User } from '../../type'
 
 type LoginPayload = {
   email: string
@@ -7,7 +9,7 @@ type LoginPayload = {
 
 type AuthState = {
   isLoading: boolean
-  isLogin: LoginPayload | null
+  isLogin: User | null
   error: string
 }
 
@@ -17,18 +19,29 @@ const initialState: AuthState = {
   error: ''
 }
 
-export const login = createAsyncThunk('auth/login', async ({ email, password }: LoginPayload) => {
-  const res = await fetch('http://localhost:5173/data/users.json')
-  const users = await res.json()
-  const findUserByEmail = users.find(
-    (user: LoginPayload) => user.email === email && user.password === password
-  )
-  if (findUserByEmail) {
-    return findUserByEmail
-  } else {
-    throw new Error('Invalid login credentials')
+export const login = createAsyncThunk(
+  'auth/login',
+  async ({ email, password }: LoginPayload, { dispatch }) => {
+    const res = await fetch('http://localhost:5173/data/users.json')
+    const users = await res.json()
+    const findUserByEmail = users.find(
+      (user: LoginPayload) => user.email === email && user.password === password
+    )
+    if (findUserByEmail) {
+      dispatch(setNotification({ content: 'Login success', duration: 1000, type: 'success' }))
+      return findUserByEmail
+    } else {
+      dispatch(
+        setNotification({
+          content: 'Wrong email or password. Please try again',
+          duration: 5000,
+          type: 'error'
+        })
+      )
+      throw new Error('Invalid login credentials')
+    }
   }
-})
+)
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -41,7 +54,7 @@ export const authSlice = createSlice({
     builder.addCase(login.rejected, (state) => {
       state.isLoading = false
       state.isLogin = initialState.isLogin
-      state.error = 'Wrong email or password'
+      state.error = 'Something went wrong'
     })
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLoading = false

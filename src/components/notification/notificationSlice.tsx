@@ -1,5 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { AppDispatch } from '../../store'
+import { createSlice, Dispatch } from '@reduxjs/toolkit'
 
 type NotificationState = {
   content: string
@@ -42,8 +41,8 @@ export const setNotification = ({
   type: string
   duration: number
 }) => {
-  return async (dispatch: AppDispatch) => {
-    dispatch(showNotification({ content, type, duration }))
+  return async (dispatch: Dispatch) => {
+    dispatch(showNotification({ content, type }))
     if (timeOutId) {
       clearTimeout(timeOutId)
     }
