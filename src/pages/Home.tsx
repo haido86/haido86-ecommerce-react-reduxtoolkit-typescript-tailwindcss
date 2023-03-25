@@ -1,16 +1,9 @@
-import { useEffect } from 'react'
 import { FaCartPlus, FaRegEdit } from 'react-icons/fa'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchProductsThunk } from '../features/products/productsSlice'
-import { AppDispatch, RootState } from '../store'
+import { useSelector } from 'react-redux'
+import { RootState } from '../store'
 
 function Home() {
-  const dispatch = useDispatch<AppDispatch>()
   const { auth, products } = useSelector((state: RootState) => state)
-
-  useEffect(() => {
-    dispatch(fetchProductsThunk(''))
-  }, [])
 
   return (
     <div>
@@ -31,7 +24,7 @@ function Home() {
               )}
               <img className="h-40 w-auto" src={product.image} alt={product.title} />
               <div className="mt-2 font-bold">{`${product.title}`.slice(0, 12)}</div>
-              <div className="text-red-500 mb-2">{`$ ${product.price}`}</div>
+              <div className="text-red-500 mb-2">{`${product.price} €`}</div>
             </div>
           ))}
       </ul>

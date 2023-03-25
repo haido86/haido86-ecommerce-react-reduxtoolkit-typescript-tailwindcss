@@ -1,11 +1,15 @@
 import { useState } from 'react'
 import { FaShoppingCart } from 'react-icons/fa'
 import { RiUserFill } from 'react-icons/ri'
+import { useSelector } from 'react-redux'
 import SignInForm from '../../features/user/signInForm'
+import { RootState } from '../../store'
 
 function Dropdown() {
   const [isLoginDropDown, setIsLoginDropDown] = useState(false)
   const [isCartDropDown, setIsCartDropDown] = useState(false)
+  const { auth } = useSelector((state: RootState) => state)
+
   return (
     <div>
       <div className="flex">
@@ -17,7 +21,7 @@ function Dropdown() {
               : 'flex items-center m-3 font-bold '
           }>
           <RiUserFill size={20} className="mr-1" />
-          Login
+          {auth?.isLogin?.role ? 'Logout' : 'Login'}
         </button>
         <button
           onClick={() => setIsCartDropDown(!isCartDropDown)}
