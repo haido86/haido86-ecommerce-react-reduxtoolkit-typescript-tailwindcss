@@ -12,7 +12,15 @@ export type Product = {
   title: string
   price: number
   description: string
-  category: string
-  image: string
-  rating: { rate: number; count: number }
+  category?: string
+  image?: string
+  rating?: { rate: number; count: number }
+}
+
+export type Order = {
+  orderId: number
+  userId: number
+  productId: number
+  amount: number
+  purchaseAt: string
 }
