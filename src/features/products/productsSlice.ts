@@ -26,6 +26,24 @@ export const fetchProductsThunk = createAsyncThunk('products/fetch', async (keyw
   return products
 })
 
+const newProduct = {
+  id: 21,
+  title: 'Wyte trousers',
+  price: 24,
+  description: 'Material: cotton'
+}
+
+export const addNew = createAsyncThunk('products/addnew', async () => {
+  const res = await fetch('http://localhost:5173/data/products.json')
+  let products = await res.json()
+  console.log('this is needed')
+
+  products = [...products, newProduct]
+  console.log('productsarray', products)
+
+  return products
+})
+
 export const productsSlice = createSlice({
   name: 'products',
   initialState,
@@ -39,6 +57,17 @@ export const productsSlice = createSlice({
       state.isLoading = false
     })
     builder.addCase(fetchProductsThunk.fulfilled, (state, action) => {
+      state.isLoading = false
+      state.items = action.payload
+    })
+    builder.addCase(addNew.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(addNew.rejected, (state) => {
+      state.error = 'something went wrong'
+      state.isLoading = false
+    })
+    builder.addCase(addNew.fulfilled, (state, action) => {
       state.isLoading = false
       state.items = action.payload
     })

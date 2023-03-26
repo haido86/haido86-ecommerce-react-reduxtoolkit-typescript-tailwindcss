@@ -9,6 +9,7 @@ import { fetchProductsThunk } from './features/products/productsSlice'
 import { fetchUsers } from './features/user/userSlice'
 import Home from './pages/Home'
 import ProductDetail from './pages/ProductDetail'
+import UserList from './pages/UserList'
 import { AppDispatch } from './store'
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/users" element={<UserList />} />
       </Routes>
       <Footer />
     </Router>

@@ -1,16 +1,7 @@
 [
-  {
-    "userId": 1,
-    "orders": [
-      { "productId": 10, "purchasedAt": "2022-01-23T12:34:56Z" },
-      { "productId": 2, "purchasedAt": "2022-01-23T12:34:56Z" }
-    ]
-  },
-  {
-    "userId": 2,
-    "orders": [
-      { "productId": 1, "purchasedAt": "2022-05-23T12:34:56Z" },
-      { "productId": 3, "purchasedAt": "2022-03-23T12:34:56Z" }
-    ]
-  }
+  { "orderId": 1, "userId": 1, "productId": 2, "amount": 1 },
+  { "orderId": 2, "userId": 2, "productId": 5, "amount": 1 },
+  { "orderId": 3, "userId": 1, "productId": 6, "amount": 1 },
+  { "orderId": 4, "userId": 3, "productId": 7, "amount": 1 },
+  { "orderId": 5, "userId": 2, "productId": 8, "amount": 1 }
 ]

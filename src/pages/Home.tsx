@@ -1,13 +1,25 @@
 import { FaCartPlus, FaRegEdit } from 'react-icons/fa'
-import { useSelector } from 'react-redux'
-import { RootState } from '../store'
+import { useDispatch, useSelector } from 'react-redux'
+import { addNew } from '../features/products/productsSlice'
+import { AppDispatch, RootState } from '../store'
 
 function Home() {
   const { auth, products } = useSelector((state: RootState) => state)
+  console.log('products', products)
+  console.log('auth', auth)
+
+  const dispatch = useDispatch<AppDispatch>()
 
   return (
     <div>
       <div className="m-10 ">List of Products</div>
+      {auth?.isLogin?.role === 'admin' && (
+        <button
+          className="bg-yellow-200 rounded-full font-bold px-2 py-1"
+          onClick={() => dispatch(addNew())}>
+          Add New Product
+        </button>
+      )}
       <ul className="p-1 m-5 grid grid-cols-3 gap-y-10 gap-x-4 transition duration-150 sm:grid-cols-5">
         {products &&
           products.items.map((product) => (
