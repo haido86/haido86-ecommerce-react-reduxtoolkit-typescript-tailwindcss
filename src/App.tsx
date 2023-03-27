@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Footer from './components/footer'
 import Header from './components/header'
+import Notification from './components/notification'
 import { fetchProductsThunk } from './features/products/productsSlice'
 import { fetchUsers } from './features/user/userSlice'
 import Home from './pages/Home'
@@ -23,6 +24,7 @@ function App() {
   return (
     <Router>
       <Header />
+      <Notification />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products/:id" element={<ProductDetail />} />

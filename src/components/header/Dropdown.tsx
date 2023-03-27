@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { FaShoppingCart } from 'react-icons/fa'
 import { RiUserFill } from 'react-icons/ri'
 import { useSelector } from 'react-redux'
+import Cart from '../../features/products/cart'
 import SignInForm from '../../features/user/signInForm'
 import { RootState } from '../../store'
 
@@ -44,7 +45,7 @@ function Dropdown() {
       )}
       {isCartDropDown ? (
         <div className="z-10 right-0 top-32 absolute duration-300 bg-white shadow w-full p-20 lg:top-20 sm:max-w-[300px]">
-          <div>This place is for Cart</div>
+          <Cart />
         </div>
       ) : (
         ''

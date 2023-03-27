@@ -1,3 +1,4 @@
+import { setNotification } from './../../components/notification/notificationSlice'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { Product } from '../../type'
 
@@ -33,14 +34,19 @@ const newProduct = {
   description: 'Material: cotton'
 }
 
-export const addNew = createAsyncThunk('products/addnew', async () => {
+export const addNew = createAsyncThunk('products/addnew', async (_, { dispatch }) => {
   const res = await fetch('http://localhost:5173/data/products.json')
   let products = await res.json()
-  console.log('this is needed')
 
   products = [...products, newProduct]
   console.log('productsarray', products)
-
+  dispatch(
+    setNotification({
+      content: 'Adding a new product successfully',
+      duration: 5000,
+      type: 'success'
+    })
+  )
   return products
 })
 

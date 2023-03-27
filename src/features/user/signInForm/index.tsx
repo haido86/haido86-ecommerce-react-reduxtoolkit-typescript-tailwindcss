@@ -23,8 +23,7 @@ function SignInForm() {
   }
 
   return (
-    <div className="">
-      <Notification />
+    <div>
       <h2 className="text-xl font-bold mb-2">Sign In</h2>
       <p className="pb-6 text-sm flex">
         Become a Member - You will enjoy exclusive deals, offers, invites and rewards.
