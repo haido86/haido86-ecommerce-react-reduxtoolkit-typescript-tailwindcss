@@ -9,7 +9,7 @@ import { RootState } from '../../store'
 function Dropdown() {
   const [isLoginDropDown, setIsLoginDropDown] = useState(false)
   const [isCartDropDown, setIsCartDropDown] = useState(false)
-  const { auth } = useSelector((state: RootState) => state)
+  const { auth, cart } = useSelector((state: RootState) => state)
 
   return (
     <div>
@@ -24,6 +24,11 @@ function Dropdown() {
           <RiUserFill size={20} className="mr-1" />
           {auth?.isLogin?.role ? 'Logout' : 'Login'}
         </button>
+        {cart.data.length > 0 && (
+          <div className="absolute text-xs bg-yellow-400 rounded-full top-8 right-14 px-1 lg:right-[136px]">
+            {cart.data.length}
+          </div>
+        )}
         <button
           onClick={() => setIsCartDropDown(!isCartDropDown)}
           className={
@@ -44,7 +49,7 @@ function Dropdown() {
         ''
       )}
       {isCartDropDown ? (
-        <div className="z-10 right-0 top-32 absolute duration-300 bg-white shadow w-full p-20 lg:top-20 sm:max-w-[300px]">
+        <div className="z-10 right-0 top-32 absolute duration-300 bg-white shadow w-full p-8 lg:top-20 sm:max-w-[400px]">
           <Cart />
         </div>
       ) : (

@@ -1,6 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import Notification from '../../../components/notification'
 import { AppDispatch } from '../../../store'
 import { login } from '../../auth/authSlice'
 

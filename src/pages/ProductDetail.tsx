@@ -5,9 +5,6 @@ import { RootState } from '../store'
 function ProductDetail() {
   const { id } = useParams()
   const { products, auth } = useSelector((state: RootState) => state)
-  console.log('id', id)
-  console.log('products', products)
-  console.log('auth', auth)
 
   if (!id) {
     return <div>Product not found</div>

@@ -17,7 +17,7 @@ export const addToCartThunk = createAsyncThunk('cart/addtocart', async ({ id }: 
   const products = await res.json()
   const findProductById = products.find((product: Product) => product.id === id)
 
-  return findProductById
+  return { ...findProductById, quantity: 1 }
 })
 
 export const cartSlice = createSlice({

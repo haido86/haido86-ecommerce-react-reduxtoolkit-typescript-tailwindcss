@@ -28,7 +28,7 @@ export const login = createAsyncThunk(
       (user: LoginPayload) => user.email === email && user.password === password
     )
     if (findUserByEmail) {
-      dispatch(setNotification({ content: 'Login success', duration: 1000, type: 'success' }))
+      dispatch(setNotification({ content: 'Login success', duration: 5000, type: 'success' }))
       return findUserByEmail
     } else {
       dispatch(

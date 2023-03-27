@@ -19,8 +19,10 @@ export const fetchProductsThunk = createAsyncThunk('products/fetch', async (keyw
   let products = await res.json()
 
   if (keyword.length > 0) {
-    products = products.filter((product: { title: string }) =>
-      product.title.toLowerCase().includes(keyword.toLowerCase())
+    products = products.filter(
+      (product: { title: string; category: string }) =>
+        product.title.toLowerCase().includes(keyword.toLowerCase()) ||
+        product.category.toLowerCase() === keyword.toLowerCase()
     )
   }
 
