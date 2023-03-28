@@ -1,8 +1,7 @@
-import { IoArrowBackOutline } from 'react-icons/io5'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCartThunk } from '../features/products/cartSlice'
 import ProductCard from '../features/products/productCard'
-import { addNew, fetchProductsThunk } from '../features/products/productsSlice'
+import { addNew } from '../features/products/productsSlice'
 import { AppDispatch, RootState } from '../store'
 
 function Home() {
@@ -14,30 +13,11 @@ function Home() {
     dispatch(addToCartThunk({ id }))
   }
 
-  const categories = [...new Set(products.items.map((product) => product.category))]
-
   return (
     <div>
-      <button
-        className="ml-20 hover:bg-gray-200 rounded-full p-3"
-        onClick={() => dispatch(fetchProductsThunk(''))}>
-        <IoArrowBackOutline size={30} />
-      </button>
-      <div className="m-10 flex justify-between">
-        {categories.map((category, index) => (
-          <button
-            onClick={() => {
-              dispatch(fetchProductsThunk(`${category}`))
-            }}
-            className="bg-gray-200 rounded-full px-3 py-1"
-            key={`category-${index}`}>
-            {category}
-          </button>
-        ))}
-      </div>
       {auth?.isLogin?.role === 'admin' && (
         <button
-          className="bg-yellow-200 rounded-full font-bold px-2 py-1"
+          className="bg-green-400 rounded-full ml-10 font-bold px-2 py-1"
           onClick={() => dispatch(addNew())}>
           Add New Product
         </button>

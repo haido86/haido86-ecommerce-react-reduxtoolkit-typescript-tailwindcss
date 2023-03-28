@@ -21,8 +21,16 @@ function Dropdown() {
               ? 'flex items-center m-3 font-bold border-b-2 border-stone-700'
               : 'flex items-center m-3 font-bold '
           }>
-          <RiUserFill size={20} className="mr-1" />
-          {auth?.isLogin?.role ? 'Logout' : 'Login'}
+          {auth?.isLogin?.role ? (
+            <div className="px-2.5 py-1 mb-1 uppercase items-center text-white bg-blue-600 rounded-full">
+              {auth?.isLogin?.firstName.slice(0, 1)}
+            </div>
+          ) : (
+            <>
+              <RiUserFill size={20} className="mr-1" />
+              Login
+            </>
+          )}
         </button>
         {cart.data.length > 0 && (
           <div className="absolute text-xs bg-yellow-400 rounded-full top-8 right-14 px-1 lg:right-[136px]">
@@ -40,20 +48,26 @@ function Dropdown() {
           Cart
         </button>
       </div>
-
-      {isLoginDropDown ? (
+      {isLoginDropDown && !auth?.isLogin?.role && (
         <div className="z-10 right-0 top-32 absolute duration-300 bg-white shadow w-full p-20 lg:top-20 sm:max-w-[500px]">
           <SignInForm />
         </div>
-      ) : (
-        ''
       )}
-      {isCartDropDown ? (
+      {isLoginDropDown && auth?.isLogin?.role && (
+        <div className="z-10 right-0 top-32 absolute duration-300 bg-white shadow w-full p-20 lg:top-20 sm:max-w-[500px]">
+          <div>{`${auth?.isLogin?.firstName} ${auth?.isLogin?.lastName}`}</div>
+          <div>{auth?.isLogin?.email} </div>
+          <button
+            type="submit"
+            className="mt-10 text-white uppercase bg-black focus:ring-4 focus:outline-none font-medium hover:bg-gray-800 text-sm max-w-full sm:w-auto px-5 py-2.5 text-center">
+            Sign Out
+          </button>
+        </div>
+      )}
+      {isCartDropDown && (
         <div className="z-10 right-0 top-32 absolute duration-300 bg-white shadow w-full p-8 lg:top-20 sm:max-w-[400px]">
           <Cart />
         </div>
-      ) : (
-        ''
       )}
     </div>
   )
