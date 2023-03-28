@@ -4,52 +4,39 @@ import { User } from '../../type'
 type UserState = {
   isLoading: boolean
   error: null | string
-  data: User[]
+  usersData: User[]
+  filteredUserArr: User[]
 }
 
 const initialState: UserState = {
   isLoading: false,
   error: null,
-  data: []
+  usersData: [],
+  filteredUserArr: []
 }
 
-export const fetchUsers = createAsyncThunk('users/fetch', async (keyword: string) => {
+export const fetchUsers = createAsyncThunk('users/fetch', async () => {
   const res = await fetch('http://localhost:5173/data/users.json')
-  let users = await res.json()
-
-  if (keyword.length > 0) {
-    users = users.filter((user: { email: string }) =>
-      user.email.toLowerCase().includes(keyword.toLowerCase())
-    )
-  }
-
+  const users = await res.json()
   return users
 })
-
-// export const addUser = createAsyncThunk(
-//   'users/signin',
-//   async ({
-//     email,
-//     password,
-//     repeatPassword
-//   }: {
-//     email: string
-//     password: string
-//     repeatPassWord: string
-//   }) => {
-//     const res = await fetch('http://localhost:5173/data/users.json')
-//     const users = await res.json()
-//     const findUserByEmail = users.find((user: { email: string }) => user.email === email)
-
-//     if (findUserByEmail) return 'This email already in the system, please sign in'
-//     else
-//   }
-// )
 
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {},
+  reducers: {
+    filteredUserAction(state, action) {
+      const filteredUsers = state.usersData.filter(
+        (user) =>
+          user.firstName.toLowerCase().includes(action.payload.toLowerCase()) ||
+          user.lastName.toLowerCase().includes(action.payload.toLowerCase())
+      )
+      return {
+        ...state,
+        filteredUserArr: action.payload.length > 0 ? filteredUsers : [...state.usersData]
+      }
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchUsers.pending, (state) => {
       state.isLoading = true
@@ -60,9 +47,10 @@ export const usersSlice = createSlice({
     })
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
       state.isLoading = false
-      state.data = action.payload
+      state.usersData = action.payload
     })
   }
 })
+export const { filteredUserAction } = usersSlice.actions
 
 export default usersSlice.reducer

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCartThunk } from '../features/products/cartSlice'
 import ProductCard from '../components/productCard'
-import { addNew } from '../features/products/productsSlice'
+import { addProductThunk } from '../features/products/productsSlice'
 import { AppDispatch, RootState } from '../store'
 
 function Home() {
@@ -18,13 +18,13 @@ function Home() {
       {auth?.isLogin?.role === 'admin' && (
         <button
           className="bg-green-400 rounded-full ml-10 font-bold px-2 py-1"
-          onClick={() => dispatch(addNew())}>
+          onClick={() => dispatch(addProductThunk())}>
           Add New Product
         </button>
       )}
       <div className="p-1 m-5 grid grid-cols-3 gap-y-10 gap-x-4 transition duration-150 sm:grid-cols-5">
         {products &&
-          products.items.map((product) => (
+          products.filteredProductArr.map((product) => (
             <ProductCard key={product.id} product={product} addToCart={addToCart} />
           ))}
       </div>

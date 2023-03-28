@@ -17,8 +17,8 @@ function App() {
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    dispatch(fetchProductsThunk(''))
-    dispatch(fetchUsers(''))
+    dispatch(fetchProductsThunk())
+    dispatch(fetchUsers())
   }, [dispatch])
 
   return (

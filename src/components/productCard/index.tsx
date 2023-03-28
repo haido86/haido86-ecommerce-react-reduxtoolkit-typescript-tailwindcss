@@ -9,7 +9,9 @@ type AddToCartFunction = (id: number) => void
 function ProductCard({ product, addToCart }: { product: Product; addToCart: AddToCartFunction }) {
   const { auth } = useSelector((state: RootState) => state)
   return (
-    <div className=" m-1 relative flex flex-col items-center object-cover" key={product.id}>
+    <div
+      className=" m-1 relative flex flex-col items-center object-cover border border-gray-200 rounded-md"
+      key={product.id}>
       <button
         onClick={() => {
           addToCart(product.id)
@@ -22,14 +24,12 @@ function ProductCard({ product, addToCart }: { product: Product; addToCart: AddT
           <FaRegEdit size={20} />
         </div>
       )}
-      <div className="bg-white border border-gray-100">
-        <img className="h-40 w-auto p-3" src={product.image} alt={product.title} />
-        <div className="border-t-gray-100">
-          <Link to={`/products/${product.id}`}>
-            <div className="mt-2 font-bold">{`${product.title}`.slice(0, 12)}</div>
-          </Link>
-          <div className="text-red-500 mb-2">{`${product.price} €`}</div>
-        </div>
+      <img className="h-40 w-auto p-3" src={product.image} alt={product.title} />
+      <div className="border-t-gray-100">
+        <Link to={`/products/${product.id}`}>
+          <div className="mt-2 font-bold">{`${product.title}`.slice(0, 12)}</div>
+        </Link>
+        <div className="text-red-500 mb-2">{`${product.price} €`}</div>
       </div>
     </div>
   )

@@ -1,4 +1,4 @@
-import { setNotification } from './../../components/notification/notificationSlice'
+// import { setNotification } from './../../components/notification/notificationSlice'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { Product } from '../../type'
 
@@ -6,56 +6,42 @@ type ProductState = {
   isLoading: boolean
   error: null | string
   items: Product[]
+  filteredProductArr: Product[]
 }
 
 const initialState: ProductState = {
   isLoading: false,
   error: null,
-  items: []
+  items: [],
+  filteredProductArr: []
 }
 
-export const fetchProductsThunk = createAsyncThunk('products/fetch', async (keyword: string) => {
+export const fetchProductsThunk = createAsyncThunk('products/fetch', async () => {
   const res = await fetch('http://localhost:5173/data/products.json')
-  let products = await res.json()
-
-  if (keyword.length > 0) {
-    products = products.filter(
-      (product: { title: string; category: string }) =>
-        product.title.toLowerCase().includes(keyword.toLowerCase()) ||
-        product.category.toLowerCase() === keyword.toLowerCase()
-    )
-  }
-
+  const products = await res.json()
   return products
 })
 
-const newProduct = {
-  id: 21,
-  title: 'Wyte trousers',
-  price: 24,
-  description: 'Material: cotton'
-}
-
-export const addNew = createAsyncThunk('products/addnew', async (_, { dispatch }) => {
-  const res = await fetch('http://localhost:5173/data/products.json')
-  let products = await res.json()
-
-  products = [...products, newProduct]
-  console.log('productsarray', products)
-  dispatch(
-    setNotification({
-      content: 'Adding a new product successfully',
-      duration: 5000,
-      type: 'success'
-    })
-  )
-  return products
+export const addProductThunk = createAsyncThunk('products/add-product', async (newProduct) => {
+  return { newProduct }
 })
 
 export const productsSlice = createSlice({
   name: 'products',
   initialState,
-  reducers: {},
+  reducers: {
+    filteredProductsAction(state, action) {
+      const filteredProducts = state.items.filter(
+        (item) =>
+          item.title.toLowerCase().includes(action.payload.toLowerCase()) ||
+          item.category.toLowerCase() === action.payload.toLowerCase()
+      )
+      return {
+        ...state,
+        filteredProductArr: action.payload.length > 0 ? filteredProducts : [...state.items]
+      }
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchProductsThunk.pending, (state) => {
       state.isLoading = true
@@ -68,18 +54,14 @@ export const productsSlice = createSlice({
       state.isLoading = false
       state.items = action.payload
     })
-    builder.addCase(addNew.pending, (state) => {
-      state.isLoading = true
-    })
-    builder.addCase(addNew.rejected, (state) => {
-      state.error = 'something went wrong'
+    builder.addCase(addProductThunk.fulfilled, (state, action) => {
       state.isLoading = false
-    })
-    builder.addCase(addNew.fulfilled, (state, action) => {
-      state.isLoading = false
-      state.items = action.payload
+      console.log('addproduct', action)
+
+      // state.items = [action.payload, ...state]
     })
   }
 })
+export const { filteredProductsAction } = productsSlice.actions
 
 export default productsSlice.reducer

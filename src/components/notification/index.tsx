@@ -5,7 +5,7 @@ import { RootState } from '../../store'
 function Notification() {
   const { notification } = useSelector((state: RootState) => state)
 
-  console.log('notification', notification)
+  // console.log('notification', notification)
 
   return (
     <>
