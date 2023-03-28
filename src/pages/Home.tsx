@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCartThunk } from '../features/products/cartSlice'
-import ProductCard from '../features/products/productCard'
+import ProductCard from '../components/productCard'
 import { addNew } from '../features/products/productsSlice'
 import { AppDispatch, RootState } from '../store'
 

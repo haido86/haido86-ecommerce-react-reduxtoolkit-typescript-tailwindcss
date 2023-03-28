@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { FaShoppingCart } from 'react-icons/fa'
 import { RiUserFill } from 'react-icons/ri'
 import { useSelector } from 'react-redux'
-import Cart from '../../features/products/cart'
-import SignInForm from '../../features/user/signInForm'
+import Cart from '../cart'
+import SignInForm from '../signInForm'
 import { RootState } from '../../store'
 
 function Dropdown() {

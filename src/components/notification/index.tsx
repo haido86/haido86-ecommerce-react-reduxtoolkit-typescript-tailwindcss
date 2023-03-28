@@ -7,7 +7,15 @@ function Notification() {
 
   console.log('notification', notification)
 
-  return <div>{notification.isShow && <div>{notification.content}</div>}</div>
+  return (
+    <>
+      <div>
+        {notification.isShow && (
+          <div className="border-red-600 rounded-md border">{notification.content}</div>
+        )}
+      </div>
+    </>
+  )
 }
 
 export default memo(Notification)

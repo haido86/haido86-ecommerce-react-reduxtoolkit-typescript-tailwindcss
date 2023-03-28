@@ -1,6 +1,6 @@
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { useSelector } from 'react-redux'
-import { RootState } from '../../../store'
+import { RootState } from '../../store'
 
 function Cart() {
   const { cart } = useSelector((state: RootState) => state)

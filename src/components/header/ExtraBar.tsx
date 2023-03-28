@@ -12,7 +12,7 @@ function ExtraBar() {
   return (
     <div className="mt-5 mx-10 mb-10 justify-around px-2 py-1 flex flex-col sm:flex-row ">
       {categories.map((category, index) => (
-        <>
+        <div key={`category-${index}`}>
           <div className="flex">
             {products.items.length < 20 && (
               <button
@@ -30,7 +30,7 @@ function ExtraBar() {
               {category}
             </button>
           </div>
-        </>
+        </div>
       ))}
     </div>
   )
