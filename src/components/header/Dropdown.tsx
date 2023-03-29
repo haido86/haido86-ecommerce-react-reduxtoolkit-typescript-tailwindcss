@@ -11,6 +11,10 @@ function Dropdown() {
   const [isCartDropDown, setIsCartDropDown] = useState(false)
   const { auth, cart } = useSelector((state: RootState) => state)
 
+  const totalOrderAmount = cart.cartArr.reduce((totalOrder, item) => {
+    return totalOrder + item.orderAmount
+  }, 0)
+
   return (
     <div>
       <div className="flex">
@@ -32,9 +36,9 @@ function Dropdown() {
             </>
           )}
         </button>
-        {cart.data.length > 0 && (
+        {cart?.cartArr.length > 0 && (
           <div className="absolute text-xs bg-yellow-400 rounded-full top-8 right-14 px-1 lg:right-[136px]">
-            {cart.data.length}
+            {totalOrderAmount}
           </div>
         )}
         <button

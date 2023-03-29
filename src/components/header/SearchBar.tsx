@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { filteredProductsAction } from '../../features/products/productsSlice'
-import { AppDispatch, RootState } from '../../store'
+import { AppDispatch } from '../../store'
 
 function SearchBar() {
   const [searchTerm, setSearchTerm] = useState('')

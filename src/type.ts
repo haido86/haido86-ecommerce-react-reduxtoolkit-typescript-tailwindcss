@@ -15,7 +15,7 @@ export type Product = {
   category: string
   image?: string
   rating?: { rate: number; count: number }
-  quantity?: number
+  quantity: number
 }
 
 export type Order = {
@@ -25,3 +25,6 @@ export type Order = {
   amount: number
   purchaseAt: string
 }
+
+export type OrderAmount = { orderAmount: number }
+export type ItemInCart = Product & OrderAmount

@@ -1,16 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCartThunk } from '../features/products/cartSlice'
 import ProductCard from '../components/productCard'
+import { addToCartAction } from '../features/products/cartSlice'
 import { addProductThunk } from '../features/products/productsSlice'
 import { AppDispatch, RootState } from '../store'
+import { Product } from '../type'
 
 function Home() {
   const { auth, products } = useSelector((state: RootState) => state)
 
   const dispatch = useDispatch<AppDispatch>()
 
-  const addToCart = (id: number) => {
-    dispatch(addToCartThunk({ id }))
+  const addToCart = (product: Product) => {
+    dispatch(addToCartAction(product))
   }
 
   return (

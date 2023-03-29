@@ -10,7 +10,6 @@ function ProductDetail() {
     return <div>Product not found</div>
   } else {
     const findProductById = products?.items?.find((product) => product.id === +id)
-    console.log('findProductById', findProductById)
 
     return (
       <>

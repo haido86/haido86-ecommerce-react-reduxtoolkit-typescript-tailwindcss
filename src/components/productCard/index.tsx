@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { RootState } from '../../store'
 import { Product } from '../../type'
 
-type AddToCartFunction = (id: number) => void
+type AddToCartFunction = (product: Product) => void
 
 function ProductCard({ product, addToCart }: { product: Product; addToCart: AddToCartFunction }) {
   const { auth } = useSelector((state: RootState) => state)
@@ -14,7 +14,7 @@ function ProductCard({ product, addToCart }: { product: Product; addToCart: AddT
       key={product.id}>
       <button
         onClick={() => {
-          addToCart(product.id)
+          addToCart(product)
         }}
         className="absolute bottom-2 right-2 bg-yellow-300 rounded-full p-2 ">
         <FaCartPlus size={20} />

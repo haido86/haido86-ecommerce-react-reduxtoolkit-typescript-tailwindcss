@@ -36,6 +36,7 @@ export const productsSlice = createSlice({
           item.title.toLowerCase().includes(action.payload.toLowerCase()) ||
           item.category.toLowerCase() === action.payload.toLowerCase()
       )
+
       return {
         ...state,
         filteredProductArr: action.payload.length > 0 ? filteredProducts : [...state.items]
