@@ -19,7 +19,7 @@ function Home() {
   }
 
   return (
-    <div>
+    <div className="min-h-screen">
       <ExtraBar />
       <AddProductForm />
       <div className="p-1 m-5 grid grid-cols-3 gap-y-10 gap-x-4 transition duration-150 sm:grid-cols-5">
