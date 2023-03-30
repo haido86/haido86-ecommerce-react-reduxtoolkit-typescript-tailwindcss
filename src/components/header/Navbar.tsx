@@ -2,9 +2,17 @@ import { useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import { IoHelpCircle, IoShirtSharp, IoTicket } from 'react-icons/io5'
 import { RiMenuFill } from 'react-icons/ri'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { filteredProductsAction } from '../../features/products/productsSlice'
+import { AppDispatch, RootState } from '../../store'
 
 function Navbar() {
+  const { products } = useSelector((state: RootState) => state)
   const [nav, setNav] = useState(false)
+  const dispatch = useDispatch<AppDispatch>()
+  const productCategories = [...new Set(products.items.map((product) => product.category))]
+
   return (
     <div>
       <div
@@ -30,9 +38,28 @@ function Navbar() {
         </h2>
         <nav>
           <ul className="flex flex-col p-4 text-gray-800">
-            <li className="text-xl py-4 flex">
-              <IoShirtSharp size={25} className="mr-4" />
-              Products
+            <li className="text-xl py-4 flex flex-col ">
+              <div className="flex ">
+                <IoShirtSharp size={25} className="mr-4" />
+                <h3>
+                  <button onClick={() => setNav(!nav)}>
+                    <Link to="/">Products</Link>
+                  </button>
+                </h3>
+              </div>
+              <ul className="flex flex-col pl-14 text-lg pt-2">
+                {productCategories.map((category) => (
+                  <li key={category} className="py-1">
+                    <button
+                      onClick={() => {
+                        setNav(!nav)
+                        dispatch(filteredProductsAction(`${category}`))
+                      }}>
+                      {category}
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </li>
             <li className="text-xl py-4 flex">
               <IoHelpCircle size={25} className="mr-4" />

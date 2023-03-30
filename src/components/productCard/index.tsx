@@ -1,4 +1,5 @@
 import { FaCartPlus, FaRegEdit } from 'react-icons/fa'
+import { RiDeleteBin5Line } from 'react-icons/ri'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { RootState } from '../../store'
@@ -20,8 +21,13 @@ function ProductCard({ product, addToCart }: { product: Product; addToCart: AddT
         <FaCartPlus size={20} />
       </button>
       {auth?.isLogin?.role === 'admin' && (
-        <div className="absolute top-2 right-2 font-bold bg-white border flex items-center rounded-full p-2 ">
-          <FaRegEdit size={20} />
+        <div>
+          <div className="absolute top-2 right-2 font-bold bg-green-300 flex items-center p-2 ">
+            <FaRegEdit size={20} />
+          </div>
+          <div className="absolute top-2 left-2 font-bold bg-red-300 flex items-center p-2 ">
+            <RiDeleteBin5Line size={20} />
+          </div>
         </div>
       )}
       <img className="h-40 w-auto p-3" src={product.image} alt={product.title} />

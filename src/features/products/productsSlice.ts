@@ -22,9 +22,14 @@ export const fetchProductsThunk = createAsyncThunk('products/fetch', async () =>
   return products
 })
 
-export const addProductThunk = createAsyncThunk('products/add-product', async (newProduct) => {
-  return { newProduct }
-})
+export const addProductThunk = createAsyncThunk(
+  'products/add-product',
+  async (newProduct: Product) => {
+    console.log('newprodgnsgnskgskg', newProduct)
+
+    return newProduct
+  }
+)
 
 export const productsSlice = createSlice({
   name: 'products',
@@ -57,9 +62,7 @@ export const productsSlice = createSlice({
     })
     builder.addCase(addProductThunk.fulfilled, (state, action) => {
       state.isLoading = false
-      console.log('addproduct', action)
-
-      // state.items = [action.payload, ...state]
+      state.items = [action.payload, ...state.items]
     })
   }
 })

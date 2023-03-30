@@ -3,7 +3,6 @@ import { RootState } from '../store'
 
 function UserList() {
   const { users, auth } = useSelector((state: RootState) => state)
-  console.log('authuser', auth)
 
   if (!auth || !auth.isLogin || auth?.isLogin?.role !== 'admin') {
     return <div>Cannot access to this page</div>
@@ -13,7 +12,7 @@ function UserList() {
     <div>
       UserList
       <div>
-        {users?.data?.map((user) => (
+        {users?.usersData?.map((user) => (
           <>
             <div key={user.email}>
               {user.firstName}
