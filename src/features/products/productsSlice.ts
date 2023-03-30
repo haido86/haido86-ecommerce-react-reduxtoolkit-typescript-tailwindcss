@@ -45,7 +45,6 @@ export const productsSlice = createSlice({
           item.title.toLowerCase().includes(action.payload.toLowerCase()) ||
           item.category.toLowerCase() === action.payload.toLowerCase()
       )
-
       return {
         ...state,
         filteredProductArr: action.payload.length > 0 ? filteredProducts : [...state.items]
@@ -75,7 +74,6 @@ export const productsSlice = createSlice({
       state.items = [action.payload, ...state.items]
     })
     builder.addCase(updateProductThunk.fulfilled, (state, action) => {
-      console.log('this come here')
       const updatedProducts = state.items.map((item) => {
         if (item.id === +action.payload.id) {
           return action.payload

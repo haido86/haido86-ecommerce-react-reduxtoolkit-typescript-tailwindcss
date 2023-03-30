@@ -26,17 +26,12 @@ export const usersSlice = createSlice({
   initialState,
   reducers: {
     filteredUserAction(state, action) {
-      console.log('secondetime', action.payload)
-
       const filteredUsers = state.usersData.filter(
         (user) =>
           user.firstName.toLowerCase().includes(action.payload.toLowerCase()) ||
-          user.lastName.toLowerCase().includes(action.payload.toLowerCase())
-        // ||
-        // user.email.toLowerCase().includes(action.payload.toLowerCase())
+          user.lastName.toLowerCase().includes(action.payload.toLowerCase()) ||
+          user.email.toLowerCase().includes(action.payload.toLowerCase())
       )
-      console.log('waht about this')
-
       return {
         ...state,
         filteredUserArr: action.payload.length > 0 ? filteredUsers : [...state.usersData]

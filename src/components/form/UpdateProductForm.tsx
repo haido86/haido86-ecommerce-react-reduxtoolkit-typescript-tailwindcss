@@ -14,17 +14,10 @@ function UpdateProductForm({ productId }: { productId: number }) {
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target
-    console.log('value update, name update', value, name)
     if (findProductToUpdate) {
       setUpdateProduct((prevProduct) => ({ ...prevProduct, ...findProductToUpdate, [name]: value }))
     }
   }
-  // const handleCategoryChange = (selectedOption: CategoryOption | null) => {
-  //   setUpdateProduct((prevProduct) => ({
-  //     ...prevProduct,
-  //     category: selectedOption?.value
-  //   }))
-  // }
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     if (

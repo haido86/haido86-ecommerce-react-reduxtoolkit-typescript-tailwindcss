@@ -20,11 +20,8 @@ function AddProductForm() {
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target
-    console.log('value, name', value, name)
-
     if (products.items) {
       const newId = products.items.length + 1
-      console.log('newId', newId)
       setNewProduct((prevProduct) => ({ ...prevProduct, id: newId, [name]: value }))
     }
   }

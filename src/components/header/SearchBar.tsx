@@ -1,26 +1,21 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { filteredProductsAction } from '../../features/products/productsSlice'
 import { filteredUserAction } from '../../features/user/userSlice'
-import { AppDispatch, RootState } from '../../store'
+import { AppDispatch } from '../../store'
 
 function SearchBar() {
   const [searchTerm, setSearchTerm] = useState('')
   const dispatch = useDispatch<AppDispatch>()
-  const { users } = useSelector((state: RootState) => state)
-  console.log('state', users.usersData, users.filteredUserArr)
 
   const handleSearchTermChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value)
   }
-  console.log('searchTerm', searchTerm)
 
   const handleSearchTermSubmit = (event: FormEvent) => {
     event.preventDefault()
     dispatch(filteredProductsAction(searchTerm))
-    console.log('this is used')
-
     dispatch(filteredUserAction(searchTerm))
   }
 
