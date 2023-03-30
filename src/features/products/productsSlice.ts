@@ -28,6 +28,12 @@ export const addProductThunk = createAsyncThunk(
     return newProduct
   }
 )
+export const updateProductThunk = createAsyncThunk(
+  'products/update-product',
+  async (updatedProduct: Product) => {
+    return updatedProduct
+  }
+)
 
 export const productsSlice = createSlice({
   name: 'products',
@@ -67,6 +73,17 @@ export const productsSlice = createSlice({
     builder.addCase(addProductThunk.fulfilled, (state, action) => {
       state.isLoading = false
       state.items = [action.payload, ...state.items]
+    })
+    builder.addCase(updateProductThunk.fulfilled, (state, action) => {
+      console.log('this come here')
+      const updatedProducts = state.items.map((item) => {
+        if (item.id === +action.payload.id) {
+          return action.payload
+        }
+        return item
+      })
+      state.isLoading = false
+      state.items = updatedProducts
     })
   }
 })

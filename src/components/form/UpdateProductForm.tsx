@@ -1,59 +1,51 @@
-import Select from 'react-select'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addProductThunk } from '../../features/products/productsSlice'
+import { updateProductThunk } from '../../features/products/productsSlice'
 import { AppDispatch, RootState } from '../../store'
-import { CategoryOption, Product } from '../../type'
+import { Product } from '../../type'
 
-function AddProductForm() {
-  const { products, auth } = useSelector((state: RootState) => state)
+function UpdateProductForm({ productId }: { productId: number }) {
+  const { auth, products } = useSelector((state: RootState) => state)
   const [formOpen, setFormOpen] = useState<boolean>()
-  const [newProduct, setNewProduct] = useState<Partial<Product> | undefined>()
+  const [updateProduct, setUpdateProduct] = useState<Partial<Product> | undefined>()
   const dispatch = useDispatch<AppDispatch>()
 
-  const options: CategoryOption[] = [
-    { value: "men's clothing", label: 'Men clothing' },
-    { value: "women's clothing", label: 'Women clothing' },
-    { value: 'jewelery', label: 'Jewelery' },
-    { value: 'electronics', label: 'Electronics' }
-  ]
+  const findProductToUpdate = products.items.find((item) => item.id === productId)
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target
-    console.log('value, name', value, name)
-
-    if (products.items) {
-      const newId = products.items.length + 1
-      console.log('newId', newId)
-      setNewProduct((prevProduct) => ({ ...prevProduct, id: newId, [name]: value }))
+    console.log('value update, name update', value, name)
+    if (findProductToUpdate) {
+      setUpdateProduct((prevProduct) => ({ ...prevProduct, ...findProductToUpdate, [name]: value }))
     }
   }
-  const handleCategoryChange = (selectedOption: CategoryOption | null) => {
-    setNewProduct((prevProduct) => ({
-      ...prevProduct,
-      category: selectedOption?.value
-    }))
-  }
+  // const handleCategoryChange = (selectedOption: CategoryOption | null) => {
+  //   setUpdateProduct((prevProduct) => ({
+  //     ...prevProduct,
+  //     category: selectedOption?.value
+  //   }))
+  // }
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     if (
-      newProduct &&
-      newProduct?.id &&
-      newProduct?.title &&
-      newProduct?.price &&
-      newProduct?.description &&
-      newProduct?.category
+      findProductToUpdate &&
+      updateProduct &&
+      updateProduct?.id &&
+      updateProduct?.title &&
+      updateProduct?.price &&
+      updateProduct?.description &&
+      updateProduct?.category
     ) {
       const product: Product = {
-        id: newProduct.id,
-        title: newProduct.title,
-        price: newProduct.price,
-        description: newProduct.description,
-        category: newProduct.category,
-        image: '',
+        id: productId,
+        title: updateProduct.title,
+        price: updateProduct.price,
+        description: updateProduct.description,
+        category: findProductToUpdate.category,
+        image: findProductToUpdate.image,
         quantity: 20
       }
-      dispatch(addProductThunk(product))
+      dispatch(updateProductThunk(product))
     }
     setFormOpen(!formOpen)
   }
@@ -62,14 +54,14 @@ function AddProductForm() {
     <div>
       {auth?.isLogin?.role === 'admin' && (
         <button
-          className="bg-green-400 rounded-full ml-10 font-bold px-2 py-1"
+          className="flex justify-center font-bold bg-yellow-300 max-w-80 rounded-md px-4 py-1"
           onClick={() => setFormOpen(!formOpen)}>
-          Add New Product
+          Edit Product Info
         </button>
       )}
       {formOpen && (
         <div className="z-10 right-0 top-32 absolute duration-300 bg-white shadow w-full p-20 lg:top-20 sm:max-w-[500px]">
-          <h2 className="text-xl font-bold mb-2">Add Product Form</h2>
+          <h2 className="text-xl font-bold mb-2">Update Product Form</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900">
@@ -79,6 +71,7 @@ function AddProductForm() {
                 type="text"
                 id="title"
                 name="title"
+                defaultValue={findProductToUpdate?.title}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5"
                 placeholder="Title"
                 onChange={handleInputChange}
@@ -93,6 +86,7 @@ function AddProductForm() {
                 type="number"
                 id="price"
                 name="price"
+                defaultValue={findProductToUpdate?.price}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5"
                 placeholder="Price"
                 onChange={handleInputChange}
@@ -107,30 +101,18 @@ function AddProductForm() {
                 type="text"
                 id="description"
                 name="description"
+                defaultValue={findProductToUpdate?.description}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5"
                 placeholder="description"
                 onChange={handleInputChange}
                 required
               />
             </div>
-            <div className="mb-3">
-              <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900">
-                Category <span className="text-red-500">*</span>
-              </label>
-              <Select
-                options={options}
-                name="category"
-                id="category"
-                onChange={handleCategoryChange}
-                value={options.find((option) => option.value === newProduct?.category)}
-              />
-            </div>
-
             <div className="flex flex-col mt-10">
               <button
                 type="submit"
                 className="text-white uppercase bg-black focus:ring-4 focus:outline-none font-medium hover:bg-gray-800 text-sm max-w-full sm:w-auto px-5 py-2.5 text-center">
-                Create New Product
+                Update Product Info
               </button>
             </div>
           </form>
@@ -140,4 +122,4 @@ function AddProductForm() {
   )
 }
 
-export default AddProductForm
+export default UpdateProductForm

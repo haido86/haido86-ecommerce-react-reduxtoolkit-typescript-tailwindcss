@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { filteredProductsAction } from '../../features/products/productsSlice'
 import { AppDispatch, RootState } from '../../store'
-import { authSlice } from '../../features/auth/authSlice'
 
 function Navbar() {
   const { products, auth } = useSelector((state: RootState) => state)
@@ -23,7 +22,7 @@ function Navbar() {
         <RiMenuFill size={30} />
         Menu
       </div>
-      {nav ? <div className="bg-black/80 fixed w-full h-screen z-10 top-0 left-0"></div> : ''}
+      {nav && <div className="bg-black/80 fixed w-full h-screen z-10 top-0 left-0"></div>}
       <div
         className={
           nav

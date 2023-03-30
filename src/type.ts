@@ -27,3 +27,5 @@ export type Order = {
 
 export type OrderAmount = { orderAmount: number }
 export type ItemInCart = Product & OrderAmount
+
+export type CategoryOption = { value: string; label: string }
