@@ -1,14 +1,16 @@
 import { FaCartPlus, FaRegEdit } from 'react-icons/fa'
 import { RiDeleteBin5Line } from 'react-icons/ri'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { RootState } from '../../store'
+import { removeProduct } from '../../features/products/productsSlice'
+import { AppDispatch, RootState } from '../../store'
 import { Product } from '../../type'
 
 type AddToCartFunction = (product: Product) => void
 
 function ProductCard({ product, addToCart }: { product: Product; addToCart: AddToCartFunction }) {
   const { auth } = useSelector((state: RootState) => state)
+  const dispatch = useDispatch<AppDispatch>()
   return (
     <div
       className=" m-1 relative flex flex-col items-center object-cover border border-gray-200 rounded-md"
@@ -27,9 +29,11 @@ function ProductCard({ product, addToCart }: { product: Product; addToCart: AddT
             className="absolute top-2 right-2 font-bold bg-green-300 flex items-center p-2 ">
             <FaRegEdit size={20} />
           </Link>
-          <div className="absolute top-2 left-2 font-bold bg-red-300 flex items-center p-2 ">
+          <button
+            onClick={() => dispatch(removeProduct(product.id))}
+            className="absolute top-2 left-2 font-bold bg-red-300 flex items-center p-2 ">
             <RiDeleteBin5Line size={20} />
-          </div>
+          </button>
         </div>
       )}
       <img className="h-40 w-auto p-3" src={product.image} alt={product.title} />

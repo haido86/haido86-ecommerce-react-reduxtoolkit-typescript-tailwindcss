@@ -25,8 +25,6 @@ export const fetchProductsThunk = createAsyncThunk('products/fetch', async () =>
 export const addProductThunk = createAsyncThunk(
   'products/add-product',
   async (newProduct: Product) => {
-    console.log('newprodgnsgnskgskg', newProduct)
-
     return newProduct
   }
 )
@@ -45,6 +43,12 @@ export const productsSlice = createSlice({
       return {
         ...state,
         filteredProductArr: action.payload.length > 0 ? filteredProducts : [...state.items]
+      }
+    },
+    removeProduct(state, action) {
+      const removedItem = state.items.find((item) => item.id == action.payload)
+      if (removedItem) {
+        state.items = state.items.filter((item) => item.id !== +action.payload)
       }
     }
   },
@@ -66,6 +70,6 @@ export const productsSlice = createSlice({
     })
   }
 })
-export const { filteredProductsAction } = productsSlice.actions
+export const { filteredProductsAction, removeProduct } = productsSlice.actions
 
 export default productsSlice.reducer
