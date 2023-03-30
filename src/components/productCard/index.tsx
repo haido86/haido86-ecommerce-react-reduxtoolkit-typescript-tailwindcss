@@ -22,9 +22,11 @@ function ProductCard({ product, addToCart }: { product: Product; addToCart: AddT
       </button>
       {auth?.isLogin?.role === 'admin' && (
         <div>
-          <div className="absolute top-2 right-2 font-bold bg-green-300 flex items-center p-2 ">
+          <Link
+            to={`/products/${product.id}`}
+            className="absolute top-2 right-2 font-bold bg-green-300 flex items-center p-2 ">
             <FaRegEdit size={20} />
-          </div>
+          </Link>
           <div className="absolute top-2 left-2 font-bold bg-red-300 flex items-center p-2 ">
             <RiDeleteBin5Line size={20} />
           </div>

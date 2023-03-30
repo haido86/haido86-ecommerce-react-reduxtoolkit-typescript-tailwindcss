@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import { IoHelpCircle, IoShirtSharp, IoTicket } from 'react-icons/io5'
+import { HiUsers } from 'react-icons/hi2'
 import { RiMenuFill } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { filteredProductsAction } from '../../features/products/productsSlice'
 import { AppDispatch, RootState } from '../../store'
+import { authSlice } from '../../features/auth/authSlice'
 
 function Navbar() {
-  const { products } = useSelector((state: RootState) => state)
+  const { products, auth } = useSelector((state: RootState) => state)
   const [nav, setNav] = useState(false)
   const dispatch = useDispatch<AppDispatch>()
   const productCategories = [...new Set(products.items.map((product) => product.category))]
@@ -61,6 +63,14 @@ function Navbar() {
                 ))}
               </ul>
             </li>
+            {auth.isLogin?.role === 'admin' && (
+              <Link to="/users">
+                <li className="text-xl py-4 flex">
+                  <HiUsers size={25} className="mr-4" />
+                  Users
+                </li>
+              </Link>
+            )}
             <li className="text-xl py-4 flex">
               <IoHelpCircle size={25} className="mr-4" />
               Help

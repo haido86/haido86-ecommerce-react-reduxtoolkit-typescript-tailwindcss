@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import ExtraBar from '../components/ExtraBar'
 import AddProductForm from '../components/form/AddProductForm'
 import ProductCard from '../components/productCard'
 import { addToCartAction } from '../features/products/cartSlice'
@@ -20,6 +20,7 @@ function Home() {
 
   return (
     <div>
+      <ExtraBar />
       <AddProductForm />
       <div className="p-1 m-5 grid grid-cols-3 gap-y-10 gap-x-4 transition duration-150 sm:grid-cols-5">
         {products?.filteredProductArr.length > 0

@@ -1,9 +1,13 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { AppDispatch } from '../../store'
-import { login } from '../../features/auth/authSlice'
+import { AppDispatch } from '../../../store'
+import { login } from '../../../features/auth/authSlice'
 
-function SignInForm() {
+function SignInForm({
+  setIsLoginDropDown
+}: {
+  setIsLoginDropDown: React.Dispatch<React.SetStateAction<boolean>>
+}) {
   const dispatch = useDispatch<AppDispatch>()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -18,6 +22,7 @@ function SignInForm() {
 
   const signIn = async (event: FormEvent) => {
     event.preventDefault()
+    setIsLoginDropDown(false)
     dispatch(login({ email, password }))
   }
 

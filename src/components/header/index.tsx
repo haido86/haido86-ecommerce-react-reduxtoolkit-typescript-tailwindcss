@@ -1,7 +1,7 @@
 import SearchBar from './SearchBar'
 import Navbar from './Navbar'
 import Dropdown from './Dropdown'
-import ExtraBar from './ExtraBar'
+import { Link } from 'react-router-dom'
 
 function Header() {
   return (
@@ -10,13 +10,14 @@ function Header() {
         <div className="flex items-center">
           <Navbar />
           <div className="px-4 text-2xl sm:text-3xl lg:text-4xl text-red-600">
-            <span className="font-bold ">Hai</span>Do
+            <Link to="/">
+              <span className="font-bold ">Hai</span>Do
+            </Link>
           </div>
         </div>
         <SearchBar />
         <Dropdown />
       </div>
-      <ExtraBar />
     </header>
   )
 }

@@ -8,6 +8,7 @@ import Header from './components/header'
 // import Notification from './components/notification'
 import { fetchProductsThunk } from './features/products/productsSlice'
 import { fetchUsers } from './features/user/userSlice'
+import CheckOut from './pages/CheckOut'
 import Home from './pages/Home'
 import ProductDetail from './pages/ProductDetail'
 import UserList from './pages/UserList'
@@ -28,6 +29,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/products/checkout" element={<CheckOut />} />
         <Route path="/users" element={<UserList />} />
       </Routes>
       <Footer />
