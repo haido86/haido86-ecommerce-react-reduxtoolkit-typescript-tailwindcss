@@ -21,7 +21,8 @@ function AddProductForm() {
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target
     if (products.items) {
-      const newId = products.items.length + 1
+      const productIds = products.items.map((item) => item.id).sort((a, b) => a - b)
+      const newId = productIds[productIds.length - 1] + 1
       setNewProduct((prevProduct) => ({ ...prevProduct, id: newId, [name]: value }))
     }
   }
