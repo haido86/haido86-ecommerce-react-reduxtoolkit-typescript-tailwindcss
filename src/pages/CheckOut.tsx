@@ -4,7 +4,7 @@ import { RootState } from '../store'
 function CheckOut() {
   const { auth } = useSelector((state: RootState) => state)
   return (
-    <div>
+    <div className="min-h-screen">
       {auth?.isLogin?.role !== 'user' ? (
         <div className="font-bold text-xl m-20">Please Login or Become our member to proceed</div>
       ) : (

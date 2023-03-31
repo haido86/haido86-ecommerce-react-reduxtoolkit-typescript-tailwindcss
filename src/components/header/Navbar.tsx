@@ -4,12 +4,13 @@ import { IoHelpCircle, IoShirtSharp, IoTicket } from 'react-icons/io5'
 import { HiUsers } from 'react-icons/hi2'
 import { RiMenuFill } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { filteredProductsAction } from '../../features/products/productsSlice'
 import { AppDispatch, RootState } from '../../store'
 
 function Navbar() {
   const { products, auth } = useSelector((state: RootState) => state)
+  const navigate = useNavigate()
   const [nav, setNav] = useState(false)
   const dispatch = useDispatch<AppDispatch>()
   const productCategories = [...new Set(products.items.map((product) => product.category))]
@@ -63,12 +64,16 @@ function Navbar() {
               </ul>
             </li>
             {auth.isLogin?.role === 'admin' && (
-              <Link to="/users">
+              <button
+                onClick={() => {
+                  setNav(false)
+                  navigate('/users')
+                }}>
                 <li className="text-xl py-4 flex">
                   <HiUsers size={25} className="mr-4" />
                   Users
                 </li>
-              </Link>
+              </button>
             )}
             <li className="text-xl py-4 flex">
               <IoHelpCircle size={25} className="mr-4" />

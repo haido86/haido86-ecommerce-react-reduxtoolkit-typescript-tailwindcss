@@ -39,15 +39,18 @@ export const cartSlice = createSlice({
       }
     },
     updateProductAmount: (state, action) => {
-      if (action.payload.orderAmount == 0) {
-        state.cartArr = state.cartArr.filter((item) => item.id != action.payload.id)
-      }
-      state.cartArr = state.cartArr.map((item) => {
-        if (item.id == action.payload.id) {
-          item.orderAmount = action.payload.orderAmount
+      const itemToUpdate = state.cartArr.find((item) => item.id == action.payload)
+      if (itemToUpdate) {
+        if (action.payload.orderAmount == 0) {
+          state.cartArr = state.cartArr.filter((item) => item.id != action.payload.id)
         }
-        return item
-      })
+        state.cartArr = state.cartArr.map((item) => {
+          if (item.id == action.payload.id) {
+            item.orderAmount = action.payload.orderAmount
+          }
+          return item
+        })
+      }
     },
     emptyCart: () => {
       return initialState

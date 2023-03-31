@@ -20,7 +20,7 @@ function UserList() {
   }
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center min-h-screen">
       <h2 className="font-bold text-xl">UserList</h2>
 
       <table className="flex flex-col w-full p-5">
