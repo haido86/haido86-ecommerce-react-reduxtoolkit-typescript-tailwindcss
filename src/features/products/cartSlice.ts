@@ -32,10 +32,7 @@ export const cartSlice = createSlice({
     removeFromCart: (state, action) => {
       const itemToRemove = state.cartArr.find((item) => item.id == action.payload)
       if (itemToRemove) {
-        itemToRemove.orderAmount -= 1
-        if (itemToRemove.orderAmount == 0) {
-          state.cartArr = state.cartArr.filter((item) => item.id !== action.payload)
-        }
+        state.cartArr = state.cartArr.filter((item) => item.id !== action.payload)
       }
     },
     updateProductAmount: (state, action) => {
