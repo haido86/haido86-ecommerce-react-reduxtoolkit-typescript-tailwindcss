@@ -16,8 +16,7 @@ const initialState: UserState = {
 }
 
 export const fetchUsers = createAsyncThunk('users/fetch', async () => {
-  // const res = await fetch(`${import.meta.env.VITE_API_URL}/data/users.json`)
-  const res = await fetch(`/data/users.json`)
+  const res = await fetch('/data/users.json')
   const users = await res.json()
   return users
 })

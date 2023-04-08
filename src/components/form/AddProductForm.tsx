@@ -1,6 +1,7 @@
 import Select from 'react-select'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
 import { addProductThunk } from '../../features/products/productsSlice'
 import { AppDispatch, RootState } from '../../store'
 import { CategoryOption, Product } from '../../type'
@@ -123,7 +124,6 @@ function AddProductForm() {
                 value={options.find((option) => option.value === newProduct?.category)}
               />
             </div>
-
             <div className="flex flex-col mt-10">
               <button
                 type="submit"

@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { useDispatch } from 'react-redux'
+
 import { filteredProductsAction } from '../../features/products/productsSlice'
 import { filteredUserAction } from '../../features/user/userSlice'
 import { AppDispatch } from '../../store'

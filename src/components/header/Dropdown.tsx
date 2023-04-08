@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { FaShoppingCart } from 'react-icons/fa'
 import { RiUserFill } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
+
 import Cart from '../cart'
 import SignInForm from '../form/signInForm'
 import { AppDispatch, RootState } from '../../store'

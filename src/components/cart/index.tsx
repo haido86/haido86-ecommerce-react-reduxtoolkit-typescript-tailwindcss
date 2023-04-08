@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+
 import { emptyCart } from '../../features/products/cartSlice'
 import { AppDispatch, RootState } from '../../store'
 import CartItem from './CartItem'
@@ -30,11 +31,6 @@ function Cart({
         className="mt-10 text-white bg-black focus:ring-4 focus:outline-none font-medium hover:bg-gray-800 text-sm max-w-full sm:w-auto px-5 py-2.5 text-center">
         <Link to="/products/checkout">Check Out</Link>
       </button>
-      {/* <button
-        type="submit"
-        className="mt-3 bg-white focus:outline-none font-bold  text-sm max-w-full border border-black sm:w-auto px-5 py-2.5 text-center">
-        Shopping Cart
-      </button> */}
       <button
         onClick={() => dispatch(emptyCart())}
         className="mt-3 bg-gray-100 hover:bg-gray-200 focus:outline-none font-bold  text-sm max-w-full  sm:w-auto px-5 py-2.5 text-center">

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+
 import { ItemInCart } from '../../type'
 
 type CartState = {
@@ -35,22 +36,6 @@ export const cartSlice = createSlice({
         state.cartArr = state.cartArr.filter((item) => item.id !== action.payload)
       }
     },
-    // updateProductAmount: (state, action) => {
-    //   console.log('state,action', state, action)
-
-    //   const itemToUpdate = state.cartArr.find((item) => item.id === +action.payload.id)
-    //   if (itemToUpdate) {
-    //     if (action.payload.orderAmount == 0) {
-    //       state.cartArr = state.cartArr.filter((item) => item.id != +action.payload.id)
-    //     }
-    //     state.cartArr = state.cartArr.map((item) => {
-    //       if (item.id == action.payload.id) {
-    //         item.orderAmount = action.payload.orderAmount
-    //       }
-    //       return item
-    //     })
-    //   }
-    // },
     increaseProductAmount: (state, action) => {
       const itemToIncrease = state.cartArr.find((item) => item.id === +action.payload)
       if (itemToIncrease) {
@@ -86,7 +71,6 @@ export const cartSlice = createSlice({
 export const {
   addToCartAction,
   removeFromCart,
-  // updateProductAmount,
   increaseProductAmount,
   decreaseProductAmount,
   emptyCart

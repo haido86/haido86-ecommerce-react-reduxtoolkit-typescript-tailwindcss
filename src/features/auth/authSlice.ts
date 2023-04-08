@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+
 import { setNotification } from '../../components/notification/notificationSlice'
 import { User } from '../../type'
 
@@ -22,7 +23,7 @@ const initialState: AuthState = {
 export const login = createAsyncThunk(
   'auth/login',
   async ({ email, password }: LoginPayload, { dispatch }) => {
-    const res = await fetch('http://localhost:5173/data/users.json')
+    const res = await fetch('/data/users.json')
     const users = await res.json()
     const findUserByEmail = users.find(
       (user: LoginPayload) => user.email === email && user.password === password

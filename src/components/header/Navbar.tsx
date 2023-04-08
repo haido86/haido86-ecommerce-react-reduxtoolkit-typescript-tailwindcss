@@ -5,6 +5,7 @@ import { HiUsers } from 'react-icons/hi2'
 import { RiMenuFill } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
+
 import { filteredProductsAction } from '../../features/products/productsSlice'
 import { AppDispatch, RootState } from '../../store'
 

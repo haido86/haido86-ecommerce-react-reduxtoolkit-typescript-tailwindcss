@@ -1,7 +1,8 @@
+import { Link } from 'react-router-dom'
+
 import SearchBar from './SearchBar'
 import Navbar from './Navbar'
 import Dropdown from './Dropdown'
-import { Link } from 'react-router-dom'
 
 function Header() {
   return (

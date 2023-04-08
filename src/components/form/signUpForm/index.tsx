@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '../../../store'
 
@@ -22,7 +22,6 @@ function SignUpFrom() {
 
   const signUp = (event: FormEvent) => {
     event.preventDefault()
-    // dispatch(signUp({ email, password, repeatPassword }))
   }
 
   return (

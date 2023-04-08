@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
 import { updateProductThunk } from '../../features/products/productsSlice'
 import { AppDispatch, RootState } from '../../store'
 import { Product } from '../../type'

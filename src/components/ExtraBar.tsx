@@ -1,7 +1,7 @@
-// import { useState } from 'react'
 import { useState } from 'react'
 import { IoArrowBackOutline } from 'react-icons/io5'
 import { useDispatch, useSelector } from 'react-redux'
+
 import { filteredProductsAction } from '../features/products/productsSlice'
 import { AppDispatch, RootState } from '../store'
 

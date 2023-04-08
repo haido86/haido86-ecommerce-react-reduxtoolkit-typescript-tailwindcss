@@ -1,5 +1,5 @@
-// import { setNotification } from './../../components/notification/notificationSlice'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+
 import { Product } from '../../type'
 
 type ProductState = {
@@ -17,7 +17,6 @@ const initialState: ProductState = {
 }
 
 export const fetchProductsThunk = createAsyncThunk('products/fetch', async () => {
-  // const res = await fetch('http://localhost:5173/data/products.json')
   const res = await fetch('/data/products.json')
   const products = await res.json()
   return products
