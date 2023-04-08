@@ -35,15 +35,42 @@ export const cartSlice = createSlice({
         state.cartArr = state.cartArr.filter((item) => item.id !== action.payload)
       }
     },
-    updateProductAmount: (state, action) => {
-      const itemToUpdate = state.cartArr.find((item) => item.id === +action.payload.id)
-      if (itemToUpdate) {
-        if (action.payload.orderAmount == 0) {
-          state.cartArr = state.cartArr.filter((item) => item.id != +action.payload.id)
+    // updateProductAmount: (state, action) => {
+    //   console.log('state,action', state, action)
+
+    //   const itemToUpdate = state.cartArr.find((item) => item.id === +action.payload.id)
+    //   if (itemToUpdate) {
+    //     if (action.payload.orderAmount == 0) {
+    //       state.cartArr = state.cartArr.filter((item) => item.id != +action.payload.id)
+    //     }
+    //     state.cartArr = state.cartArr.map((item) => {
+    //       if (item.id == action.payload.id) {
+    //         item.orderAmount = action.payload.orderAmount
+    //       }
+    //       return item
+    //     })
+    //   }
+    // },
+    increaseProductAmount: (state, action) => {
+      const itemToIncrease = state.cartArr.find((item) => item.id === +action.payload)
+      if (itemToIncrease) {
+        state.cartArr = state.cartArr.map((item) => {
+          if (item.id == action.payload) {
+            item.orderAmount += 1
+          }
+          return item
+        })
+      }
+    },
+    decreaseProductAmount: (state, action) => {
+      const itemToDecrease = state.cartArr.find((item) => item.id === +action.payload)
+      if (itemToDecrease) {
+        if (itemToDecrease.orderAmount == 1) {
+          state.cartArr = state.cartArr.filter((item) => item.id != +action.payload)
         }
         state.cartArr = state.cartArr.map((item) => {
-          if (item.id == action.payload.id) {
-            item.orderAmount = action.payload.orderAmount
+          if (item.id == action.payload) {
+            item.orderAmount -= 1
           }
           return item
         })
@@ -56,6 +83,13 @@ export const cartSlice = createSlice({
   extraReducers: {}
 })
 
-export const { addToCartAction, removeFromCart, updateProductAmount, emptyCart } = cartSlice.actions
+export const {
+  addToCartAction,
+  removeFromCart,
+  // updateProductAmount,
+  increaseProductAmount,
+  decreaseProductAmount,
+  emptyCart
+} = cartSlice.actions
 
 export default cartSlice.reducer

@@ -1,44 +1,43 @@
-import { ChangeEvent, useEffect, useState } from 'react'
 import { RiDeleteBin6Line } from 'react-icons/ri'
+import { IoMdAdd, IoMdRemove } from 'react-icons/io'
+import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { removeFromCart, updateProductAmount } from '../../features/products/cartSlice'
+
+import {
+  decreaseProductAmount,
+  increaseProductAmount,
+  removeFromCart
+} from '../../features/products/cartSlice'
 import { AppDispatch } from '../../store'
 import { ItemInCart } from '../../type'
 
 function CartItem({ item }: { item: ItemInCart }) {
   const dispatch = useDispatch<AppDispatch>()
-  const [stateOfCart, setStateOfCart] = useState<ItemInCart | null>(null)
-
-  useEffect(() => {
-    setStateOfCart(item)
-  }, [item])
-
-  const handleOrderAmountChange = (event: ChangeEvent<HTMLInputElement>, id: number) => {
-    dispatch(updateProductAmount({ id: event.target.id, orderAmount: +event.target.value }))
-  }
 
   return (
     <div>
       <div key={item.id} className="flex justify-between pb-3 pt-3 border-b border-b-gray-100">
-        <img className="w-[50px] h-[50px]" src={item.image} alt={item.title} />
+        <img className="max-w-[80px]" src={item.image} alt={item.title} />
         <div>
-          {`${item.title}`.slice(0, 20)}
-          <div>{`${item.price} €`}</div>
-          <input
-            type="number"
-            defaultValue={item.orderAmount}
-            value={stateOfCart?.orderAmount}
-            onChange={(event) => handleOrderAmountChange(event, item.id)}
-            id={`${item.id}`}
-            min={0}
-            className="bg-gray-100 w-8 h-8 text-center text-sm"
-          />
+          <div className="text-sm uppercase mt-2 hover:underline">
+            <Link to={`/products/${item.id}`}>{`${item.title}`.slice(0, 20)}</Link>
+          </div>
+          <div className="text-sm text-gray-500">{`${item.price} €`}</div>
+          <div className="flex items-center mt-2 border border-gray-200 w-[100px] justify-between px-2 py-1 text-sm">
+            <button onClick={() => dispatch(decreaseProductAmount(item.id))}>
+              <IoMdRemove />
+            </button>
+            <div>{item.orderAmount}</div>
+            <button onClick={() => dispatch(increaseProductAmount(item.id))}>
+              <IoMdAdd />
+            </button>
+          </div>
         </div>
-        <div className="flex flex-col justify-between">
+        <div className="flex flex-col justify-between mt-2 items-end w-[80px]">
           <button onClick={() => dispatch(removeFromCart(item.id))}>
             <RiDeleteBin6Line size={20} />
           </button>
-          <div className="text-red-500">{`${item.price * item.orderAmount} €`}</div>
+          <div className="text-red-500">{`${(item.price * item.orderAmount).toFixed(2)} €`}</div>
         </div>
       </div>
     </div>

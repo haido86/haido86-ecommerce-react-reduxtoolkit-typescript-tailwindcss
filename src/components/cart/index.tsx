@@ -23,7 +23,7 @@ function Cart({
         cart.cartArr.map((item) => <CartItem key={item.id} item={item} />)}
       <div className="flex justify-between border-t-gray-200 border-t mt-5">
         <div className="font-bold mt-3">Total</div>
-        <div className="font-bold mt-3 text-red-500">{`${returnTotal} €`}</div>
+        <div className="font-bold mt-3 text-red-500">{`${returnTotal.toFixed(2)} €`}</div>
       </div>
       <button
         onClick={() => setIsCartDropDown(false)}
