@@ -38,19 +38,20 @@ function Dropdown() {
             </>
           )}
         </button>
-        {cart?.cartArr.length > 0 && (
-          <div className="absolute text-xs bg-yellow-400 rounded-full top-8 right-14 px-1 lg:right-[136px]">
-            {totalOrderAmount}
-          </div>
-        )}
+
         <button
           onClick={() => setIsCartDropDown(!isCartDropDown)}
           className={
             isCartDropDown
-              ? 'flex items-center m-3 font-bold border-b-2 border-stone-700'
-              : 'flex items-center m-3 font-bold '
+              ? 'flex items-center m-3 font-bold border-b-2 border-stone-700 relative'
+              : 'flex items-center m-3 font-bold relative'
           }>
           <FaShoppingCart size={20} className="mr-1" />
+          {cart?.cartArr.length > 0 && (
+            <div className="absolute text-xs bg-yellow-400 rounded-full px-1 top-[-4px] right-3/4 translate-x-3/4">
+              {totalOrderAmount}
+            </div>
+          )}
           Cart
         </button>
       </div>
@@ -71,7 +72,7 @@ function Dropdown() {
         </div>
       )}
       {isCartDropDown && (
-        <div className="z-10 right-0 top-32 absolute duration-300 bg-white shadow w-full p-8 lg:top-20 sm:max-w-[400px]">
+        <div className="z-10 right-0 top-32 absolute duration-300 bg-white shadow-lg w-full p-8 lg:top-20 sm:max-w-[400px]">
           <Cart setIsCartDropDown={setIsCartDropDown} />
         </div>
       )}
