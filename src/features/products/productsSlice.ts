@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import axios from 'axios'
 
 import { Product } from '../../type'
 
@@ -7,20 +8,31 @@ type ProductState = {
   error: null | string
   items: Product[]
   filteredProductArr: Product[]
+  item: null | Product
 }
 
 const initialState: ProductState = {
   isLoading: false,
   error: null,
   items: [],
-  filteredProductArr: []
+  filteredProductArr: [],
+  item: null
 }
 
 export const fetchProductsThunk = createAsyncThunk('products/fetch', async () => {
-  const res = await fetch('/data/products.json')
-  const products = await res.json()
+  const res = await axios.get('http://localhost:8080/api/v1/products')
+  const products = await res.data
   return products
 })
+
+export const findProductByIdThunk = createAsyncThunk(
+  'products/find-product',
+  async (id: number) => {
+    const res = await axios.get(`http://localhost:8080/api/v1/products/${id}`)
+    const product = await res.data
+    return product
+  }
+)
 
 export const addProductThunk = createAsyncThunk(
   'products/add-product',
@@ -43,7 +55,7 @@ export const productsSlice = createSlice({
       const filteredProducts = state.items.filter(
         (item) =>
           item.title.toLowerCase().includes(action.payload.toLowerCase()) ||
-          item.category.toLowerCase() === action.payload.toLowerCase()
+          item.category.name.toLowerCase() === action.payload.toLowerCase()
       )
       return {
         ...state,
@@ -68,6 +80,17 @@ export const productsSlice = createSlice({
     builder.addCase(fetchProductsThunk.fulfilled, (state, action) => {
       state.isLoading = false
       state.items = action.payload
+    })
+    builder.addCase(findProductByIdThunk.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(findProductByIdThunk.rejected, (state) => {
+      state.error = 'something went wrong'
+      state.isLoading = false
+    })
+    builder.addCase(findProductByIdThunk.fulfilled, (state, action) => {
+      state.isLoading = false
+      state.item = action.payload
     })
     builder.addCase(addProductThunk.fulfilled, (state, action) => {
       state.isLoading = false

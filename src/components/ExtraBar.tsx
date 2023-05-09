@@ -9,7 +9,8 @@ function ExtraBar() {
   const { products } = useSelector((state: RootState) => state)
   const dispatch = useDispatch<AppDispatch>()
   const [searchTerm, setSearchTerm] = useState<string>('')
-  const categories = [...new Set(products.items.map((product) => product.category))]
+  const categories = [...new Set(products.items.map((product) => product.category.name))]
+
   const filterCategory = categories.find((category) => category === searchTerm)
 
   return (
