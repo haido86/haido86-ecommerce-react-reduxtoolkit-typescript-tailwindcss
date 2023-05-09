@@ -14,7 +14,7 @@ function Navbar() {
   const navigate = useNavigate()
   const [nav, setNav] = useState(false)
   const dispatch = useDispatch<AppDispatch>()
-  const productCategories = [...new Set(products.items.map((product) => product.category))]
+  const productCategories = [...new Set(products.items.map((product) => product.category.name))]
 
   return (
     <div>
