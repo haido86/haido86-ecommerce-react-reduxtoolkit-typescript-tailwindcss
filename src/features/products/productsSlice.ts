@@ -41,8 +41,13 @@ export const findProductByIdThunk = createAsyncThunk(
 
 export const addProductThunk = createAsyncThunk(
   'products/add-product',
-  async (newProduct: Product) => {
-    return newProduct
+  async (newProduct: Partial<Product>) => {
+    const res = await axios.post('http://localhost:8080/api/v1/products')
+    const addedProduct = res.data
+    console.log('newProduct', newProduct)
+    console.log('addedProduct', addedProduct)
+
+    // return addedProduct
   }
 )
 export const updateProductThunk = createAsyncThunk(
@@ -116,13 +121,20 @@ export const productsSlice = createSlice({
     })
     builder.addCase(fetchCategoriesThunk.fulfilled, (state, action) => {
       state.isLoading = false
-      console.log('action.payload', action.payload)
-
       state.categories = action.payload
+    })
+    builder.addCase(addProductThunk.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(addProductThunk.rejected, (state) => {
+      state.error = 'something went wrong'
+      state.isLoading = false
     })
     builder.addCase(addProductThunk.fulfilled, (state, action) => {
       state.isLoading = false
-      state.items = [action.payload, ...state.items]
+      console.log('action.payload adddd', action.payload)
+
+      // state.items = [action.payload, ...state.items]
     })
     builder.addCase(updateProductThunk.fulfilled, (state, action) => {
       const updatedProducts = state.items.map((item) => {

@@ -6,6 +6,15 @@ import { addProductThunk } from '../../features/products/productsSlice'
 import { AppDispatch, RootState } from '../../store'
 import { CategoryOption, Product } from '../../type'
 
+type PostProduct = {
+  title: string
+  price: number
+  description: string
+  categoryId: number
+  image: string
+  quantity: number
+}
+
 function AddProductForm() {
   const { products, auth } = useSelector((state: RootState) => state)
   const [formOpen, setFormOpen] = useState<boolean>()
@@ -20,9 +29,7 @@ function AddProductForm() {
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target
     if (products.items) {
-      const productIds = products.items.map((item) => item.id).sort((a, b) => a - b)
-      const newId = productIds[productIds.length - 1] + 1
-      setNewProduct((prevProduct) => ({ ...prevProduct, id: newId, [name]: value }))
+      setNewProduct((prevProduct) => ({ ...prevProduct, [name]: value }))
     }
   }
   const handleCategoryChange = (selectedOption: CategoryOption | null) => {
@@ -34,7 +41,7 @@ function AddProductForm() {
       if (selectedCategory) {
         setNewProduct((prevProduct) => ({
           ...prevProduct,
-          categoryId: selectedCategory.id
+          category: selectedCategory
         }))
       }
     }
@@ -43,22 +50,22 @@ function AddProductForm() {
     event.preventDefault()
     if (
       newProduct &&
-      newProduct?.id &&
       newProduct?.title &&
       newProduct?.price &&
       newProduct?.description &&
       newProduct?.category
     ) {
-      const product: Product = {
-        id: newProduct.id,
-        title: newProduct.title,
-        price: newProduct.price,
-        description: newProduct.description,
-        category: newProduct.category,
+      const product: PostProduct = {
+        title: newProduct?.title,
+        price: newProduct?.price,
+        description: newProduct?.description,
+        categoryId: newProduct?.category?.id,
         image: '',
         quantity: 20
       }
       dispatch(addProductThunk(product))
+    } else {
+      console.log('we are really here==========')
     }
     setFormOpen(!formOpen)
   }
