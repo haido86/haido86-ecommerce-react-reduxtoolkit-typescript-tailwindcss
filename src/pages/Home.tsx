@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux'
-import ExtraBar from '../components/ExtraBar'
-import AddProductForm from '../components/form/AddProductForm'
-import ProductCard from '../components/productCard'
+
 import { addToCartAction } from '../features/products/cartSlice'
 import { AppDispatch, RootState } from '../store'
 import { Product } from '../type'
+import ExtraBar from '../components/ExtraBar'
+import AddProductForm from '../components/form/AddProductForm'
+import ProductCard from '../components/productCard'
 
 function Home() {
   const { products } = useSelector((state: RootState) => state)

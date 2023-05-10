@@ -6,7 +6,7 @@ import './App.css'
 import Footer from './components/footer'
 import Header from './components/header'
 // import Notification from './components/notification'
-import { fetchProductsThunk } from './features/products/productsSlice'
+import { fetchCategoriesThunk, fetchProductsThunk } from './features/products/productsSlice'
 import { fetchUsers } from './features/user/userSlice'
 import CheckOut from './pages/CheckOut'
 import Home from './pages/Home'
@@ -20,6 +20,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchProductsThunk())
     dispatch(fetchUsers())
+    dispatch(fetchCategoriesThunk())
   }, [dispatch])
 
   return (
