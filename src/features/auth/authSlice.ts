@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import axios from 'axios'
 
 import { setNotification } from '../../components/notification/notificationSlice'
 import { User } from '../../type'
 
 type LoginPayload = {
-  email: string
+  username: string
   password: string
 }
 
@@ -12,25 +13,27 @@ type AuthState = {
   isLoading: boolean
   isLogin: User | null
   error: string
+  token: string
 }
 
 const initialState: AuthState = {
   isLoading: false,
   isLogin: null,
-  error: ''
+  error: '',
+  token: ''
 }
 
 export const login = createAsyncThunk(
   'auth/login',
-  async ({ email, password }: LoginPayload, { dispatch }) => {
-    const res = await fetch('/data/users.json')
-    const users = await res.json()
-    const findUserByEmail = users.find(
-      (user: LoginPayload) => user.email === email && user.password === password
-    )
-    if (findUserByEmail) {
+  async ({ username, password }: LoginPayload, { dispatch }) => {
+    const res = await axios.post('http://localhost:8080/api/v1/auth/signin', {
+      username: username,
+      password: password
+    })
+    const token = await res.data
+    if (token) {
       dispatch(setNotification({ content: 'Login success', duration: 5000, type: 'success' }))
-      return findUserByEmail
+      return token
     } else {
       dispatch(
         setNotification({
@@ -63,7 +66,7 @@ export const authSlice = createSlice({
     })
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLoading = false
-      state.isLogin = action.payload
+      state.token = action.payload.token
       state.error = ''
     })
   }

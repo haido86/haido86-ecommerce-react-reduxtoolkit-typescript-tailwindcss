@@ -26,11 +26,8 @@ export const usersSlice = createSlice({
   initialState,
   reducers: {
     filteredUserAction(state, action) {
-      const filteredUsers = state.usersData.filter(
-        (user) =>
-          user.firstName.toLowerCase().includes(action.payload.toLowerCase()) ||
-          user.lastName.toLowerCase().includes(action.payload.toLowerCase()) ||
-          user.email.toLowerCase().includes(action.payload.toLowerCase())
+      const filteredUsers = state.usersData.filter((user) =>
+        user.username.toLowerCase().includes(action.payload.toLowerCase())
       )
       return {
         ...state,

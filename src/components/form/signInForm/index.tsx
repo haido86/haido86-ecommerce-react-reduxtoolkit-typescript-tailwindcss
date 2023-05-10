@@ -10,11 +10,11 @@ function SignInForm({
   setIsLoginDropDown: React.Dispatch<React.SetStateAction<boolean>>
 }) {
   const dispatch = useDispatch<AppDispatch>()
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value)
+  const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setUsername(event.target.value)
   }
 
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -24,7 +24,7 @@ function SignInForm({
   const signIn = async (event: FormEvent) => {
     event.preventDefault()
     setIsLoginDropDown(false)
-    dispatch(login({ email, password }))
+    dispatch(login({ username, password }))
   }
 
   return (
@@ -35,15 +35,15 @@ function SignInForm({
       </p>
       <form onSubmit={signIn}>
         <div className="mb-6">
-          <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">
+          <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900">
             Your email <span className="text-red-500">*</span>
           </label>
           <input
-            type="email"
-            id="email"
+            type="username"
+            id="username"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5"
-            placeholder="firstName.lastName@gmail.com"
-            onChange={handleEmailChange}
+            placeholder="username"
+            onChange={handleUsernameChange}
             required
           />
         </div>
