@@ -12,12 +12,10 @@ function AddProductForm() {
   const [newProduct, setNewProduct] = useState<Partial<Product> | undefined>()
   const dispatch = useDispatch<AppDispatch>()
 
-  const options: CategoryOption[] = [
-    { value: "men's clothing", label: 'Men clothing' },
-    { value: "women's clothing", label: 'Women clothing' },
-    { value: 'jewelery', label: 'Jewelery' },
-    { value: 'electronics', label: 'Electronics' }
-  ]
+  const options: CategoryOption[] = products.categories.map((category) => ({
+    value: category.name.toLowerCase(),
+    label: category.name.charAt(0).toUpperCase() + category.name.slice(1).toLowerCase()
+  }))
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target
@@ -28,10 +26,18 @@ function AddProductForm() {
     }
   }
   const handleCategoryChange = (selectedOption: CategoryOption | null) => {
-    setNewProduct((prevProduct) => ({
-      ...prevProduct,
-      category: selectedOption?.value
-    }))
+    const category = selectedOption?.value
+    if (category) {
+      const selectedCategory = products?.categories.find(
+        (cat) => cat.name.toLowerCase() === category.toLowerCase()
+      )
+      if (selectedCategory) {
+        setNewProduct((prevProduct) => ({
+          ...prevProduct,
+          categoryId: selectedCategory.id
+        }))
+      }
+    }
   }
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
@@ -121,7 +127,7 @@ function AddProductForm() {
                 name="category"
                 id="category"
                 onChange={handleCategoryChange}
-                value={options.find((option) => option.value === newProduct?.category)}
+                value={options.find((option) => option.value === newProduct?.category?.name)}
               />
             </div>
             <div className="flex flex-col mt-10">

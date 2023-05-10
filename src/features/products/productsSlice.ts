@@ -1,3 +1,4 @@
+import { Category } from './../../type'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
@@ -9,6 +10,8 @@ type ProductState = {
   items: Product[]
   filteredProductArr: Product[]
   item: null | Product
+  categories: Category[]
+  selectedCategory: null | Category
 }
 
 const initialState: ProductState = {
@@ -16,7 +19,9 @@ const initialState: ProductState = {
   error: null,
   items: [],
   filteredProductArr: [],
-  item: null
+  item: null,
+  categories: [],
+  selectedCategory: null
 }
 
 export const fetchProductsThunk = createAsyncThunk('products/fetch', async () => {
@@ -47,6 +52,12 @@ export const updateProductThunk = createAsyncThunk(
   }
 )
 
+export const fetchCategoriesThunk = createAsyncThunk('categories/fetch', async () => {
+  const res = await axios.get('http://localhost:8080/api/v1/categories')
+  const categories = await res.data
+  return categories
+})
+
 export const productsSlice = createSlice({
   name: 'products',
   initialState,
@@ -57,9 +68,13 @@ export const productsSlice = createSlice({
           item.title.toLowerCase().includes(action.payload.toLowerCase()) ||
           item.category.name.toLowerCase() === action.payload.toLowerCase()
       )
+      const selectedCategory =
+        state.categories.find((item) => item.name.toLowerCase() === action.payload.toLowerCase()) ||
+        null
       return {
         ...state,
-        filteredProductArr: action.payload.length > 0 ? filteredProducts : [...state.items]
+        filteredProductArr: action.payload.length > 0 ? filteredProducts : [...state.items],
+        selectedCategory: selectedCategory
       }
     },
     removeProduct(state, action) {
@@ -91,6 +106,19 @@ export const productsSlice = createSlice({
     builder.addCase(findProductByIdThunk.fulfilled, (state, action) => {
       state.isLoading = false
       state.item = action.payload
+    })
+    builder.addCase(fetchCategoriesThunk.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(fetchCategoriesThunk.rejected, (state) => {
+      state.error = 'something went wrong'
+      state.isLoading = false
+    })
+    builder.addCase(fetchCategoriesThunk.fulfilled, (state, action) => {
+      state.isLoading = false
+      console.log('action.payload', action.payload)
+
+      state.categories = action.payload
     })
     builder.addCase(addProductThunk.fulfilled, (state, action) => {
       state.isLoading = false
