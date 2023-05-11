@@ -3,7 +3,7 @@ import { RiDeleteBin5Line } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { removeProduct } from '../../features/products/productsSlice'
+import { removeProductThunk } from '../../features/products/productsSlice'
 import { AppDispatch, RootState } from '../../store'
 import { Product } from '../../type'
 
@@ -31,7 +31,7 @@ function ProductCard({ product, addToCart }: { product: Product; addToCart: AddT
             <FaRegEdit size={20} />
           </Link>
           <button
-            onClick={() => dispatch(removeProduct(product.id))}
+            onClick={() => dispatch(removeProductThunk(product.id))}
             className="absolute top-2 left-2 font-bold bg-red-300 flex items-center p-2 ">
             <RiDeleteBin5Line size={20} />
           </button>
