@@ -1,8 +1,8 @@
 import { User } from './../../type'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import axios from 'axios'
 
 import { setNotification } from '../../components/notification/notificationSlice'
+import api from '../../api'
 
 type LoginPayload = {
   username: string
@@ -26,27 +26,29 @@ const initialState: AuthState = {
 export const login = createAsyncThunk(
   'auth/login',
   async ({ username, password }: LoginPayload, { dispatch }) => {
-    const res = await axios.post('http://localhost:8080/api/v1/auth/signin', {
-      username: username,
-      password: password
-    })
-    const data = await res.data
-    if (data) {
-      dispatch(setNotification({ content: 'Login success', duration: 5000, type: 'success' }))
-      const token = data.token.token
-      const user = data.user
-      localStorage.setItem('token', token)
-      localStorage.setItem('user', JSON.stringify(user))
-      return data.user
-    } else {
-      dispatch(
-        setNotification({
-          content: 'Wrong email or password. Please try again',
-          duration: 5000,
-          type: 'error'
-        })
-      )
-      throw new Error('Invalid login credentials')
+    try {
+      const res = await api.post('/auth/signin', { username: username, password: password })
+      const data = await res.data
+      if (data) {
+        dispatch(setNotification({ content: 'Login success', duration: 5000, type: 'success' }))
+        const token = data.token.token
+        const user = data.user
+        localStorage.setItem('token', token)
+        localStorage.setItem('user', JSON.stringify(user))
+        return data.user
+      } else {
+        dispatch(
+          setNotification({
+            content: 'Wrong email or password. Please try again',
+            duration: 5000,
+            type: 'error'
+          })
+        )
+        throw new Error('Invalid login credentials')
+      }
+    } catch (error) {
+      console.log(error)
+      throw error
     }
   }
 )

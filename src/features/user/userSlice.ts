@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import axios from 'axios'
+import api from '../../api'
 import { User } from '../../type'
 
 type UserState = {
@@ -17,15 +17,25 @@ const initialState: UserState = {
 }
 
 export const fetchUsers = createAsyncThunk('users/fetch', async () => {
-  const res = await axios.get('http://localhost:8080/api/v1/users')
-  const users = await res.data
-  return users
+  try {
+    const res = await api.get('/users')
+    const users = await res.data
+    return users
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
 })
 
-export const findByUserById = createAsyncThunk('users/find-user', async (userId: number) => {
-  const res = await axios.get(`http://localhost:8080/api/v1/users/${userId}`)
-  const user = await res.data
-  return user
+export const findByUserById = createAsyncThunk('users/find-user', async (id: number) => {
+  try {
+    const res = await api.get(`/users/${id}`)
+    const user = await res.data
+    return user
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
 })
 
 export const usersSlice = createSlice({
@@ -51,6 +61,17 @@ export const usersSlice = createSlice({
       state.isLoading = false
     })
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
+      state.isLoading = false
+      state.usersData = action.payload
+    })
+    builder.addCase(findByUserById.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(findByUserById.rejected, (state) => {
+      state.error = 'something went wrong'
+      state.isLoading = false
+    })
+    builder.addCase(findByUserById.fulfilled, (state, action) => {
       state.isLoading = false
       state.usersData = action.payload
     })
