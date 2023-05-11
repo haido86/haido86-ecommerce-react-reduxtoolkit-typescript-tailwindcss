@@ -23,7 +23,7 @@ function ProductCard({ product, addToCart }: { product: Product; addToCart: AddT
         className="absolute bottom-2 right-2 bg-yellow-300 rounded-full p-2">
         <FaCartPlus size={20} />
       </button>
-      {auth?.isLogin?.role === 'admin' && (
+      {auth?.isLogin?.role === 'ADMIN' && (
         <div>
           <Link
             to={`/products/${product.id}`}

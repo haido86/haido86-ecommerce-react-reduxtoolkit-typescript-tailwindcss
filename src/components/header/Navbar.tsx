@@ -63,7 +63,7 @@ function Navbar() {
                 ))}
               </ul>
             </li>
-            {auth.isLogin?.role === 'admin' && (
+            {auth?.isLogin?.role === 'ADMIN' && (
               <button
                 onClick={() => {
                   setNav(false)

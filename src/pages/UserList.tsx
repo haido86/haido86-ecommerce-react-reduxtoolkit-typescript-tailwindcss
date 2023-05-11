@@ -8,7 +8,7 @@ function UserList() {
     users?.usersData?.reduce((acc, user) => ({ ...acc, [user.id]: 'Ban this user' }), {})
   )
 
-  if (!auth || !auth.isLogin || auth?.isLogin?.role !== 'admin') {
+  if (!auth || !auth.isLogin || auth?.isLogin?.role !== 'ADMIN') {
     return <div>Cannot access to this page</div>
   }
 
@@ -27,8 +27,7 @@ function UserList() {
         <tbody>
           <tr className="flex justify-around border border-gray-300">
             <th>User ID</th>
-            <th>Name</th>
-            <th>E-mail</th>
+            <th>Username</th>
             <th>Ban User</th>
           </tr>
 
@@ -36,11 +35,7 @@ function UserList() {
             ? users?.filteredUserArr?.map((user) => (
                 <tr key={user.id} className="flex justify-around border border-t-gray-300">
                   <td>{user.id}</td>
-                  <td>
-                    {user.firstName}
-                    {user.lastName}
-                  </td>
-                  <td>{user.email}</td>
+                  <td>{user.username}</td>
                   <td key={user.id}>
                     <button
                       onClick={() => handleButtonChange(user.id)}
@@ -57,11 +52,7 @@ function UserList() {
             : users?.usersData?.map((user) => (
                 <tr key={user.id} className="flex justify-around border border-t-gray-300">
                   <td>{user.id}</td>
-                  <td>
-                    {user.firstName}
-                    {user.lastName}
-                  </td>
-                  <td>{user.email}</td>
+                  <td>{user.username}</td>
                   <td key={user.id}>
                     <button
                       onClick={() => handleButtonChange(user.id)}

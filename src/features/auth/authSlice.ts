@@ -1,8 +1,8 @@
+import { User } from './../../type'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { setNotification } from '../../components/notification/notificationSlice'
-import { User } from '../../type'
 
 type LoginPayload = {
   username: string
@@ -11,7 +11,7 @@ type LoginPayload = {
 
 type AuthState = {
   isLoading: boolean
-  isLogin: User | null
+  isLogin: null | User
   error: string
   token: string
 }
@@ -30,10 +30,11 @@ export const login = createAsyncThunk(
       username: username,
       password: password
     })
-    const token = await res.data
-    if (token) {
+    const data = await res.data
+    if (data) {
       dispatch(setNotification({ content: 'Login success', duration: 5000, type: 'success' }))
-      return token
+      console.log('data', data)
+      return data
     } else {
       dispatch(
         setNotification({
@@ -66,6 +67,7 @@ export const authSlice = createSlice({
     })
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLoading = false
+      state.isLogin = action.payload.user
       state.token = action.payload.token
       state.error = ''
     })

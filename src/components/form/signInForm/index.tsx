@@ -36,7 +36,7 @@ function SignInForm({
       <form onSubmit={signIn}>
         <div className="mb-6">
           <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900">
-            Your email <span className="text-red-500">*</span>
+            Your username <span className="text-red-500">*</span>
           </label>
           <input
             type="username"

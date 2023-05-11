@@ -10,6 +10,11 @@ export type Category = {
   name: string
 }
 
+export enum Role {
+  ADMIN = 'ADMIN',
+  USER = 'USER'
+}
+
 export type Product = {
   id: number
   title: string

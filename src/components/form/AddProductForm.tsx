@@ -72,7 +72,7 @@ function AddProductForm() {
 
   return (
     <div>
-      {auth?.isLogin?.role === 'admin' && (
+      {auth?.isLogin?.role === 'ADMIN' && (
         <button
           className="bg-green-400 rounded-full ml-10 font-bold px-2 py-1"
           onClick={() => setFormOpen(!formOpen)}>
