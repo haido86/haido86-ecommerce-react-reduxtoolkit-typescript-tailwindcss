@@ -5,7 +5,7 @@ const api = axios.create({
 })
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token') // Get the token value from the Redux store
+    const token = localStorage.getItem('token') // Get the token value from localStorage
     if (token && config && config.url?.startsWith('/')) {
       config.headers.Authorization = `Bearer ${token}`
       config.headers['Content-Type'] = 'application/json'

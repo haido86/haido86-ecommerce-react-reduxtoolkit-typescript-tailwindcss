@@ -1,6 +1,5 @@
 import { Category } from './../../type'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import axios from 'axios'
 
 import { Product } from '../../type'
 import api from '../../api'
@@ -72,10 +71,10 @@ export const updateProductThunk = createAsyncThunk(
 
 export const removeProductThunk = createAsyncThunk(
   'products/remove-product',
-  async (productId: number) => {
+  async (id: number) => {
     try {
-      await api.post(`products/${productId}`)
-      return productId
+      await api.delete(`products/${id}`)
+      return id
     } catch (error) {
       console.log(error)
       throw error
@@ -84,9 +83,14 @@ export const removeProductThunk = createAsyncThunk(
 )
 
 export const fetchCategoriesThunk = createAsyncThunk('categories/fetch', async () => {
-  const res = await axios.get('http://localhost:8080/api/v1/categories')
-  const categories = await res.data
-  return categories
+  try {
+    const res = await api.get('/categories')
+    const categories = await res.data
+    return categories
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
 })
 
 export const productsSlice = createSlice({
