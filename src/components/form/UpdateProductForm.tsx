@@ -46,7 +46,7 @@ function UpdateProductForm({ productId }: { productId: number }) {
 
   return (
     <div>
-      {auth?.isLogin?.role === 'admin' && (
+      {auth?.isLogin?.role === 'ADMIN' && (
         <button
           className="flex justify-center font-bold bg-yellow-300 max-w-80 rounded-md px-4 py-1"
           onClick={() => setFormOpen(!formOpen)}>

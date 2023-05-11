@@ -30,7 +30,7 @@ function Dropdown() {
           }>
           {auth?.isLogin?.role ? (
             <div className="px-2.5 py-1 mb-1 uppercase items-center text-white bg-blue-600 rounded-full">
-              {auth?.isLogin?.firstName.slice(0, 1)}
+              {auth?.isLogin?.username.slice(0, 1)}
             </div>
           ) : (
             <>
@@ -63,8 +63,8 @@ function Dropdown() {
       )}
       {isLoginDropDown && auth?.isLogin?.role && (
         <div className="z-10 right-0 top-32 absolute duration-300 bg-white shadow w-full p-20 lg:top-20 sm:max-w-[500px]">
-          <div>{`${auth?.isLogin?.firstName} ${auth?.isLogin?.lastName}`}</div>
-          <div>{auth?.isLogin?.email} </div>
+          <div>Personal details</div>
+          <div>{auth?.isLogin?.username} </div>
           <button
             onClick={() => dispatch(logOut())}
             className="mt-10 text-white uppercase bg-black focus:ring-4 focus:outline-none font-medium hover:bg-gray-800 text-sm max-w-full sm:w-auto px-5 py-2.5 text-center">

@@ -27,7 +27,7 @@ function ProductDetail() {
         <Link to="/" className="ml-20 hover:bg-gray-200 rounded-full p-2 max-w-ful mr-4">
           <IoArrowBackOutline size={20} />
         </Link>
-        {auth?.isLogin?.role === 'admin' && <UpdateProductForm productId={+id} />}
+        {auth?.isLogin?.role === 'ADMIN' && <UpdateProductForm productId={+id} />}
       </div>
       {products.item && (
         <div className="sm:grid sm:grid-cols-2 flex flex-col">
