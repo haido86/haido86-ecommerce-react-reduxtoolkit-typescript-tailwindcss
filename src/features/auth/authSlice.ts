@@ -13,14 +13,14 @@ type AuthState = {
   isLoading: boolean
   isLogin: null | User
   error: string
-  token: string
 }
+
+const currentUser = localStorage.getItem('user')
 
 const initialState: AuthState = {
   isLoading: false,
-  isLogin: null,
-  error: '',
-  token: ''
+  isLogin: currentUser ? JSON.parse(currentUser) : null,
+  error: ''
 }
 
 export const login = createAsyncThunk(
@@ -33,8 +33,11 @@ export const login = createAsyncThunk(
     const data = await res.data
     if (data) {
       dispatch(setNotification({ content: 'Login success', duration: 5000, type: 'success' }))
-      console.log('data', data)
-      return data
+      const token = data.token.token
+      const user = data.user
+      localStorage.setItem('token', token)
+      localStorage.setItem('user', JSON.stringify(user))
+      return data.user
     } else {
       dispatch(
         setNotification({
@@ -53,6 +56,8 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logOut(state) {
+      localStorage.removeItem('user')
+      localStorage.removeItem('token')
       state.isLogin = null
     }
   },
@@ -67,9 +72,8 @@ export const authSlice = createSlice({
     })
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLoading = false
-      state.isLogin = action.payload.user
-      state.token = action.payload.token
-      state.error = ''
+      const user = localStorage.getItem('user')
+      state.isLogin = user ? JSON.parse(user) : action.payload
     })
   }
 })

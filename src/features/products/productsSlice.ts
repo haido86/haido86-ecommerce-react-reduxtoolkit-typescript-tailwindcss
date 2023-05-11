@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { Product } from '../../type'
+import api from '../../api'
 
 type ProductState = {
   isLoading: boolean
@@ -25,35 +26,60 @@ const initialState: ProductState = {
 }
 
 export const fetchProductsThunk = createAsyncThunk('products/fetch', async () => {
-  const res = await axios.get('http://localhost:8080/api/v1/products')
-  const products = await res.data
-  return products
+  try {
+    const res = await api.get('/products')
+    const products = await res.data
+    return products
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
 })
 
 export const findProductByIdThunk = createAsyncThunk(
   'products/find-product',
   async (id: number) => {
-    const res = await axios.get(`http://localhost:8080/api/v1/products/${id}`)
-    const product = await res.data
-    return product
+    try {
+      const res = await api.get(`/products/${id}`)
+      const products = await res.data
+      return products
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
   }
 )
 
 export const addProductThunk = createAsyncThunk(
   'products/add-product',
   async (newProduct: Partial<Product>) => {
-    const res = await axios.post('http://localhost:8080/api/v1/products')
-    const addedProduct = res.data
-    console.log('newProduct', newProduct)
-    console.log('addedProduct', addedProduct)
-
-    // return addedProduct
+    try {
+      const res = await api.post('/products', newProduct)
+      const addedProduct = await res.data
+      return addedProduct
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
   }
 )
 export const updateProductThunk = createAsyncThunk(
   'products/update-product',
   async (updatedProduct: Product) => {
     return updatedProduct
+  }
+)
+
+export const removeProductThunk = createAsyncThunk(
+  'products/remove-product',
+  async (productId: number) => {
+    try {
+      await api.post(`products/${productId}`)
+      return productId
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
   }
 )
 
@@ -81,12 +107,6 @@ export const productsSlice = createSlice({
         filteredProductArr: action.payload.length > 0 ? filteredProducts : [...state.items],
         selectedCategory: selectedCategory
       }
-    },
-    removeProduct(state, action) {
-      const removedItem = state.items.find((item) => item.id == action.payload)
-      if (removedItem) {
-        state.items = state.items.filter((item) => item.id !== +action.payload)
-      }
     }
   },
   extraReducers: (builder) => {
@@ -100,6 +120,18 @@ export const productsSlice = createSlice({
     builder.addCase(fetchProductsThunk.fulfilled, (state, action) => {
       state.isLoading = false
       state.items = action.payload
+    })
+    builder.addCase(removeProductThunk.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(removeProductThunk.rejected, (state) => {
+      state.error = 'something went wrong'
+      state.isLoading = false
+    })
+    builder.addCase(removeProductThunk.fulfilled, (state, action) => {
+      state.isLoading = false
+      console.log('action.payload for remove', action.payload)
+      state.items = state.items.filter((item) => item.id !== action.payload)
     })
     builder.addCase(findProductByIdThunk.pending, (state) => {
       state.isLoading = true
@@ -132,9 +164,7 @@ export const productsSlice = createSlice({
     })
     builder.addCase(addProductThunk.fulfilled, (state, action) => {
       state.isLoading = false
-      console.log('action.payload adddd', action.payload)
-
-      // state.items = [action.payload, ...state.items]
+      state.items = [action.payload, ...state.items]
     })
     builder.addCase(updateProductThunk.fulfilled, (state, action) => {
       const updatedProducts = state.items.map((item) => {
@@ -148,6 +178,6 @@ export const productsSlice = createSlice({
     })
   }
 })
-export const { filteredProductsAction, removeProduct } = productsSlice.actions
+export const { filteredProductsAction } = productsSlice.actions
 
 export default productsSlice.reducer

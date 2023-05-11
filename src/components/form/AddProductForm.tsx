@@ -64,8 +64,6 @@ function AddProductForm() {
         quantity: 20
       }
       dispatch(addProductThunk(product))
-    } else {
-      console.log('we are really here==========')
     }
     setFormOpen(!formOpen)
   }
