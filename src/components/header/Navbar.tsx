@@ -6,8 +6,8 @@ import { RiMenuFill } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { filteredProductsAction } from '../../features/products/productsSlice'
-import { AppDispatch, RootState } from '../../store'
+import { filteredProductsAction } from '../../slices/products/productsSlice'
+import { AppDispatch, RootState } from '../../store/store'
 
 function Navbar() {
   const { products, auth } = useSelector((state: RootState) => state)
@@ -63,7 +63,7 @@ function Navbar() {
                 ))}
               </ul>
             </li>
-            {auth?.isLogin?.role === 'ADMIN' && (
+            {auth?.loginUser?.role === 'ADMIN' && (
               <button
                 onClick={() => {
                   setNav(false)

@@ -3,9 +3,9 @@ import { IoArrowBackOutline } from 'react-icons/io5'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import UpdateProductForm from '../components/form/UpdateProductForm'
-import { addToCartAction } from '../features/products/cartSlice'
-import { findProductByIdThunk } from '../features/products/productsSlice'
-import { AppDispatch, RootState } from '../store'
+import { addToCartAction } from '../slices/products/cartSlice'
+import { findProductByIdThunk } from '../slices/products/productsSlice'
+import { AppDispatch, RootState } from '../store/store'
 
 function ProductDetail() {
   const { products, auth } = useSelector((state: RootState) => state)
@@ -27,7 +27,7 @@ function ProductDetail() {
         <Link to="/" className="ml-20 hover:bg-gray-200 rounded-full p-2 max-w-ful mr-4">
           <IoArrowBackOutline size={20} />
         </Link>
-        {auth?.isLogin?.role === 'ADMIN' && <UpdateProductForm productId={+id} />}
+        {auth?.loginUser?.role === 'ADMIN' && <UpdateProductForm productId={+id} />}
       </div>
       {products.item && (
         <div className="sm:grid sm:grid-cols-2 flex flex-col">

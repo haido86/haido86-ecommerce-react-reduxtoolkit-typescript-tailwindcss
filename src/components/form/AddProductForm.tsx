@@ -2,9 +2,9 @@ import Select from 'react-select'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { addProductThunk } from '../../features/products/productsSlice'
-import { AppDispatch, RootState } from '../../store'
-import { CategoryOption, Product } from '../../type'
+import { addProductThunk } from '../../slices/products/productsSlice'
+import { AppDispatch, RootState } from '../../store/store'
+import { CategoryOption, Product } from '../../types/type'
 
 type PostProduct = {
   title: string
@@ -70,7 +70,7 @@ function AddProductForm() {
 
   return (
     <div>
-      {auth?.isLogin?.role === 'ADMIN' && (
+      {auth?.loginUser?.role === 'ADMIN' && (
         <button
           className="bg-green-400 rounded-full ml-10 font-bold px-2 py-1"
           onClick={() => setFormOpen(!formOpen)}>

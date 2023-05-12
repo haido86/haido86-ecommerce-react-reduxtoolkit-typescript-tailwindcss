@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { AppDispatch } from '../../../store'
-import { login } from '../../../features/auth/authSlice'
+import { AppDispatch } from '../../../store/store'
+import { login } from '../../../slices/auth/authSlice'
 
 function SignInForm({
   setIsLoginDropDown
