@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import api from '../../api'
-import { User } from '../../type'
+import { User } from '../../types/type'
 
 type UserState = {
   isLoading: boolean

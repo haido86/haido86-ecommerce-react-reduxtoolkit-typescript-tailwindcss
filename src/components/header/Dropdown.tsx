@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import Cart from '../cart'
 import SignInForm from '../form/signInForm'
-import { AppDispatch, RootState } from '../../store'
-import { logOut } from '../../features/auth/authSlice'
+import { AppDispatch, RootState } from '../../store/store'
+import { logOut } from '../../slices/auth/authSlice'
 
 function Dropdown() {
   const [isLoginDropDown, setIsLoginDropDown] = useState(false)
@@ -22,15 +22,15 @@ function Dropdown() {
     <div>
       <div className="flex">
         <button
-          onClick={() => setIsLoginDropDown(!isLoginDropDown)}
+          onClick={() => setIsLoginDropDown(!DropDown)}
           className={
             isLoginDropDown
               ? 'flex items-center m-3 font-bold border-b-2 border-stone-700'
               : 'flex items-center m-3 font-bold'
           }>
-          {auth?.isLogin?.role ? (
+          {auth?.loginUser?.role ? (
             <div className="px-2.5 py-1 mb-1 uppercase items-center text-white bg-blue-600 rounded-full">
-              {auth?.isLogin?.username.slice(0, 1)}
+              {auth?.loginUser?.username.slice(0, 1)}
             </div>
           ) : (
             <>
@@ -56,15 +56,15 @@ function Dropdown() {
           Cart
         </button>
       </div>
-      {isLoginDropDown && !auth?.isLogin?.role && (
+      {isLoginDropDown && !auth?.loginUser?.role && (
         <div className="z-10 right-0 top-32 absolute duration-300 bg-white shadow w-full p-20 lg:top-20 sm:max-w-[500px]">
           <SignInForm setIsLoginDropDown={setIsLoginDropDown} />
         </div>
       )}
-      {isLoginDropDown && auth?.isLogin?.role && (
+      {isLoginDropDown && auth?.loginUser?.role && (
         <div className="z-10 right-0 top-32 absolute duration-300 bg-white shadow w-full p-20 lg:top-20 sm:max-w-[500px]">
           <div>Personal details</div>
-          <div>{auth?.isLogin?.username} </div>
+          <div>{auth?.loginUser?.username} </div>
           <button
             onClick={() => dispatch(logOut())}
             className="mt-10 text-white uppercase bg-black focus:ring-4 focus:outline-none font-medium hover:bg-gray-800 text-sm max-w-full sm:w-auto px-5 py-2.5 text-center">

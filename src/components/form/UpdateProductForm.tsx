@@ -1,9 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { updateProductThunk } from '../../features/products/productsSlice'
-import { AppDispatch, RootState } from '../../store'
-import { Product } from '../../type'
+import { updateProductThunk } from '../../slices/products/productsSlice'
+import { AppDispatch, RootState } from '../../store/store'
+import { Product } from '../../types/type'
 
 function UpdateProductForm({ productId }: { productId: number }) {
   const { auth, products } = useSelector((state: RootState) => state)
@@ -46,7 +46,7 @@ function UpdateProductForm({ productId }: { productId: number }) {
 
   return (
     <div>
-      {auth?.isLogin?.role === 'ADMIN' && (
+      {auth?.loginUser?.role === 'ADMIN' && (
         <button
           className="flex justify-center font-bold bg-yellow-300 max-w-80 rounded-md px-4 py-1"
           onClick={() => setFormOpen(!formOpen)}>

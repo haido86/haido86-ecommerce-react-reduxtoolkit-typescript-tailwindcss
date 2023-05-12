@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { emptyCart } from '../../features/products/cartSlice'
-import { AppDispatch, RootState } from '../../store'
+import { emptyCart } from '../../slices/products/cartSlice'
+import { AppDispatch, RootState } from '../../store/store'
 import CartItem from './CartItem'
 
 function Cart({

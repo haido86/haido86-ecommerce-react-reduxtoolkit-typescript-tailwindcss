@@ -1,4 +1,5 @@
-import { User } from './../../type'
+import jwt_decode from 'jwt-decode'
+import { User } from '../../types/type'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 import { setNotification } from '../../components/notification/notificationSlice'
@@ -11,15 +12,21 @@ type LoginPayload = {
 
 type AuthState = {
   isLoading: boolean
-  isLogin: null | User
+  loginUser: null | Partial<User>
   error: string
+}
+
+export interface DecodedToken {
+  user_id: number
+  username: string
+  role: string
 }
 
 const currentUser = localStorage.getItem('user')
 
 const initialState: AuthState = {
   isLoading: false,
-  isLogin: currentUser ? JSON.parse(currentUser) : null,
+  loginUser: currentUser ? JSON.parse(currentUser) : null,
   error: ''
 }
 
@@ -29,13 +36,13 @@ export const login = createAsyncThunk(
     try {
       const res = await api.post('/auth/signin', { username: username, password: password })
       const data = await res.data
+      console.log('response data', data)
+
       if (data) {
         dispatch(setNotification({ content: 'Login success', duration: 5000, type: 'success' }))
-        const token = data.token.token
-        const user = data.user
+        const token = data.token
         localStorage.setItem('token', token)
-        localStorage.setItem('user', JSON.stringify(user))
-        return data.user
+        return data.token
       } else {
         dispatch(
           setNotification({
@@ -57,10 +64,23 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    getUserFromStorage(state) {
+      const token = localStorage.getItem('token')
+      if (token) {
+        const decodedToken: DecodedToken = jwt_decode(token)
+        // if (decodedToken) {
+        state.loginUser = {
+          id: decodedToken.user_id,
+          username: decodedToken.username,
+          role: decodedToken.role
+          // }
+        }
+      }
+    },
     logOut(state) {
       localStorage.removeItem('user')
       localStorage.removeItem('token')
-      state.isLogin = null
+      state.loginUser = null
     }
   },
   extraReducers: (builder) => {
@@ -69,13 +89,13 @@ export const authSlice = createSlice({
     })
     builder.addCase(login.rejected, (state) => {
       state.isLoading = false
-      state.isLogin = initialState.isLogin
+      state.loginUser = initialState.loginUser
       state.error = 'Something went wrong'
     })
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLoading = false
-      const user = localStorage.getItem('user')
-      state.isLogin = user ? JSON.parse(user) : action.payload
+      // const user = localStorage.getItem('user')
+      // state.loginUser = user ? JSON.parse(user) : action.payload
     })
   }
 })

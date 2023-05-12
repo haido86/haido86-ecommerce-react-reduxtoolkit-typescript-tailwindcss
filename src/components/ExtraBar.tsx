@@ -1,8 +1,8 @@
 import { IoArrowBackOutline } from 'react-icons/io5'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { filteredProductsAction } from '../features/products/productsSlice'
-import { AppDispatch, RootState } from '../store'
+import { filteredProductsAction } from '../slices/products/productsSlice'
+import { AppDispatch, RootState } from '../store/store'
 
 function ExtraBar() {
   const { products } = useSelector((state: RootState) => state)

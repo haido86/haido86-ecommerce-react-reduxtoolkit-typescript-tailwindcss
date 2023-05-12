@@ -7,9 +7,9 @@ import {
   decreaseProductAmount,
   increaseProductAmount,
   removeFromCart
-} from '../../features/products/cartSlice'
-import { AppDispatch } from '../../store'
-import { ItemInCart } from '../../type'
+} from '../../slices/products/cartSlice'
+import { AppDispatch } from '../../store/store'
+import { ItemInCart } from '../../types/type'
 
 function CartItem({ item }: { item: ItemInCart }) {
   const dispatch = useDispatch<AppDispatch>()

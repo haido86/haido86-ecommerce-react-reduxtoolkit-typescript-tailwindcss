@@ -3,9 +3,9 @@ import { RiDeleteBin5Line } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { removeProductThunk } from '../../features/products/productsSlice'
-import { AppDispatch, RootState } from '../../store'
-import { Product } from '../../type'
+import { removeProductThunk } from '../../slices/products/productsSlice'
+import { AppDispatch, RootState } from '../../store/store'
+import { Product } from '../../types/type'
 
 type AddToCartFunction = (product: Product) => void
 
@@ -23,7 +23,7 @@ function ProductCard({ product, addToCart }: { product: Product; addToCart: AddT
         className="absolute bottom-2 right-2 bg-yellow-300 rounded-full p-2">
         <FaCartPlus size={20} />
       </button>
-      {auth?.isLogin?.role === 'ADMIN' && (
+      {auth?.loginUser?.role === 'ADMIN' && (
         <div>
           <Link
             to={`/products/${product.id}`}

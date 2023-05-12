@@ -6,13 +6,13 @@ import './App.css'
 import Footer from './components/footer'
 import Header from './components/header'
 // import Notification from './components/notification'
-import { fetchCategoriesThunk, fetchProductsThunk } from './features/products/productsSlice'
-import { fetchUsers } from './features/user/userSlice'
+import { fetchCategoriesThunk, fetchProductsThunk } from './slices/products/productsSlice'
+import { fetchUsers } from './slices/users/userSlice'
 import CheckOut from './pages/CheckOut'
 import Home from './pages/Home'
 import ProductDetail from './pages/ProductDetail'
 import UserList from './pages/UserList'
-import { AppDispatch } from './store'
+import { AppDispatch } from './store/store'
 
 function App() {
   const dispatch = useDispatch<AppDispatch>()

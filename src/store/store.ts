@@ -1,9 +1,9 @@
-import productsSlice from './features/products/productsSlice'
+import productsSlice from '../slices/products/productsSlice'
 import { configureStore } from '@reduxjs/toolkit'
-import userSlice from './features/user/userSlice'
-import notificationSlice from './components/notification/notificationSlice'
-import authSlice from './features/auth/authSlice'
-import cartSlice from './features/products/cartSlice'
+import userSlice from '../slices/users/userSlice'
+import notificationSlice from '../components/notification/notificationSlice'
+import authSlice from '../slices/auth/authSlice'
+import cartSlice from '../slices/products/cartSlice'
 
 export const store = configureStore({
   reducer: {

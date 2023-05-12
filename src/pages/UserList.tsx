@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { RootState } from '../store'
+import { RootState } from '../store/store'
 
 function UserList() {
   const { users, auth } = useSelector((state: RootState) => state)
@@ -8,7 +8,7 @@ function UserList() {
     users?.usersData?.reduce((acc, user) => ({ ...acc, [user.id]: 'Ban this user' }), {})
   )
 
-  if (!auth || !auth.isLogin || auth?.isLogin?.role !== 'ADMIN') {
+  if (!auth || !auth.loginUser || auth?.loginUser?.role !== 'ADMIN') {
     return <div>Cannot access to this page</div>
   }
 
