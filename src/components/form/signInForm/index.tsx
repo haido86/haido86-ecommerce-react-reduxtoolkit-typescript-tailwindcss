@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import { AppDispatch } from '../../../store/store'
 import { login } from '../../../slices/auth/authSlice'
+import { useNavigate } from 'react-router-dom'
 
 function SignInForm({
   setIsLoginDropDown
@@ -10,6 +11,7 @@ function SignInForm({
   setIsLoginDropDown: React.Dispatch<React.SetStateAction<boolean>>
 }) {
   const dispatch = useDispatch<AppDispatch>()
+  const navigate = useNavigate()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -25,6 +27,11 @@ function SignInForm({
     event.preventDefault()
     setIsLoginDropDown(false)
     dispatch(login({ username, password }))
+  }
+
+  const handleNavigateToSignUp = () => {
+    setIsLoginDropDown(false)
+    navigate('/signup')
   }
 
   return (
@@ -75,11 +82,11 @@ function SignInForm({
         <div className="flex flex-col">
           <button
             type="submit"
-            className="text-white bg-black focus:ring-4 focus:outline-none font-medium hover:bg-gray-800 text-sm max-w-full sm:w-auto px-5 py-2.5 text-center">
-            SIGN IN
+            className="text-white bg-black focus:ring-4 focus:outline-none font-bold hover:bg-gray-800 text-sm max-w-full sm:w-auto px-5 py-2.5 text-center">
+            Sign In
           </button>
           <button
-            type="submit"
+            onClick={handleNavigateToSignUp}
             className="mt-3 bg-white focus:outline-none font-bold  text-sm max-w-full border border-black sm:w-auto px-5 py-2.5 text-center">
             Become our Member
           </button>

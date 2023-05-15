@@ -1,8 +1,8 @@
 export type User = {
   id: number
-  role: string
+  role: Role
   username: string
-  password: string
+  // password: string
 }
 
 export type Category = {
