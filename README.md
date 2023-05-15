@@ -5,6 +5,11 @@ React, TypeScript, Redux-toolkit and TailwindCSS
 Build a front end for an E-commerce site and deployed as https://ecommerce-haido.netlify.app
 
 The Frontend was talking to a mock data which was stored in a public folder and later (in the fullstack project) would be plugged to the backend.
+## In need of improvements:
+Re-structure folders, files
+
+Making reusable components
+
 ## Database for E-commerce site:
 ### Products
 id
