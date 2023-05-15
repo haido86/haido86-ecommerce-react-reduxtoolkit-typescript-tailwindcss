@@ -13,7 +13,8 @@ function ExtraBar() {
     <div>
       <div className="mt-5 mx-10 mb-10 justify-around px-2 py-1 flex flex-col sm:flex-row ">
         {products.filteredProductArr.length === 0 ||
-        products.filteredProductArr.length === products.items.length ? (
+        products.filteredProductArr.length === products.items.length ||
+        products.selectedCategory === null ? (
           products?.categories.map((category) => (
             <div key={category.id}>
               <div className="flex">

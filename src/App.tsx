@@ -13,6 +13,8 @@ import Home from './pages/Home'
 import ProductDetail from './pages/ProductDetail'
 import UserList from './pages/UserList'
 import { AppDispatch } from './store/store'
+import { getUserFromStorage } from './slices/auth/authSlice'
+import SignUpFrom from './components/form/signUpForm'
 
 function App() {
   const dispatch = useDispatch<AppDispatch>()
@@ -21,6 +23,7 @@ function App() {
     dispatch(fetchProductsThunk())
     dispatch(fetchUsers())
     dispatch(fetchCategoriesThunk())
+    dispatch(getUserFromStorage())
   }, [dispatch])
 
   return (
@@ -32,6 +35,7 @@ function App() {
         <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/products/checkout" element={<CheckOut />} />
         <Route path="/users" element={<UserList />} />
+        <Route path="/signup" element={<SignUpFrom />} />
       </Routes>
       <Footer />
     </Router>

@@ -5,7 +5,7 @@ function CheckOut() {
   const { auth } = useSelector((state: RootState) => state)
   return (
     <div className="min-h-screen">
-      {auth?.loginUser?.role !== 'user' ? (
+      {auth?.loginUser?.role !== 'USER' ? (
         <div className="font-bold text-xl m-20">Please Login or Become our member to proceed</div>
       ) : (
         <div className="font-bold text-xl m-20">Check Out Process</div>

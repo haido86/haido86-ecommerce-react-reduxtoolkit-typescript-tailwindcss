@@ -22,7 +22,7 @@ function Dropdown() {
     <div>
       <div className="flex">
         <button
-          onClick={() => setIsLoginDropDown(!DropDown)}
+          onClick={() => setIsLoginDropDown(!isLoginDropDown)}
           className={
             isLoginDropDown
               ? 'flex items-center m-3 font-bold border-b-2 border-stone-700'
