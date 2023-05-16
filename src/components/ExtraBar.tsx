@@ -22,9 +22,9 @@ function ExtraBar() {
                   onClick={() => {
                     dispatch(filteredProductsAction(category.name))
                   }}
-                  className="bg-gray-200 rounded-full px-3 py-1"
+                  className="bg-gray-200 rounded-full px-3 py-1 capitalize"
                   key={category.id}>
-                  {category.name}
+                  {category.name.toLowerCase()}
                 </button>
               </div>
             </div>
@@ -38,7 +38,9 @@ function ExtraBar() {
               }}>
               <IoArrowBackOutline size={20} />
             </button>
-            <div className="bg-gray-200 rounded-full px-3 py-1">{filterCategory?.name}</div>
+            <div className="bg-gray-200 rounded-full px-3 py-1 capitalize">
+              {filterCategory?.name.toLowerCase()}
+            </div>
           </div>
         )}
       </div>

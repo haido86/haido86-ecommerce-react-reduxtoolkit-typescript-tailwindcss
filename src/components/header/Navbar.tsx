@@ -56,8 +56,9 @@ function Navbar() {
                       onClick={() => {
                         setNav(!nav)
                         dispatch(filteredProductsAction(category.name))
-                      }}>
-                      {category.name}
+                      }}
+                      style={{ textTransform: 'capitalize' }}>
+                      {category.name.toLowerCase()}
                     </button>
                   </li>
                 ))}

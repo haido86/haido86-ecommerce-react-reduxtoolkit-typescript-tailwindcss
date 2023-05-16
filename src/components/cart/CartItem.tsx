@@ -16,9 +16,9 @@ function CartItem({ item }: { item: ItemInCart }) {
 
   return (
     <div>
-      <div key={item.id} className="flex justify-between pb-3 pt-3 border-b border-b-gray-100">
+      <div key={item.id} className="flex pb-3 pt-3 border-b border-b-gray-100">
         <img className="max-w-[80px]" src={item.image} alt={item.title} />
-        <div>
+        <div className="flex-1 ml-3">
           <div className="text-sm uppercase mt-2 hover:underline">
             <Link to={`/products/${item.id}`}>{`${item.title}`.slice(0, 20)}</Link>
           </div>
