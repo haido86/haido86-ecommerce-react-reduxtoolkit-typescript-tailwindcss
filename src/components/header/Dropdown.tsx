@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FaShoppingCart } from 'react-icons/fa'
 import { RiUserFill } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,16 +13,41 @@ function Dropdown() {
   const [isCartDropDown, setIsCartDropDown] = useState(false)
   const { auth, cart } = useSelector((state: RootState) => state)
   const dispatch = useDispatch<AppDispatch>()
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   const totalOrderAmount = cart.cartArr.reduce((totalOrder, item) => {
     return totalOrder + item.orderAmount
   }, 0)
 
+  const handleClickOutside = (event: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      setIsLoginDropDown(false)
+      setIsCartDropDown(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
+
+  const toggleLoginDropDown = () => {
+    setIsLoginDropDown((prevState) => !prevState)
+    setIsCartDropDown(false)
+  }
+
+  const toggleCartDropDown = () => {
+    setIsCartDropDown((prevState) => !prevState)
+    setIsLoginDropDown(false)
+  }
+
   return (
-    <div>
+    <div ref={dropdownRef}>
       <div className="flex">
         <button
-          onClick={() => setIsLoginDropDown(!isLoginDropDown)}
+          onClick={toggleLoginDropDown}
           className={
             isLoginDropDown
               ? 'flex items-center m-3 font-bold border-b-2 border-stone-700'
@@ -41,7 +66,7 @@ function Dropdown() {
         </button>
 
         <button
-          onClick={() => setIsCartDropDown(!isCartDropDown)}
+          onClick={toggleCartDropDown}
           className={
             isCartDropDown
               ? 'flex items-center m-3 font-bold border-b-2 border-stone-700 relative'
@@ -56,11 +81,13 @@ function Dropdown() {
           Cart
         </button>
       </div>
+
       {isLoginDropDown && !auth?.loginUser?.role && (
         <div className="z-10 right-0 top-32 absolute duration-300 bg-white shadow w-full p-20 lg:top-20 sm:max-w-[500px]">
-          <SignInForm setIsLoginDropDown={setIsLoginDropDown} />
+          <SignInForm setIsLoginDropDown={toggleLoginDropDown} />
         </div>
       )}
+
       {isLoginDropDown && auth?.loginUser?.role && (
         <div className="z-10 right-0 top-32 absolute duration-300 bg-white shadow w-full p-20 lg:top-20 sm:max-w-[500px]">
           <div>Personal details</div>
@@ -72,9 +99,10 @@ function Dropdown() {
           </button>
         </div>
       )}
+
       {isCartDropDown && (
         <div className="z-10 right-0 top-32 absolute duration-300 bg-white shadow-lg w-full p-8 lg:top-20 sm:max-w-[400px]">
-          <Cart setIsCartDropDown={setIsCartDropDown} />
+          <Cart setIsCartDropDown={toggleCartDropDown} />
         </div>
       )}
     </div>
