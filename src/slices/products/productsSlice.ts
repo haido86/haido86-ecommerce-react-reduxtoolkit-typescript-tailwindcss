@@ -134,7 +134,6 @@ export const productsSlice = createSlice({
     })
     builder.addCase(removeProductThunk.fulfilled, (state, action) => {
       state.isLoading = false
-      console.log('action.payload for remove', action.payload)
       state.items = state.items.filter((item) => item.id !== action.payload)
     })
     builder.addCase(findProductByIdThunk.pending, (state) => {

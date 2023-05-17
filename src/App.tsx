@@ -14,7 +14,7 @@ import ProductDetail from './pages/ProductDetail'
 import UserList from './pages/UserList'
 import { AppDispatch } from './store/store'
 import { getUserFromStorage } from './slices/auth/authSlice'
-import SignUpFrom from './components/form/signUpForm'
+import SignUpForm from './components/form/signUpForm'
 
 function App() {
   const dispatch = useDispatch<AppDispatch>()
@@ -28,16 +28,20 @@ function App() {
 
   return (
     <Router>
-      <Header />
-      {/* <Notification /> */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/products/:id" element={<ProductDetail />} />
-        <Route path="/products/checkout" element={<CheckOut />} />
-        <Route path="/users" element={<UserList />} />
-        <Route path="/signup" element={<SignUpFrom />} />
-      </Routes>
-      <Footer />
+      <div className="container">
+        <Header />
+        {/* <Notification /> */}
+        <div className="body">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/products/:id" element={<ProductDetail />} />
+            <Route path="/products/checkout" element={<CheckOut />} />
+            <Route path="/users" element={<UserList />} />
+            <Route path="/signup" element={<SignUpForm />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
     </Router>
   )
 }
