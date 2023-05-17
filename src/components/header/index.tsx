@@ -21,7 +21,7 @@ function Header() {
           <SearchBar />
           <Dropdown />
         </div>
-        <ExtraBar className="hidden sm:block" />
+        <ExtraBar />
       </div>
     </>
   )
