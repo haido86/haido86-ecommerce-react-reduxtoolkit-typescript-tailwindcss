@@ -15,6 +15,7 @@ type AuthState = {
   isLoading: boolean
   loginUser: null | User
   error: string
+  success: boolean
 }
 
 export interface DecodedToken {
@@ -26,7 +27,8 @@ export interface DecodedToken {
 const initialState: AuthState = {
   isLoading: false,
   loginUser: null,
-  error: ''
+  error: '',
+  success: false
 }
 
 export const login = createAsyncThunk('auth/login', async (user: LoginPayload, { dispatch }) => {
@@ -56,10 +58,10 @@ export const signup = createAsyncThunk('auth/signup', async (user: LoginPayload,
   try {
     const res = await api.post('/auth/signup', user)
     const data = await res.data
-    console.log('signupdata', data)
 
     if (data) {
       dispatch(setNotification({ content: 'Login success', duration: 5000, type: 'success' }))
+      dispatch(login(user))
       return data
     } else {
       dispatch(
@@ -85,16 +87,19 @@ export const authSlice = createSlice({
       const user = getDecodedTokenFromStorage()
       if (user) {
         state.loginUser = user
+        state.success = true
       }
     },
     logOut(state) {
       localStorage.clear()
       state.loginUser = null
+      state.success = false
     }
   },
   extraReducers: (builder) => {
     builder.addCase(login.pending, (state) => {
       state.isLoading = true
+      state.error = ''
     })
     builder.addCase(login.rejected, (state) => {
       state.isLoading = false
@@ -113,20 +118,23 @@ export const authSlice = createSlice({
         role: decodedToken.role
       }
       state.loginUser = user
+      state.error = ''
+      state.success = true
     })
     builder.addCase(signup.pending, (state) => {
       state.isLoading = true
+      state.error = ''
     })
     builder.addCase(signup.rejected, (state) => {
       state.isLoading = false
       state.loginUser = initialState.loginUser
       state.error = 'Something went wrong'
+      state.success = false
     })
-    builder.addCase(signup.fulfilled, (state, action) => {
+    builder.addCase(signup.fulfilled, (state) => {
       state.isLoading = false
-      console.log('action', action.payload)
-
-      // state.loginUser = user
+      state.error = ''
+      state.success = true
     })
   }
 })

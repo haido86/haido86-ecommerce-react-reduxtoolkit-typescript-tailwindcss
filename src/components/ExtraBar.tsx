@@ -4,20 +4,20 @@ import { useDispatch, useSelector } from 'react-redux'
 import { filteredProductsAction } from '../slices/products/productsSlice'
 import { AppDispatch, RootState } from '../store/store'
 
-function ExtraBar() {
+function ExtraBar({ className }: { className: string }) {
   const { products } = useSelector((state: RootState) => state)
   const dispatch = useDispatch<AppDispatch>()
   const filterCategory = products.selectedCategory
 
   return (
-    <div>
-      <div className="mt-5 mx-10 mb-10 justify-around px-2 py-1 flex flex-col sm:flex-row ">
+    <div className={className}>
+      <div className="mx-10 justify-around px-2 py-1 flex flex-col sm:flex-row">
         {products.filteredProductArr.length === 0 ||
         products.filteredProductArr.length === products.items.length ||
         products.selectedCategory === null ? (
           products?.categories.map((category) => (
             <div key={category.id}>
-              <div className="flex">
+              <div className="flex m-1">
                 <button
                   onClick={() => {
                     dispatch(filteredProductsAction(category.name))
