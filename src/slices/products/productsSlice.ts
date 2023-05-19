@@ -193,7 +193,6 @@ export const productsSlice = createSlice({
       state.isLoading = false
       state.items = updatedProducts
       state.item = action.payload
-      state.isProductUpdated = true
     })
   }
 })
