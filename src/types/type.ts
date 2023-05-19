@@ -14,6 +14,11 @@ export enum Role {
   USER = 'USER'
 }
 
+export type Inventory = {
+  id: number
+  quantity: number
+}
+
 export type Product = {
   id: number
   title: string
@@ -21,16 +26,18 @@ export type Product = {
   description: string
   category: Category
   image: string
-  quantity: number
+  inventory: Inventory
 }
 
-export type PostProduct = {
+export type ProductRequest = {
   id: number
-  title: string
-  price: number
-  description: string
-  categoryId: number
-  image: string
+  productDTO: {
+    categoryId: number
+    price: number
+    title: string
+    description: string
+    image: string
+  }
   quantity: number
 }
 

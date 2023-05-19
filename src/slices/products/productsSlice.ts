@@ -1,3 +1,4 @@
+import { ProductRequest } from './../../types/type'
 import { Category } from '../../types/type'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
@@ -51,7 +52,7 @@ export const findProductByIdThunk = createAsyncThunk(
 
 export const addProductThunk = createAsyncThunk(
   'products/add-product',
-  async (newProduct: Partial<Product>) => {
+  async (newProduct: Partial<ProductRequest>) => {
     try {
       const res = await api.post('/products', newProduct)
       const addedProduct = await res.data
@@ -64,9 +65,9 @@ export const addProductThunk = createAsyncThunk(
 )
 export const updateProductThunk = createAsyncThunk(
   'products/update-product',
-  async (updateProduct: Partial<Product>) => {
+  async (productToUpdate: ProductRequest) => {
     try {
-      const res = await api.put(`/products/${updateProduct.id}`, updateProduct)
+      const res = await api.put(`/products/${productToUpdate.id}`, productToUpdate)
       const updatedProduct = await res.data
       return updatedProduct
     } catch (error) {

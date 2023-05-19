@@ -4,7 +4,7 @@ import Select from 'react-select'
 
 import { updateProductThunk } from '../../slices/products/productsSlice'
 import { AppDispatch, RootState } from '../../store/store'
-import { CategoryOption, PostProduct, Product } from '../../types/type'
+import { CategoryOption, ProductRequest, Product } from '../../types/type'
 import { getOptions } from '../../utils/options'
 
 function UpdateProductForm({ productId }: { productId: number }) {
@@ -36,17 +36,28 @@ function UpdateProductForm({ productId }: { productId: number }) {
       }
     }
   }
+  const handleInventoryChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const quantity = event.target.value
+    if (products.items) {
+      setUpdateProduct((prevProduct) => ({
+        ...prevProduct,
+        inventory: { id: 0, quantity: +quantity }
+      }))
+    }
+  }
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     if (findProductToUpdate && updateProduct) {
-      const product: PostProduct = {
+      const product: ProductRequest = {
         id: findProductToUpdate.id,
-        title: updateProduct?.title || findProductToUpdate.title,
-        price: updateProduct?.price || findProductToUpdate.price,
-        description: updateProduct?.description || findProductToUpdate.description,
-        categoryId: updateProduct?.category?.id || findProductToUpdate.category.id,
-        image: updateProduct?.image || findProductToUpdate.image,
-        quantity: 20
+        productDTO: {
+          categoryId: updateProduct?.category?.id || findProductToUpdate.category.id,
+          price: updateProduct?.price || findProductToUpdate.price,
+          title: updateProduct?.title || findProductToUpdate.title,
+          description: updateProduct?.description || findProductToUpdate.description,
+          image: updateProduct?.image || findProductToUpdate.image
+        },
+        quantity: updateProduct.inventory?.quantity || findProductToUpdate.inventory.quantity
       }
       dispatch(updateProductThunk(product))
     }
@@ -91,6 +102,7 @@ function UpdateProductForm({ productId }: { productId: number }) {
                 name="image"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5"
                 placeholder="Image Url"
+                defaultValue={findProductToUpdate?.image}
                 onChange={handleInputChange}
               />
             </div>
@@ -121,6 +133,21 @@ function UpdateProductForm({ productId }: { productId: number }) {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5"
                 placeholder="description"
                 onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900">
+                Inventory <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="number"
+                id="inventory"
+                name="inventory"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5"
+                placeholder="inventory"
+                defaultValue={findProductToUpdate?.image}
+                onChange={handleInventoryChange}
                 required
               />
             </div>
