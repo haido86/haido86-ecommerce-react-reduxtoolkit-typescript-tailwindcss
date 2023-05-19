@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addToCartAction } from '../slices/products/cartSlice'
 import { AppDispatch, RootState } from '../store/store'
 import { Product } from '../types/type'
-import ExtraBar from '../components/ExtraBar'
 import AddProductForm from '../components/form/AddProductForm'
 import ProductCard from '../components/productCard'
 
