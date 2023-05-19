@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { addProductThunk } from '../../slices/products/productsSlice'
 import { AppDispatch, RootState } from '../../store/store'
-import { CategoryOption, PostProduct, Product } from '../../types/type'
+import { CategoryOption, ProductRequest, Product } from '../../types/type'
 import { getOptions } from '../../utils/options'
 
 function AddProductForm() {
@@ -35,6 +35,15 @@ function AddProductForm() {
       }
     }
   }
+  const handleInventoryChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const quantity = event.target.value
+    if (products.items) {
+      setNewProduct((prevProduct) => ({
+        ...prevProduct,
+        inventory: { id: 0, quantity: +quantity }
+      }))
+    }
+  }
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
     if (
@@ -42,15 +51,19 @@ function AddProductForm() {
       newProduct?.title &&
       newProduct?.price &&
       newProduct?.description &&
-      newProduct?.category
+      newProduct?.category &&
+      newProduct?.inventory &&
+      newProduct?.inventory?.quantity
     ) {
-      const product: Partial<PostProduct> = {
-        title: newProduct?.title,
-        price: newProduct?.price,
-        description: newProduct?.description,
-        categoryId: newProduct?.category?.id,
-        image: newProduct?.image || '',
-        quantity: 20
+      const product: Partial<ProductRequest> = {
+        productDTO: {
+          categoryId: newProduct.category.id,
+          price: newProduct.price,
+          title: newProduct.title,
+          description: newProduct.description,
+          image: newProduct.image || ''
+        },
+        quantity: newProduct.inventory.quantity
       }
       dispatch(addProductThunk(product))
     }
@@ -122,6 +135,20 @@ function AddProductForm() {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5"
                 placeholder="description"
                 onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900">
+                Inventory <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="number"
+                id="inventory"
+                name="inventory"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5"
+                placeholder="inventory"
+                onChange={handleInventoryChange}
                 required
               />
             </div>
