@@ -2,7 +2,6 @@ export type User = {
   id: number
   role: Role
   username: string
-  // password: string
 }
 
 export type Category = {
@@ -21,6 +20,16 @@ export type Product = {
   price: number
   description: string
   category: Category
+  image: string
+  quantity: number
+}
+
+export type PostProduct = {
+  id: number
+  title: string
+  price: number
+  description: string
+  categoryId: number
   image: string
   quantity: number
 }

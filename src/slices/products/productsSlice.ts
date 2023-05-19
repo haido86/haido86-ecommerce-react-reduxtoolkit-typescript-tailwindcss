@@ -40,8 +40,8 @@ export const findProductByIdThunk = createAsyncThunk(
   async (id: number) => {
     try {
       const res = await api.get(`/products/${id}`)
-      const products = await res.data
-      return products
+      const product = await res.data
+      return product
     } catch (error) {
       console.log(error)
       throw error
@@ -64,8 +64,15 @@ export const addProductThunk = createAsyncThunk(
 )
 export const updateProductThunk = createAsyncThunk(
   'products/update-product',
-  async (updatedProduct: Product) => {
-    return updatedProduct
+  async (updateProduct: Partial<Product>) => {
+    try {
+      const res = await api.put(`/products/${updateProduct.id}`, updateProduct)
+      const updatedProduct = await res.data
+      return updatedProduct
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
   }
 )
 
@@ -169,6 +176,13 @@ export const productsSlice = createSlice({
       state.isLoading = false
       state.items = [action.payload, ...state.items]
     })
+    builder.addCase(updateProductThunk.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(updateProductThunk.rejected, (state) => {
+      state.error = 'something went wrong'
+      state.isLoading = false
+    })
     builder.addCase(updateProductThunk.fulfilled, (state, action) => {
       const updatedProducts = state.items.map((item) => {
         if (item.id === +action.payload.id) {
@@ -178,6 +192,8 @@ export const productsSlice = createSlice({
       })
       state.isLoading = false
       state.items = updatedProducts
+      state.item = action.payload
+      state.isProductUpdated = true
     })
   }
 })

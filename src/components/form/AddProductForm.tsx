@@ -4,16 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { addProductThunk } from '../../slices/products/productsSlice'
 import { AppDispatch, RootState } from '../../store/store'
-import { CategoryOption, Product } from '../../types/type'
-
-type PostProduct = {
-  title: string
-  price: number
-  description: string
-  categoryId: number
-  image: string
-  quantity: number
-}
+import { CategoryOption, PostProduct, Product } from '../../types/type'
+import { getOptions } from '../../utils/options'
 
 function AddProductForm() {
   const { products, auth } = useSelector((state: RootState) => state)
@@ -21,10 +13,7 @@ function AddProductForm() {
   const [newProduct, setNewProduct] = useState<Partial<Product> | undefined>()
   const dispatch = useDispatch<AppDispatch>()
 
-  const options: CategoryOption[] = products.categories.map((category) => ({
-    value: category.name.toLowerCase(),
-    label: category.name.charAt(0).toUpperCase() + category.name.slice(1).toLowerCase()
-  }))
+  const options: CategoryOption[] = getOptions(products.categories)
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target
@@ -55,12 +44,12 @@ function AddProductForm() {
       newProduct?.description &&
       newProduct?.category
     ) {
-      const product: PostProduct = {
+      const product: Partial<PostProduct> = {
         title: newProduct?.title,
         price: newProduct?.price,
         description: newProduct?.description,
         categoryId: newProduct?.category?.id,
-        image: '',
+        image: newProduct?.image || '',
         quantity: 20
       }
       dispatch(addProductThunk(product))
@@ -93,6 +82,19 @@ function AddProductForm() {
                 placeholder="Title"
                 onChange={handleInputChange}
                 required
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900">
+                Image Url
+              </label>
+              <input
+                type="text"
+                id="image"
+                name="image"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5"
+                placeholder="Image Url"
+                onChange={handleInputChange}
               />
             </div>
             <div className="mb-3">
