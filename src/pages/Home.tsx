@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 
-import { addToCartAction } from '../slices/products/cartSlice'
+import { addToCartAction } from '../slices/cartSlice'
 import { AppDispatch, RootState } from '../store/store'
 import { Product } from '../types/type'
 import AddProductForm from '../components/form/AddProductForm'

@@ -6,7 +6,7 @@ import { RiMenuFill } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { filteredProductsAction } from '../../slices/products/productsSlice'
+import { filteredProductsAction } from '../../slices/productsSlice'
 import { AppDispatch, RootState } from '../../store/store'
 
 function Navbar() {
@@ -53,11 +53,12 @@ function Navbar() {
               </div>
               <ul className="flex flex-col pl-14 text-lg pt-2">
                 {products?.categories.map((category) => (
-                  <li key={category.id} className="py-1">
+                  <li key={category.id} className="py-1 hover:underline">
                     <button
                       onClick={() => {
                         setNav(!nav)
                         dispatch(filteredProductsAction(category.name))
+                        navigate('/')
                       }}
                       style={{ textTransform: 'capitalize' }}>
                       {category.name.toLowerCase()}

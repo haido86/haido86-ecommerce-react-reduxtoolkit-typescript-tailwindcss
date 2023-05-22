@@ -1,10 +1,10 @@
 import orderSlice from './../slices/orderSlice'
-import productsSlice from '../slices/products/productsSlice'
+import productsSlice from '../slices/productsSlice'
 import { configureStore } from '@reduxjs/toolkit'
-import userSlice from '../slices/users/userSlice'
-import notificationSlice from '../components/notification/notificationSlice'
-import authSlice from '../slices/auth/authSlice'
-import cartSlice from '../slices/products/cartSlice'
+import userSlice from '../slices/userSlice'
+import notificationSlice from '../pages/notificationSlice'
+import authSlice from '../slices/authSlice'
+import cartSlice from '../slices/cartSlice'
 
 export const store = configureStore({
   reducer: {

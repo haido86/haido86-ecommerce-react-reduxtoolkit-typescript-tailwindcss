@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Select from 'react-select'
 
-import { updateProductThunk } from '../../slices/products/productsSlice'
+import { updateProductThunk } from '../../slices/productsSlice'
 import { AppDispatch, RootState } from '../../store/store'
 import { CategoryOption, ProductRequest, Product } from '../../types/type'
 import { getOptions } from '../../utils/options'

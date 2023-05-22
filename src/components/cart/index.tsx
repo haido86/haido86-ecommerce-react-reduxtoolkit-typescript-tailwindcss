@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { makeOrderThunk } from '../../slices/orderSlice'
 
-import { emptyCart } from '../../slices/products/cartSlice'
+import { emptyCart } from '../../slices/cartSlice'
 import { AppDispatch, RootState } from '../../store/store'
 import CartItem from './CartItem'
 
@@ -21,6 +21,25 @@ function Cart({
     return total + item.price * item.orderAmount
   }, 0)
 
+  const handleButtonClick = async () => {
+    if (setIsCartDropDown) {
+      setIsCartDropDown(false)
+      navigate('/orders/checkout')
+    } else if (currentUserId) {
+      await dispatch(
+        makeOrderThunk({
+          orderDTO: {
+            userId: +currentUserId
+          },
+          cartItemList: cart.cartArr.map((item) => {
+            return { productId: item.id, quantity: item.orderAmount }
+          })
+        })
+      )
+      navigate('/orders/confirmation')
+    }
+  }
+
   return (
     <div className="flex flex-col">
       {cart.cartArr.length === 0 && <div>Add items to your cart</div>}
@@ -31,24 +50,7 @@ function Cart({
         <div className="font-bold mt-3 text-red-500">{`${returnTotal.toFixed(2)} €`}</div>
       </div>
       <button
-        onClick={async () => {
-          if (setIsCartDropDown) {
-            setIsCartDropDown(false)
-            navigate('/orders/checkout')
-          } else if (currentUserId) {
-            await dispatch(
-              makeOrderThunk({
-                orderDTO: {
-                  userId: +currentUserId
-                },
-                cartItemList: cart.cartArr.map((item) => {
-                  return { productId: item.id, quantity: item.orderAmount }
-                })
-              })
-            )
-            navigate('/orders/confirmation')
-          }
-        }}
+        onClick={handleButtonClick}
         className="mt-10 text-white bg-black focus:ring-4 focus:outline-none font-medium hover:bg-gray-800 text-sm max-w-full sm:w-auto px-5 py-2.5 text-center">
         Check Out
       </button>

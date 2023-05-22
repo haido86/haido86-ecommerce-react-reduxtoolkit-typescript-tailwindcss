@@ -1,9 +1,9 @@
-import { ProductRequest } from './../../types/type'
-import { Category } from '../../types/type'
+import { ProductRequest } from '../types/type'
+import { Category } from '../types/type'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-import { Product } from '../../types/type'
-import api from '../../api'
+import { Product } from '../types/type'
+import api from '../api'
 
 type ProductState = {
   isLoading: boolean

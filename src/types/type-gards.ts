@@ -1,4 +1,4 @@
-import { DecodedToken } from './../slices/auth/authSlice'
+import { DecodedToken } from '../slices/authSlice'
 
 export function isDecodedToken(obj: unknown): obj is DecodedToken {
   return (

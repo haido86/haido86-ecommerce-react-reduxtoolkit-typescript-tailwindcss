@@ -2,8 +2,8 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { useDispatch } from 'react-redux'
 
-import { filteredProductsAction } from '../../slices/products/productsSlice'
-import { filteredUserAction } from '../../slices/users/userSlice'
+import { filteredProductsAction } from '../../slices/productsSlice'
+import { filteredUserAction } from '../../slices/userSlice'
 import { AppDispatch } from '../../store/store'
 
 function SearchBar() {

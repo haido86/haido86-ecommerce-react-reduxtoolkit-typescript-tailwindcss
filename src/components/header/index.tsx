@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import SearchBar from './SearchBar'
 import Navbar from './Navbar'
 import Dropdown from './Dropdown'
-import ExtraBar from '../ExtraBar'
+import ExtraBar from './ExtraBar'
 
 function Header() {
   return (

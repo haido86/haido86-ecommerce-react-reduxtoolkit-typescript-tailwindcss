@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { ItemInCart } from '../../types/type'
+import { ItemInCart } from '../types/type'
 
 type CartState = {
   isLoading: boolean
