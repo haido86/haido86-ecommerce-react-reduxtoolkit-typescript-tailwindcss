@@ -20,54 +20,59 @@ function UserList() {
   }
 
   return (
-    <div className="flex flex-col items-center min-h-screen">
-      <h2 className="font-bold text-xl">UserList</h2>
-
-      <table className="flex flex-col w-full p-5">
-        <tbody>
-          <tr className="flex justify-around border border-gray-300">
-            <th>User ID</th>
-            <th>Username</th>
-            <th>Ban User</th>
-          </tr>
-
-          {users?.filteredUserArr.length > 0
-            ? users?.filteredUserArr?.map((user) => (
-                <tr key={user.id} className="flex justify-around border border-t-gray-300">
-                  <td>{user.id}</td>
-                  <td>{user.username}</td>
-                  <td key={user.id}>
-                    <button
-                      onClick={() => handleButtonChange(user.id)}
-                      className={
-                        buttonStates[user.id] === 'Unbanned'
-                          ? 'bg-red-500  text-white rounded-full px-2 py-1 cursor-pointer'
-                          : 'bg-green-400 rounded-full px-2 py-1 cursor-pointer'
-                      }>
-                      {buttonStates[user.id] ? buttonStates[user.id] : 'Ban this user'}
-                    </button>
-                  </td>
-                </tr>
-              ))
-            : users?.usersData?.map((user) => (
-                <tr key={user.id} className="flex justify-around border border-t-gray-300">
-                  <td>{user.id}</td>
-                  <td>{user.username}</td>
-                  <td key={user.id}>
-                    <button
-                      onClick={() => handleButtonChange(user.id)}
-                      className={
-                        buttonStates[user.id] === 'Unbanned'
-                          ? 'bg-red-500  text-white rounded-full px-2 py-1 cursor-pointer'
-                          : 'bg-green-400 rounded-full px-2 py-1 cursor-pointer'
-                      }>
-                      {buttonStates[user.id] ? buttonStates[user.id] : 'Ban this user'}
-                    </button>
-                  </td>
-                </tr>
-              ))}
-        </tbody>
-      </table>
+    <div>
+      <h2 className="flex justify-items-center mt-5 mb-10 font-bold text-xl">UserList</h2>
+      <div className="overflow-x-auto">
+        <table className="table w-full">
+          <thead>
+            <tr>
+              <th></th>
+              <th>User ID</th>
+              <th>Username</th>
+              <th>Ban User</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users?.filteredUserArr.length > 0
+              ? users?.filteredUserArr?.map((user, index) => (
+                  <tr key={user.id}>
+                    <th>{index + 1}</th>
+                    <td>{user.id}</td>
+                    <td>{user.username}</td>
+                    <td key={user.id}>
+                      <button
+                        onClick={() => handleButtonChange(user.id)}
+                        className={
+                          buttonStates[user.id] === 'Unbanned'
+                            ? 'bg-red-500  text-white rounded-full px-2 py-1 cursor-pointer'
+                            : 'bg-green-400 rounded-full px-2 py-1 cursor-pointer'
+                        }>
+                        {buttonStates[user.id] ? buttonStates[user.id] : 'Ban this user'}
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              : users?.usersData?.map((user, index) => (
+                  <tr key={user.id}>
+                    <th>{index + 1}</th>
+                    <td>{user.id}</td>
+                    <td>{user.username}</td>
+                    <td key={user.id}>
+                      <button
+                        onClick={() => handleButtonChange(user.id)}
+                        className={
+                          buttonStates[user.id] === 'Unbanned'
+                            ? 'bg-red-500  text-white rounded-full px-2 py-1 cursor-pointer'
+                            : 'bg-green-400 rounded-full px-2 py-1 cursor-pointer'
+                        }>
+                        {buttonStates[user.id] ? buttonStates[user.id] : 'Ban this user'}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }
