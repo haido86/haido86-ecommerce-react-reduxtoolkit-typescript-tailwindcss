@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { AppDispatch } from '../../../store/store'
-import { login } from '../../../slices/auth/authSlice'
+import { login } from '../../../slices/authSlice'
 import { useNavigate } from 'react-router-dom'
 
 function SignInForm({

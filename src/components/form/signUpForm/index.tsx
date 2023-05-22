@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import NoticePage from '../../../pages/NoticePage'
-import { signup } from '../../../slices/auth/authSlice'
+import { signup } from '../../../slices/authSlice'
 import { AppDispatch, RootState } from '../../../store/store'
 
 function SignUpForm() {

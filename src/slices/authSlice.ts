@@ -1,10 +1,10 @@
 import jwt_decode from 'jwt-decode'
-import { Role, User } from '../../types/type'
+import { Role, User } from '../types/type'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-import { setNotification } from '../../components/notification/notificationSlice'
-import api from '../../api'
-import { getDecodedTokenFromStorage } from '../../utils/token'
+import { setNotification } from '../pages/notificationSlice'
+import api from '../api'
+import { getDecodedTokenFromStorage } from '../utils/token'
 
 type LoginPayload = {
   username: string

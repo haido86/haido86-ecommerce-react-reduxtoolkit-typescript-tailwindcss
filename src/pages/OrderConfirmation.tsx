@@ -34,7 +34,7 @@ function OrderConfirmation() {
         </div>
       ))}
       {returnTotal && (
-        <div className="flex justify-between border-t-gray-200 border-t mt-5">
+        <div className="flex justify-between border-b-gray-200 border-b mb-5">
           <div className="font-bold mt-3">Total</div>
           <div className="font-bold mt-3 text-red-500">{`${returnTotal.toFixed(2)} €`}</div>
         </div>

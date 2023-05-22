@@ -3,8 +3,8 @@ import { IoArrowBackOutline } from 'react-icons/io5'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import UpdateProductForm from '../components/form/UpdateProductForm'
-import { addToCartAction } from '../slices/products/cartSlice'
-import { findProductByIdThunk } from '../slices/products/productsSlice'
+import { addToCartAction } from '../slices/cartSlice'
+import { findProductByIdThunk } from '../slices/productsSlice'
 import { AppDispatch, RootState } from '../store/store'
 
 function ProductDetail() {

@@ -1,12 +1,14 @@
 import { IoArrowBackOutline } from 'react-icons/io5'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import { filteredProductsAction } from '../slices/products/productsSlice'
-import { AppDispatch, RootState } from '../store/store'
+import { filteredProductsAction } from '../../slices/productsSlice'
+import { AppDispatch, RootState } from '../../store/store'
 
 function ExtraBar() {
   const { products } = useSelector((state: RootState) => state)
   const dispatch = useDispatch<AppDispatch>()
+  const navigate = useNavigate()
   const filterCategory = products.selectedCategory
 
   return (
@@ -20,6 +22,7 @@ function ExtraBar() {
               <button
                 onClick={() => {
                   dispatch(filteredProductsAction(category.name))
+                  navigate('/')
                 }}
                 className="bg-gray-200 rounded-full px-3 py-1 capitalize"
                 key={category.id}>
@@ -34,6 +37,7 @@ function ExtraBar() {
             className="mr-20 hover:bg-gray-200 rounded-full p-2"
             onClick={() => {
               dispatch(filteredProductsAction(''))
+              navigate('/')
             }}>
             <IoArrowBackOutline size={20} />
           </button>

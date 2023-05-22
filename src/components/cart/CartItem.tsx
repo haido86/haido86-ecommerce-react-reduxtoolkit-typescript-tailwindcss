@@ -7,7 +7,7 @@ import {
   decreaseProductAmount,
   increaseProductAmount,
   removeFromCart
-} from '../../slices/products/cartSlice'
+} from '../../slices/cartSlice'
 import { AppDispatch } from '../../store/store'
 import { ItemInCart } from '../../types/type'
 
