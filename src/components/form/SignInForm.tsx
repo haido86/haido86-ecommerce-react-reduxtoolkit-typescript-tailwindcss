@@ -1,10 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { AppDispatch } from '../../../store/store'
-import { login } from '../../../slices/authSlice'
+import { AppDispatch } from '../../store/store'
+import { login } from '../../slices/authSlice'
 import { useNavigate } from 'react-router-dom'
-import Button from '../../Button'
+import Button from '../button'
 
 function SignInForm({
   setIsLoginDropDown

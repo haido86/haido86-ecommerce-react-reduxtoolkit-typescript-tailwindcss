@@ -1,10 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import NoticePage from '../../../pages/NoticePage'
-import { signup } from '../../../slices/authSlice'
-import { AppDispatch, RootState } from '../../../store/store'
-import Button from '../../Button'
+import NoticePage from '../../pages/NoticePage'
+import { signup } from '../../slices/authSlice'
+import { AppDispatch, RootState } from '../../store/store'
+import Button from '../button'
 
 function SignUpForm() {
   const { auth } = useSelector((state: RootState) => state)

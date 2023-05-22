@@ -5,7 +5,7 @@ import { makeOrderThunk } from '../../slices/orderSlice'
 import { emptyCart } from '../../slices/cartSlice'
 import { AppDispatch, RootState } from '../../store/store'
 import CartItem from './CartItem'
-import Button from '../Button'
+import Button from '../button'
 
 function Cart({
   setIsCartDropDown

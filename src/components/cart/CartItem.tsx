@@ -10,7 +10,7 @@ import {
 } from '../../slices/cartSlice'
 import { AppDispatch } from '../../store/store'
 import { ItemInCart } from '../../types/type'
-import Button from '../Button'
+import Button from '../button'
 
 function CartItem({ item }: { item: ItemInCart }) {
   const dispatch = useDispatch<AppDispatch>()
