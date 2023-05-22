@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import Button from '../components/Button'
 import { RootState } from '../store/store'
 
 function UserList() {
@@ -40,7 +41,7 @@ function UserList() {
                     <td>{user.id}</td>
                     <td>{user.username}</td>
                     <td key={user.id}>
-                      <button
+                      <Button
                         onClick={() => handleButtonChange(user.id)}
                         className={
                           buttonStates[user.id] === 'Unbanned'
@@ -48,7 +49,7 @@ function UserList() {
                             : 'bg-green-400 rounded-full px-2 py-1 cursor-pointer'
                         }>
                         {buttonStates[user.id] ? buttonStates[user.id] : 'Ban this user'}
-                      </button>
+                      </Button>
                     </td>
                   </tr>
                 ))
@@ -58,7 +59,7 @@ function UserList() {
                     <td>{user.id}</td>
                     <td>{user.username}</td>
                     <td key={user.id}>
-                      <button
+                      <Button
                         onClick={() => handleButtonChange(user.id)}
                         className={
                           buttonStates[user.id] === 'Unbanned'
@@ -66,7 +67,7 @@ function UserList() {
                             : 'bg-green-400 rounded-full px-2 py-1 cursor-pointer'
                         }>
                         {buttonStates[user.id] ? buttonStates[user.id] : 'Ban this user'}
-                      </button>
+                      </Button>
                     </td>
                   </tr>
                 ))}

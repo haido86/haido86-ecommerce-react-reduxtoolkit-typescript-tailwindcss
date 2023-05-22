@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch } from '../../../store/store'
 import { login } from '../../../slices/authSlice'
 import { useNavigate } from 'react-router-dom'
+import Button from '../../Button'
 
 function SignInForm({
   setIsLoginDropDown
@@ -80,16 +81,16 @@ function SignInForm({
           </label>
         </div>
         <div className="flex flex-col">
-          <button
+          <Button
             type="submit"
             className="text-white bg-black focus:ring-4 focus:outline-none font-bold hover:bg-gray-800 text-sm max-w-full sm:w-auto px-5 py-2.5 text-center">
             Sign In
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={handleNavigateToSignUp}
             className="mt-3 bg-white focus:outline-none font-bold  text-sm max-w-full border border-black sm:w-auto px-5 py-2.5 text-center">
             Become our Member
-          </button>
+          </Button>
         </div>
       </form>
     </div>

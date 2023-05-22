@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import NoticePage from '../../../pages/NoticePage'
 import { signup } from '../../../slices/authSlice'
 import { AppDispatch, RootState } from '../../../store/store'
+import Button from '../../Button'
 
 function SignUpForm() {
   const { auth } = useSelector((state: RootState) => state)
@@ -76,11 +77,11 @@ function SignUpForm() {
               </label>
             </div>
             <div className="flex flex-col">
-              <button
+              <Button
                 className=" text-white bg-black focus:ring-4 focus:outline-none font-bold hover:bg-gray-800 text-sm max-w-full sm:w-auto px-5 py-2.5 text-center"
                 type="submit">
                 Become our Member
-              </button>
+              </Button>
             </div>
           </form>
         </div>

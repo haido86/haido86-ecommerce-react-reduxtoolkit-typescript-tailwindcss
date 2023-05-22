@@ -5,6 +5,7 @@ import { makeOrderThunk } from '../../slices/orderSlice'
 import { emptyCart } from '../../slices/cartSlice'
 import { AppDispatch, RootState } from '../../store/store'
 import CartItem from './CartItem'
+import Button from '../Button'
 
 function Cart({
   setIsCartDropDown
@@ -40,6 +41,10 @@ function Cart({
     }
   }
 
+  const handleEmptyCart = () => {
+    dispatch(emptyCart())
+  }
+
   return (
     <div className="flex flex-col">
       {cart.cartArr.length === 0 && <div>Add items to your cart</div>}
@@ -49,16 +54,16 @@ function Cart({
         <div className="font-bold mt-3">Total</div>
         <div className="font-bold mt-3 text-red-500">{`${returnTotal.toFixed(2)} €`}</div>
       </div>
-      <button
+      <Button
         onClick={handleButtonClick}
         className="mt-10 text-white bg-black focus:ring-4 focus:outline-none font-medium hover:bg-gray-800 text-sm max-w-full sm:w-auto px-5 py-2.5 text-center">
         Check Out
-      </button>
-      <button
-        onClick={() => dispatch(emptyCart())}
+      </Button>
+      <Button
+        onClick={handleEmptyCart}
         className="mt-3 bg-gray-100 hover:bg-gray-200 focus:outline-none font-bold  text-sm max-w-full  sm:w-auto px-5 py-2.5 text-center">
         Empty Cart
-      </button>
+      </Button>
     </div>
   )
 }

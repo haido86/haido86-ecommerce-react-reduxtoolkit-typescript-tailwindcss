@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { IoArrowBackOutline } from 'react-icons/io5'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
+import Button from '../components/Button'
 import UpdateProductForm from '../components/form/UpdateProductForm'
 import { addToCartAction } from '../slices/cartSlice'
 import { findProductByIdThunk } from '../slices/productsSlice'
@@ -43,11 +44,11 @@ function ProductDetail() {
                 {`${products.item.price} €`}
               </div>
               <div className="my-2">choices of variant (Dropdown)</div>
-              <button
+              <Button
                 onClick={() => dispatch(addToCartAction(products.item))}
                 className="my-2 bg-red-500 text-white p-2 items-center font-bold w-full">
                 Add to cart
-              </button>
+              </Button>
             </div>
             <div className="p-2 my-2 bg-white border border-gray-200 order-1 sm:order-none">
               {products.item.description}

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { filteredProductsAction } from '../../slices/productsSlice'
 import { AppDispatch, RootState } from '../../store/store'
+import Button from '../Button'
 
 function ExtraBar() {
   const { products } = useSelector((state: RootState) => state)
@@ -19,7 +20,7 @@ function ExtraBar() {
         products?.categories.map((category) => (
           <div key={category.id}>
             <div className="flex mb-1">
-              <button
+              <Button
                 onClick={() => {
                   dispatch(filteredProductsAction(category.name))
                   navigate('/')
@@ -27,20 +28,20 @@ function ExtraBar() {
                 className="bg-gray-200 rounded-full px-3 py-1 capitalize"
                 key={category.id}>
                 {category.name.toLowerCase()}
-              </button>
+              </Button>
             </div>
           </div>
         ))
       ) : (
         <div className="flex">
-          <button
+          <Button
             className="mr-20 hover:bg-gray-200 rounded-full p-2"
             onClick={() => {
               dispatch(filteredProductsAction(''))
               navigate('/')
             }}>
             <IoArrowBackOutline size={20} />
-          </button>
+          </Button>
           <div className="bg-gray-200 rounded-full px-3 py-1 capitalize">
             {filterCategory?.name.toLowerCase()}
           </div>

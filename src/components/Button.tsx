@@ -1,11 +1,14 @@
-import React from 'react'
-
-function Button({ buttonText }: { buttonText: string }) {
+type ButtonProps = {
+  onClick?: React.MouseEventHandler<HTMLButtonElement>
+  onSubmit?: React.FormEventHandler<HTMLButtonElement>
+  type?: 'button' | 'submit'
+  children: React.ReactNode
+  className?: string
+}
+function Button({ onClick, onSubmit, className, type, children }: ButtonProps) {
   return (
-    <button
-      className="mt-3 text-white bg-black focus:ring-4 focus:outline-none font-bold hover:bg-gray-800 text-sm max-w-full sm:w-auto text-center"
-      type="submit">
-      {buttonText}
+    <button onClick={onClick} onSubmit={onSubmit} type={type} className={className}>
+      {children}
     </button>
   )
 }
