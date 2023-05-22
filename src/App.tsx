@@ -15,6 +15,7 @@ import UserList from './pages/UserList'
 import { AppDispatch } from './store/store'
 import { getUserFromStorage } from './slices/auth/authSlice'
 import SignUpForm from './components/form/signUpForm'
+import OrderConfirmation from './pages/OrderConfirmation'
 
 function App() {
   const dispatch = useDispatch<AppDispatch>()
@@ -35,7 +36,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/products/:id" element={<ProductDetail />} />
-            <Route path="/products/checkout" element={<CheckOut />} />
+            <Route path="/orders/checkout" element={<CheckOut />} />
+            <Route path="/orders/confirmation" element={<OrderConfirmation />} />
             <Route path="/users" element={<UserList />} />
             <Route path="/signup" element={<SignUpForm />} />
           </Routes>
