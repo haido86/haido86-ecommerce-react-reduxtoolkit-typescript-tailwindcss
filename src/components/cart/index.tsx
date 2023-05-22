@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { makeOrderThunk } from '../../slices/orderSlice'
 
 import { emptyCart } from '../../slices/products/cartSlice'
 import { AppDispatch, RootState } from '../../store/store'
@@ -8,10 +9,13 @@ import CartItem from './CartItem'
 function Cart({
   setIsCartDropDown
 }: {
-  setIsCartDropDown: React.Dispatch<React.SetStateAction<boolean>>
+  setIsCartDropDown?: React.Dispatch<React.SetStateAction<boolean>>
 }) {
-  const { cart } = useSelector((state: RootState) => state)
+  const { cart, auth } = useSelector((state: RootState) => state)
   const dispatch = useDispatch<AppDispatch>()
+  const navigate = useNavigate()
+
+  const currentUserId = auth.loginUser?.id
 
   const returnTotal = cart.cartArr.reduce((total, item) => {
     return total + item.price * item.orderAmount
@@ -27,9 +31,26 @@ function Cart({
         <div className="font-bold mt-3 text-red-500">{`${returnTotal.toFixed(2)} €`}</div>
       </div>
       <button
-        onClick={() => setIsCartDropDown(false)}
+        onClick={async () => {
+          if (setIsCartDropDown) {
+            setIsCartDropDown(false)
+            navigate('/orders/checkout')
+          } else if (currentUserId) {
+            await dispatch(
+              makeOrderThunk({
+                orderDTO: {
+                  userId: +currentUserId
+                },
+                cartItemList: cart.cartArr.map((item) => {
+                  return { productId: item.id, quantity: item.orderAmount }
+                })
+              })
+            )
+            navigate('/orders/confirmation')
+          }
+        }}
         className="mt-10 text-white bg-black focus:ring-4 focus:outline-none font-medium hover:bg-gray-800 text-sm max-w-full sm:w-auto px-5 py-2.5 text-center">
-        <Link to="/products/checkout">Check Out</Link>
+        Check Out
       </button>
       <button
         onClick={() => dispatch(emptyCart())}

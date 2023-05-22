@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux'
+import Cart from '../components/cart'
 import { RootState } from '../store/store'
 
 function CheckOut() {
@@ -8,7 +9,10 @@ function CheckOut() {
       {auth?.loginUser?.role !== 'USER' ? (
         <div className="font-bold text-xl m-20">Please Login or Become our member to proceed</div>
       ) : (
-        <div className="font-bold text-xl m-20">Check Out Process</div>
+        <div className="font-bold text-xl m-20">
+          <div>Check Out Process</div>
+          <Cart />
+        </div>
       )}
     </div>
   )

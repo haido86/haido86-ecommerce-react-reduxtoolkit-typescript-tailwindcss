@@ -41,12 +41,28 @@ export type ProductRequest = {
   quantity: number
 }
 
+export type OrderItem = {
+  id: number
+  quantity: number
+  product: Product
+}
+
 export type Order = {
-  orderId: number
-  userId: number
-  productId: number
-  amount: number
+  id: number
   purchaseAt: string
+  user: User
+  orderItemList: OrderItem[]
+}
+
+export type ProductInRequest = {
+  productId: number
+  quantity: number
+}
+export type OrderRequest = {
+  orderDTO: {
+    userId: number
+  }
+  cartItemList: ProductInRequest[]
 }
 
 export type OrderAmount = { orderAmount: number }

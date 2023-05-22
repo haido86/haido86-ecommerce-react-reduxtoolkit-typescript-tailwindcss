@@ -1,3 +1,4 @@
+import orderSlice from './../slices/orderSlice'
 import productsSlice from '../slices/products/productsSlice'
 import { configureStore } from '@reduxjs/toolkit'
 import userSlice from '../slices/users/userSlice'
@@ -11,7 +12,8 @@ export const store = configureStore({
     users: userSlice,
     auth: authSlice,
     notification: notificationSlice,
-    cart: cartSlice
+    cart: cartSlice,
+    order: orderSlice
   }
 })
 

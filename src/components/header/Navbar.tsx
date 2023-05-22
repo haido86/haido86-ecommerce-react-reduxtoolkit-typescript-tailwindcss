@@ -4,7 +4,7 @@ import { IoShirtSharp } from 'react-icons/io5'
 import { HiUsers } from 'react-icons/hi2'
 import { RiMenuFill } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { filteredProductsAction } from '../../slices/products/productsSlice'
 import { AppDispatch, RootState } from '../../store/store'
@@ -44,9 +44,11 @@ function Navbar() {
               <div className="flex ">
                 <IoShirtSharp size={25} className="mr-4" />
                 <h3>
-                  <button onClick={() => setNav(!nav)}>
-                    <Link to="/">Products</Link>
-                  </button>
+                  <button
+                    onClick={() => {
+                      setNav(!nav)
+                      navigate('/')
+                    }}></button>
                 </h3>
               </div>
               <ul className="flex flex-col pl-14 text-lg pt-2">
