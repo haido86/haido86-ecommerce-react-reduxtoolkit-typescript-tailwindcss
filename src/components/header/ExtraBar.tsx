@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { filteredProductsAction } from '../../slices/productsSlice'
 import { AppDispatch, RootState } from '../../store/store'
-import Button from '../Button'
+import Button from '../button'
 
 function ExtraBar() {
   const { products } = useSelector((state: RootState) => state)

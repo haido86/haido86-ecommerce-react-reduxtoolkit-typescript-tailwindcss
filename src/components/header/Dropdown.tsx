@@ -4,10 +4,10 @@ import { RiUserFill } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Cart from '../cart'
-import SignInForm from '../form/signInForm'
+import SignInForm from '../form/SignInForm'
 import { AppDispatch, RootState } from '../../store/store'
 import { logOut } from '../../slices/authSlice'
-import Button from '../Button'
+import Button from '../button'
 
 function Dropdown() {
   const [isLoginDropDown, setIsLoginDropDown] = useState(false)

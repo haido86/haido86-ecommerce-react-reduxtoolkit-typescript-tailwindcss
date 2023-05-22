@@ -6,7 +6,7 @@ import { addProductThunk } from '../../slices/productsSlice'
 import { AppDispatch, RootState } from '../../store/store'
 import { CategoryOption, ProductRequest, Product } from '../../types/type'
 import { getOptions } from '../../utils/options'
-import Button from '../Button'
+import Button from '../button'
 
 function AddProductForm() {
   const { products, auth } = useSelector((state: RootState) => state)

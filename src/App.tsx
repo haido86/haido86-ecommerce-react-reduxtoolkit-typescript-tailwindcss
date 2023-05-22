@@ -14,7 +14,7 @@ import ProductDetail from './pages/ProductDetail'
 import UserList from './pages/UserList'
 import { AppDispatch } from './store/store'
 import { getUserFromStorage } from './slices/authSlice'
-import SignUpForm from './components/form/signUpForm'
+import SignUpForm from './components/form/SignUpForm'
 import OrderConfirmation from './pages/OrderConfirmation'
 
 function App() {

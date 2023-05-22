@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { removeProductThunk } from '../../slices/productsSlice'
 import { AppDispatch, RootState } from '../../store/store'
 import { Product } from '../../types/type'
-import Button from '../Button'
+import Button from '../button'
 
 type AddToCartFunction = (product: Product) => void
 
