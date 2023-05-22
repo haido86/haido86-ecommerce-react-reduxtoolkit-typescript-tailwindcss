@@ -6,6 +6,7 @@ import { addProductThunk } from '../../slices/productsSlice'
 import { AppDispatch, RootState } from '../../store/store'
 import { CategoryOption, ProductRequest, Product } from '../../types/type'
 import { getOptions } from '../../utils/options'
+import Button from '../Button'
 
 function AddProductForm() {
   const { products, auth } = useSelector((state: RootState) => state)
@@ -73,11 +74,11 @@ function AddProductForm() {
   return (
     <div>
       {auth?.loginUser?.role === 'ADMIN' && (
-        <button
+        <Button
           className="bg-green-400 rounded-full ml-10 font-bold px-2 py-1"
           onClick={() => setFormOpen(!formOpen)}>
           Add New Product
-        </button>
+        </Button>
       )}
       {formOpen && (
         <div className="z-10 right-0 top-32 absolute duration-300 bg-white shadow w-full p-20 lg:top-20 sm:max-w-[500px]">
@@ -165,11 +166,11 @@ function AddProductForm() {
               />
             </div>
             <div className="flex flex-col mt-10">
-              <button
+              <Button
                 type="submit"
                 className="text-white uppercase bg-black focus:ring-4 focus:outline-none font-medium hover:bg-gray-800 text-sm max-w-full sm:w-auto px-5 py-2.5 text-center">
                 Create New Product
-              </button>
+              </Button>
             </div>
           </form>
         </div>

@@ -7,6 +7,7 @@ import Cart from '../cart'
 import SignInForm from '../form/signInForm'
 import { AppDispatch, RootState } from '../../store/store'
 import { logOut } from '../../slices/authSlice'
+import Button from '../Button'
 
 function Dropdown() {
   const [isLoginDropDown, setIsLoginDropDown] = useState(false)
@@ -46,7 +47,7 @@ function Dropdown() {
   return (
     <div ref={dropdownRef}>
       <div className="flex">
-        <button
+        <Button
           onClick={toggleLoginDropDown}
           className={
             isLoginDropDown
@@ -63,9 +64,9 @@ function Dropdown() {
               Login
             </>
           )}
-        </button>
+        </Button>
 
-        <button
+        <Button
           onClick={toggleCartDropDown}
           className={
             isCartDropDown
@@ -79,7 +80,7 @@ function Dropdown() {
             </div>
           )}
           Cart
-        </button>
+        </Button>
       </div>
 
       {isLoginDropDown && !auth?.loginUser?.role && (
@@ -92,11 +93,11 @@ function Dropdown() {
         <div className="z-10 right-0 top-32 absolute duration-300 bg-white shadow w-full p-20 lg:top-20 sm:max-w-[500px]">
           <div>Personal details</div>
           <div>{auth?.loginUser?.username} </div>
-          <button
+          <Button
             onClick={() => dispatch(logOut())}
             className="mt-10 text-white uppercase bg-black focus:ring-4 focus:outline-none font-medium hover:bg-gray-800 text-sm max-w-full sm:w-auto px-5 py-2.5 text-center">
             Sign Out
-          </button>
+          </Button>
         </div>
       )}
 

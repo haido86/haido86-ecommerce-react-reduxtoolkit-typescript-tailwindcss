@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { filteredProductsAction } from '../../slices/productsSlice'
 import { AppDispatch, RootState } from '../../store/store'
+import Button from '../Button'
 
 function Navbar() {
   const { products, auth } = useSelector((state: RootState) => state)
@@ -44,31 +45,31 @@ function Navbar() {
               <div className="flex ">
                 <IoShirtSharp size={25} className="mr-4" />
                 <h3>
-                  <button
+                  <Button
                     onClick={() => {
                       setNav(!nav)
-                      navigate('/')
-                    }}></button>
+                    }}>
+                    Products
+                  </Button>
                 </h3>
               </div>
               <ul className="flex flex-col pl-14 text-lg pt-2">
                 {products?.categories.map((category) => (
-                  <li key={category.id} className="py-1 hover:underline">
-                    <button
+                  <li key={category.id} className="py-1 ">
+                    <Button
                       onClick={() => {
                         setNav(!nav)
                         dispatch(filteredProductsAction(category.name))
-                        navigate('/')
                       }}
-                      style={{ textTransform: 'capitalize' }}>
+                      className="capitalize hover:underline">
                       {category.name.toLowerCase()}
-                    </button>
+                    </Button>
                   </li>
                 ))}
               </ul>
             </li>
             {auth?.loginUser?.role === 'ADMIN' && (
-              <button
+              <Button
                 onClick={() => {
                   setNav(false)
                   navigate('/users')
@@ -77,7 +78,7 @@ function Navbar() {
                   <HiUsers size={25} className="mr-4" />
                   Users
                 </li>
-              </button>
+              </Button>
             )}
           </ul>
         </nav>

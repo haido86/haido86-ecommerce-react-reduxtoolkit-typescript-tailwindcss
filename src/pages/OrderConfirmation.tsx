@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import Button from '../components/Button'
 
 import { RootState } from '../store/store'
 
@@ -40,12 +41,12 @@ function OrderConfirmation() {
         </div>
       )}
       <div className="flex justify-between mt-10">
-        <button className="font-bold border bg-white text-black px-3 py-1.5 rounded-md">
+        <Button className="font-bold border bg-white text-black px-3 py-1.5 rounded-md">
           Cancel
-        </button>
-        <button className="font-bold border px-3 py-1.5 text-white bg-black rounded-md">
+        </Button>
+        <Button className="font-bold border px-3 py-1.5 text-white bg-black rounded-md">
           Proceed to Payment
-        </button>
+        </Button>
       </div>
     </div>
   )

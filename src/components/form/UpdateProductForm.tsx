@@ -6,6 +6,7 @@ import { updateProductThunk } from '../../slices/productsSlice'
 import { AppDispatch, RootState } from '../../store/store'
 import { CategoryOption, ProductRequest, Product } from '../../types/type'
 import { getOptions } from '../../utils/options'
+import Button from '../Button'
 
 function UpdateProductForm({ productId }: { productId: number }) {
   const { products, auth } = useSelector((state: RootState) => state)
@@ -67,11 +68,11 @@ function UpdateProductForm({ productId }: { productId: number }) {
   return (
     <div>
       {auth?.loginUser?.role === 'ADMIN' && (
-        <button
+        <Button
           className="flex justify-center font-bold bg-yellow-300 max-w-80 rounded-md px-4 py-1"
           onClick={() => setFormOpen(!formOpen)}>
           Edit Product Info
-        </button>
+        </Button>
       )}
       {formOpen && (
         <div className="z-10 right-0 top-32 absolute duration-300 bg-white shadow w-full p-20 lg:top-20 sm:max-w-[500px]">
@@ -173,11 +174,11 @@ function UpdateProductForm({ productId }: { productId: number }) {
               />
             </div>
             <div className="flex flex-col mt-10">
-              <button
+              <Button
                 type="submit"
                 className="text-white uppercase bg-black focus:ring-4 focus:outline-none font-medium hover:bg-gray-800 text-sm max-w-full sm:w-auto px-5 py-2.5 text-center">
                 Update Product Info
-              </button>
+              </Button>
             </div>
           </form>
         </div>
