@@ -32,7 +32,7 @@ function SignUpForm() {
   return (
     <div className="flex">
       {!auth.success ? (
-        <div className=" bg-white w-full p-20 lg:top-20 sm:max-w-[500px]">
+        <div className=" bg-white w-full lg:top-20 sm:max-w-[500px]">
           <h2 className="text-xl font-bold mb-2">Become a Member</h2>
           <p className="pb-6 text-sm flex">
             Become a Member - You will enjoy exclusive deals, offers, invites and rewards.

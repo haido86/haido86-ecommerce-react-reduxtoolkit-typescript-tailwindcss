@@ -115,6 +115,9 @@ function UpdateProductForm({ productId }: { productId: number }) {
                 type="number"
                 id="price"
                 name="price"
+                min="0"
+                max="1000"
+                step="0.01"
                 defaultValue={findProductToUpdate?.price}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5"
                 placeholder="Price"

@@ -1,10 +1,17 @@
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Button from '../components/button'
-import { RootState } from '../store/store'
+import { fetchUsers } from '../slices/userSlice'
+import { AppDispatch, RootState } from '../store/store'
 
 function UserList() {
   const { users, auth } = useSelector((state: RootState) => state)
+  const dispatch = useDispatch<AppDispatch>()
+
+  useEffect(() => {
+    dispatch(fetchUsers())
+  }, [])
+
   const [buttonStates, setButtonStates] = useState<{ [userId: number]: string }>(
     users?.usersData?.reduce((acc, user) => ({ ...acc, [user.id]: 'Ban this user' }), {})
   )

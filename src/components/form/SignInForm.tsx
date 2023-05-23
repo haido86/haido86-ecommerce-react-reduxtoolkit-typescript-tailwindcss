@@ -9,7 +9,7 @@ import Button from '../button'
 function SignInForm({
   setIsLoginDropDown
 }: {
-  setIsLoginDropDown: React.Dispatch<React.SetStateAction<boolean>>
+  setIsLoginDropDown?: React.Dispatch<React.SetStateAction<boolean>>
 }) {
   const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
@@ -26,17 +26,17 @@ function SignInForm({
 
   const signIn = async (event: FormEvent) => {
     event.preventDefault()
-    setIsLoginDropDown(false)
+    if (setIsLoginDropDown) setIsLoginDropDown(false)
     dispatch(login({ username, password }))
   }
 
   const handleNavigateToSignUp = () => {
-    setIsLoginDropDown(false)
+    if (setIsLoginDropDown) setIsLoginDropDown(false)
     navigate('/signup')
   }
 
   return (
-    <div>
+    <div className=" bg-white w-full lg:top-20 sm:max-w-[500px]">
       <h2 className="text-xl font-bold mb-2">Sign In</h2>
       <p className="pb-6 text-sm flex">
         Become a Member - You will enjoy exclusive deals, offers, invites and rewards.
