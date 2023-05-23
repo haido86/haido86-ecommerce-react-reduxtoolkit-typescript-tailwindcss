@@ -94,7 +94,10 @@ function Dropdown() {
           <div>Personal details</div>
           <div>{auth?.loginUser?.username} </div>
           <Button
-            onClick={() => dispatch(logOut())}
+            onClick={() => {
+              dispatch(logOut())
+              setIsLoginDropDown(!isLoginDropDown)
+            }}
             className="mt-10 text-white uppercase bg-black focus:ring-4 focus:outline-none font-medium hover:bg-gray-800 text-sm max-w-full sm:w-auto px-5 py-2.5 text-center">
             Sign Out
           </Button>
