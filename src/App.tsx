@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Footer from './components/footer'
 import Header from './components/header'
-// import Notification from './components/notification'
 import { fetchCategoriesThunk, fetchProductsThunk } from './slices/productsSlice'
 import CheckOut from './pages/CheckOut'
 import Home from './pages/Home'
@@ -16,6 +15,7 @@ import { getUserFromStorage } from './slices/authSlice'
 import SignUpForm from './components/form/SignUpForm'
 import OrderConfirmation from './pages/OrderConfirmation'
 import SignInForm from './components/form/SignInForm'
+import Notification from './components/notification'
 
 function App() {
   const dispatch = useDispatch<AppDispatch>()
@@ -29,8 +29,8 @@ function App() {
   return (
     <Router>
       <div className="container">
+        <Notification />
         <Header />
-        {/* <Notification /> */}
         <div className="body">
           <Routes>
             <Route path="/" element={<Home />} />

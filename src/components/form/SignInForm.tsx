@@ -83,6 +83,9 @@ function SignInForm({
         <div className="flex flex-col">
           <Button
             type="submit"
+            onClick={() => {
+              window.history.back()
+            }}
             className="text-white bg-black focus:ring-4 focus:outline-none font-bold hover:bg-gray-800 text-sm max-w-full sm:w-auto px-5 py-2.5 text-center">
             Sign In
           </Button>
