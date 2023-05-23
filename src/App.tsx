@@ -7,7 +7,6 @@ import Footer from './components/footer'
 import Header from './components/header'
 // import Notification from './components/notification'
 import { fetchCategoriesThunk, fetchProductsThunk } from './slices/productsSlice'
-import { fetchUsers } from './slices/userSlice'
 import CheckOut from './pages/CheckOut'
 import Home from './pages/Home'
 import ProductDetail from './pages/ProductDetail'
@@ -16,13 +15,13 @@ import { AppDispatch } from './store/store'
 import { getUserFromStorage } from './slices/authSlice'
 import SignUpForm from './components/form/SignUpForm'
 import OrderConfirmation from './pages/OrderConfirmation'
+import SignInForm from './components/form/SignInForm'
 
 function App() {
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
     dispatch(fetchProductsThunk())
-    dispatch(fetchUsers())
     dispatch(fetchCategoriesThunk())
     dispatch(getUserFromStorage())
   }, [dispatch])
@@ -40,6 +39,7 @@ function App() {
             <Route path="/orders/confirmation" element={<OrderConfirmation />} />
             <Route path="/users" element={<UserList />} />
             <Route path="/signup" element={<SignUpForm />} />
+            <Route path="/signin" element={<SignInForm />} />
           </Routes>
         </div>
         <Footer />

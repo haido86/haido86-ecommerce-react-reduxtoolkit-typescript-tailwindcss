@@ -21,7 +21,7 @@ function Home() {
   return (
     <div className="min-h-screen">
       <AddProductForm />
-      <div className="m-5 grid grid-cols-2 gap-y-10 gap-x-4 transition duration-150 sm:grid-cols-5 sm:p-1">
+      <div className="m-5 grid grid-cols-2 gap-y-5 gap-x-2 transition duration-150 sm:grid-cols-3 sm:gap-x-3 sm:p-1 md:grid-cols-4 md:gap-x-1 md:p-2 lg:grid-cols-5 lg:gap-4 lg:p-3">
         {products?.filteredProductArr.length > 0
           ? products.filteredProductArr.map((product) => (
               <ProductCard key={product.id} product={product} addToCart={addToCart} />
