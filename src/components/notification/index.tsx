@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import { useSelector } from 'react-redux'
 
-import { RootState } from '../../store'
+import { RootState } from '../../store/store'
 
 function Notification() {
   const { notification } = useSelector((state: RootState) => state)

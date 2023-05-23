@@ -1,9 +1,10 @@
-import productsSlice from './features/products/productsSlice'
+import orderSlice from './../slices/orderSlice'
+import productsSlice from '../slices/productsSlice'
 import { configureStore } from '@reduxjs/toolkit'
-import userSlice from './features/user/userSlice'
-import notificationSlice from './components/notification/notificationSlice'
-import authSlice from './features/auth/authSlice'
-import cartSlice from './features/products/cartSlice'
+import userSlice from '../slices/userSlice'
+import notificationSlice from '../pages/notificationSlice'
+import authSlice from '../slices/authSlice'
+import cartSlice from '../slices/cartSlice'
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
     users: userSlice,
     auth: authSlice,
     notification: notificationSlice,
-    cart: cartSlice
+    cart: cartSlice,
+    order: orderSlice
   }
 })
 

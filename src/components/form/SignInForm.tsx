@@ -1,20 +1,23 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { AppDispatch } from '../../../store'
-import { login } from '../../../features/auth/authSlice'
+import { AppDispatch } from '../../store/store'
+import { login } from '../../slices/authSlice'
+import { useNavigate } from 'react-router-dom'
+import Button from '../button'
 
 function SignInForm({
   setIsLoginDropDown
 }: {
-  setIsLoginDropDown: React.Dispatch<React.SetStateAction<boolean>>
+  setIsLoginDropDown?: React.Dispatch<React.SetStateAction<boolean>>
 }) {
   const dispatch = useDispatch<AppDispatch>()
-  const [email, setEmail] = useState('')
+  const navigate = useNavigate()
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value)
+  const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setUsername(event.target.value)
   }
 
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -23,27 +26,32 @@ function SignInForm({
 
   const signIn = async (event: FormEvent) => {
     event.preventDefault()
-    setIsLoginDropDown(false)
-    dispatch(login({ email, password }))
+    if (setIsLoginDropDown) setIsLoginDropDown(false)
+    dispatch(login({ username, password }))
+  }
+
+  const handleNavigateToSignUp = () => {
+    if (setIsLoginDropDown) setIsLoginDropDown(false)
+    navigate('/signup')
   }
 
   return (
-    <div>
+    <div className=" bg-white w-full lg:top-20 sm:max-w-[500px]">
       <h2 className="text-xl font-bold mb-2">Sign In</h2>
       <p className="pb-6 text-sm flex">
         Become a Member - You will enjoy exclusive deals, offers, invites and rewards.
       </p>
       <form onSubmit={signIn}>
         <div className="mb-6">
-          <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">
-            Your email <span className="text-red-500">*</span>
+          <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900">
+            Your username <span className="text-red-500">*</span>
           </label>
           <input
-            type="email"
-            id="email"
+            type="username"
+            id="username"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5"
-            placeholder="firstName.lastName@gmail.com"
-            onChange={handleEmailChange}
+            placeholder="username"
+            onChange={handleUsernameChange}
             required
           />
         </div>
@@ -73,16 +81,16 @@ function SignInForm({
           </label>
         </div>
         <div className="flex flex-col">
-          <button
+          <Button
             type="submit"
-            className="text-white bg-black focus:ring-4 focus:outline-none font-medium hover:bg-gray-800 text-sm max-w-full sm:w-auto px-5 py-2.5 text-center">
-            SIGN IN
-          </button>
-          <button
-            type="submit"
+            className="text-white bg-black focus:ring-4 focus:outline-none font-bold hover:bg-gray-800 text-sm max-w-full sm:w-auto px-5 py-2.5 text-center">
+            Sign In
+          </Button>
+          <Button
+            onClick={handleNavigateToSignUp}
             className="mt-3 bg-white focus:outline-none font-bold  text-sm max-w-full border border-black sm:w-auto px-5 py-2.5 text-center">
             Become our Member
-          </button>
+          </Button>
         </div>
       </form>
     </div>

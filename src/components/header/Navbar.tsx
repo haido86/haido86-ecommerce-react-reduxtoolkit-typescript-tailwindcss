@@ -1,20 +1,20 @@
 import { useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
-import { IoHelpCircle, IoShirtSharp, IoTicket } from 'react-icons/io5'
+import { IoShirtSharp } from 'react-icons/io5'
 import { HiUsers } from 'react-icons/hi2'
 import { RiMenuFill } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-import { filteredProductsAction } from '../../features/products/productsSlice'
-import { AppDispatch, RootState } from '../../store'
+import { filteredProductsAction } from '../../slices/productsSlice'
+import { AppDispatch, RootState } from '../../store/store'
+import Button from '../button'
 
 function Navbar() {
   const { products, auth } = useSelector((state: RootState) => state)
   const navigate = useNavigate()
   const [nav, setNav] = useState(false)
   const dispatch = useDispatch<AppDispatch>()
-  const productCategories = [...new Set(products.items.map((product) => product.category))]
 
   return (
     <div>
@@ -45,27 +45,31 @@ function Navbar() {
               <div className="flex ">
                 <IoShirtSharp size={25} className="mr-4" />
                 <h3>
-                  <button onClick={() => setNav(!nav)}>
-                    <Link to="/">Products</Link>
-                  </button>
+                  <Button
+                    onClick={() => {
+                      setNav(!nav)
+                    }}>
+                    Products
+                  </Button>
                 </h3>
               </div>
               <ul className="flex flex-col pl-14 text-lg pt-2">
-                {productCategories.map((category) => (
-                  <li key={category} className="py-1">
-                    <button
+                {products?.categories.map((category) => (
+                  <li key={category.id} className="py-1 ">
+                    <Button
                       onClick={() => {
                         setNav(!nav)
-                        dispatch(filteredProductsAction(`${category}`))
-                      }}>
-                      {category}
-                    </button>
+                        dispatch(filteredProductsAction(category.name))
+                      }}
+                      className="capitalize hover:underline">
+                      {category.name.toLowerCase()}
+                    </Button>
                   </li>
                 ))}
               </ul>
             </li>
-            {auth.isLogin?.role === 'admin' && (
-              <button
+            {auth?.loginUser?.role === 'ADMIN' && (
+              <Button
                 onClick={() => {
                   setNav(false)
                   navigate('/users')
@@ -74,16 +78,8 @@ function Navbar() {
                   <HiUsers size={25} className="mr-4" />
                   Users
                 </li>
-              </button>
+              </Button>
             )}
-            <li className="text-xl py-4 flex">
-              <IoHelpCircle size={25} className="mr-4" />
-              Help
-            </li>
-            <li className="text-xl py-4 flex">
-              <IoTicket size={25} className="mr-4" />
-              Promotions
-            </li>
           </ul>
         </nav>
       </div>

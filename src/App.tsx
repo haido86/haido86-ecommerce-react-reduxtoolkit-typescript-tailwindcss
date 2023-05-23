@@ -6,33 +6,44 @@ import './App.css'
 import Footer from './components/footer'
 import Header from './components/header'
 // import Notification from './components/notification'
-import { fetchProductsThunk } from './features/products/productsSlice'
-import { fetchUsers } from './features/user/userSlice'
+import { fetchCategoriesThunk, fetchProductsThunk } from './slices/productsSlice'
 import CheckOut from './pages/CheckOut'
 import Home from './pages/Home'
 import ProductDetail from './pages/ProductDetail'
 import UserList from './pages/UserList'
-import { AppDispatch } from './store'
+import { AppDispatch } from './store/store'
+import { getUserFromStorage } from './slices/authSlice'
+import SignUpForm from './components/form/SignUpForm'
+import OrderConfirmation from './pages/OrderConfirmation'
+import SignInForm from './components/form/SignInForm'
 
 function App() {
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
     dispatch(fetchProductsThunk())
-    dispatch(fetchUsers())
+    dispatch(fetchCategoriesThunk())
+    dispatch(getUserFromStorage())
   }, [dispatch])
 
   return (
     <Router>
-      <Header />
-      {/* <Notification /> */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/products/:id" element={<ProductDetail />} />
-        <Route path="/products/checkout" element={<CheckOut />} />
-        <Route path="/users" element={<UserList />} />
-      </Routes>
-      <Footer />
+      <div className="container">
+        <Header />
+        {/* <Notification /> */}
+        <div className="body">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/products/:id" element={<ProductDetail />} />
+            <Route path="/orders/checkout" element={<CheckOut />} />
+            <Route path="/orders/confirmation" element={<OrderConfirmation />} />
+            <Route path="/users" element={<UserList />} />
+            <Route path="/signup" element={<SignUpForm />} />
+            <Route path="/signin" element={<SignInForm />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
     </Router>
   )
 }

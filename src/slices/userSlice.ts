@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { User } from '../../type'
+import api from '../api'
+import { User } from '../types/type'
 
 type UserState = {
   isLoading: boolean
@@ -16,9 +17,25 @@ const initialState: UserState = {
 }
 
 export const fetchUsers = createAsyncThunk('users/fetch', async () => {
-  const res = await fetch('/data/users.json')
-  const users = await res.json()
-  return users
+  try {
+    const res = await api.get('/users')
+    const users = await res.data
+    return users
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+})
+
+export const findByUserById = createAsyncThunk('users/find-user', async (id: number) => {
+  try {
+    const res = await api.get(`/users/${id}`)
+    const user = await res.data
+    return user
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
 })
 
 export const usersSlice = createSlice({
@@ -26,11 +43,8 @@ export const usersSlice = createSlice({
   initialState,
   reducers: {
     filteredUserAction(state, action) {
-      const filteredUsers = state.usersData.filter(
-        (user) =>
-          user.firstName.toLowerCase().includes(action.payload.toLowerCase()) ||
-          user.lastName.toLowerCase().includes(action.payload.toLowerCase()) ||
-          user.email.toLowerCase().includes(action.payload.toLowerCase())
+      const filteredUsers = state.usersData.filter((user) =>
+        user.username.toLowerCase().includes(action.payload.toLowerCase())
       )
       return {
         ...state,
@@ -47,6 +61,17 @@ export const usersSlice = createSlice({
       state.isLoading = false
     })
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
+      state.isLoading = false
+      state.usersData = action.payload
+    })
+    builder.addCase(findByUserById.pending, (state) => {
+      state.isLoading = true
+    })
+    builder.addCase(findByUserById.rejected, (state) => {
+      state.error = 'something went wrong'
+      state.isLoading = false
+    })
+    builder.addCase(findByUserById.fulfilled, (state, action) => {
       state.isLoading = false
       state.usersData = action.payload
     })
