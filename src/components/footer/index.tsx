@@ -19,6 +19,7 @@ function Footer() {
           </svg>
         </li>
       </ul>
+      <div>Customer service: +358 45 ... 4099</div>
     </footer>
   )
 }
