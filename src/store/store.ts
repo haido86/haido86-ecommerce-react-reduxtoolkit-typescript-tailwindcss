@@ -2,7 +2,7 @@ import orderSlice from './../slices/orderSlice'
 import productsSlice from '../slices/productsSlice'
 import { configureStore } from '@reduxjs/toolkit'
 import userSlice from '../slices/userSlice'
-import notificationSlice from '../pages/notificationSlice'
+import notificationSlice from '../slices/notificationSlice'
 import authSlice from '../slices/authSlice'
 import cartSlice from '../slices/cartSlice'
 

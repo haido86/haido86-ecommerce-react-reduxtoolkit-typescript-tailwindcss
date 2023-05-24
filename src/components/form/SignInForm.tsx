@@ -7,9 +7,11 @@ import { useNavigate } from 'react-router-dom'
 import Button from '../button'
 
 function SignInForm({
-  setIsLoginDropDown
+  setIsLoginDropDown,
+  redirectToCheckout
 }: {
   setIsLoginDropDown?: React.Dispatch<React.SetStateAction<boolean>>
+  redirectToCheckout?: boolean
 }) {
   const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
@@ -26,8 +28,13 @@ function SignInForm({
 
   const signIn = async (event: FormEvent) => {
     event.preventDefault()
-    if (setIsLoginDropDown) setIsLoginDropDown(false)
     dispatch(login({ username, password }))
+    if (setIsLoginDropDown) {
+      setIsLoginDropDown(false)
+    }
+    if (redirectToCheckout) {
+      navigate('/checkout')
+    }
   }
 
   const handleNavigateToSignUp = () => {
@@ -83,9 +90,6 @@ function SignInForm({
         <div className="flex flex-col">
           <Button
             type="submit"
-            onClick={() => {
-              window.history.back()
-            }}
             className="text-white bg-black focus:ring-4 focus:outline-none font-bold hover:bg-gray-800 text-sm max-w-full sm:w-auto px-5 py-2.5 text-center">
             Sign In
           </Button>

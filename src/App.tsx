@@ -39,7 +39,8 @@ function App() {
             <Route path="/orders/confirmation" element={<OrderConfirmation />} />
             <Route path="/users" element={<UserList />} />
             <Route path="/signup" element={<SignUpForm />} />
-            <Route path="/signin" element={<SignInForm />} />
+            <Route path="/signin" element={<SignInForm redirectToCheckout={true} />} />
+            <Route path="/checkout" element={<CheckOut />} />
           </Routes>
         </div>
         <Footer />
