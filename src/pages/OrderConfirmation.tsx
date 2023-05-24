@@ -7,7 +7,6 @@ import { RootState } from '../store/store'
 function OrderConfirmation() {
   const { order } = useSelector((state: RootState) => state)
 
-  console.log('order', order?.item?.orderItemList)
   const returnTotal = order?.item?.orderItemList.reduce((total, item) => {
     return total + item.product.price * item.quantity
   }, 0)
