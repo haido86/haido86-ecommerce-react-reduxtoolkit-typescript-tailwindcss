@@ -158,20 +158,6 @@ function AddProductForm() {
             </div>
             <div className="mb-3">
               <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900">
-                Inventory <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="number"
-                id="inventory"
-                name="inventory"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm block w-full p-2.5"
-                placeholder="inventory"
-                onChange={handleInventoryChange}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900">
                 Category <span className="text-red-500">*</span>
               </label>
               <Select
