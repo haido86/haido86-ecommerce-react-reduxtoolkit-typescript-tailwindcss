@@ -2,7 +2,7 @@ import jwt_decode from 'jwt-decode'
 import { Role, User } from '../types/type'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-import { setNotification } from '../pages/notificationSlice'
+import { setNotification } from './notificationSlice'
 import api from '../api'
 import { getDecodedTokenFromStorage } from '../utils/token'
 
@@ -36,7 +36,7 @@ export const login = createAsyncThunk('auth/login', async (user: LoginPayload, {
     const res = await api.post('/auth/signin', user)
     const data = await res.data
     if (data) {
-      dispatch(setNotification({ content: 'Login success', duration: 5000, type: 'success' }))
+      dispatch(setNotification({ content: 'Login successfully', duration: 5000, type: 'success' }))
       return data.token
     } else {
       dispatch(
@@ -60,7 +60,9 @@ export const signup = createAsyncThunk('auth/signup', async (user: LoginPayload,
     const data = await res.data
 
     if (data) {
-      dispatch(setNotification({ content: 'Login success', duration: 5000, type: 'success' }))
+      dispatch(
+        setNotification({ content: 'Sign up successfully', duration: 5000, type: 'success' })
+      )
       dispatch(login(user))
       return data
     } else {
