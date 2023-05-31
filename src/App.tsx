@@ -16,6 +16,7 @@ import SignUpForm from './components/form/SignUpForm'
 import OrderConfirmation from './pages/OrderConfirmation'
 import SignInForm from './components/form/SignInForm'
 import Notification from './components/notification'
+import Products from './pages/Products'
 
 function App() {
   const dispatch = useDispatch<AppDispatch>()
@@ -34,6 +35,7 @@ function App() {
         <div className="body">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/products" element={<Products />} />
             <Route path="/products/:id" element={<ProductDetail />} />
             <Route path="/orders/checkout" element={<CheckOut />} />
             <Route path="/orders/confirmation" element={<OrderConfirmation />} />
