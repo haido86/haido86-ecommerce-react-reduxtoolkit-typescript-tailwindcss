@@ -3,8 +3,9 @@ import { Role, User } from '../types/type'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 import { setNotification } from './notificationSlice'
-import api from '../api'
 import { getDecodedTokenFromStorage } from '../utils/token'
+import axios from 'axios'
+import { baseURL } from '../api/apiConfig'
 
 type LoginPayload = {
   username: string
@@ -33,7 +34,7 @@ const initialState: AuthState = {
 
 export const login = createAsyncThunk('auth/login', async (user: LoginPayload, { dispatch }) => {
   try {
-    const res = await api.post('/auth/signin', user)
+    const res = await axios.post(`${baseURL}/auth/signin`, user)
     const data = await res.data
     if (data) {
       dispatch(setNotification({ content: 'Login successfully', duration: 5000, type: 'success' }))
@@ -56,7 +57,7 @@ export const login = createAsyncThunk('auth/login', async (user: LoginPayload, {
 
 export const signup = createAsyncThunk('auth/signup', async (user: LoginPayload, { dispatch }) => {
   try {
-    const res = await api.post('/auth/signup', user)
+    const res = await axios.post(`${baseURL}/auth/signup`, user)
     const data = await res.data
 
     if (data) {
