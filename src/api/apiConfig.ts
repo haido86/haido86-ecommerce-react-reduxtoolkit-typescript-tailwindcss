@@ -1,7 +1,9 @@
 import axios from 'axios'
 
+export const baseURL = 'https://ecommerce-backend-haido.onrender.com/api/v1'
+
 const api = axios.create({
-  baseURL: 'http://localhost:8080/api/v1'
+  baseURL: baseURL
 })
 api.interceptors.request.use(
   (config) => {
